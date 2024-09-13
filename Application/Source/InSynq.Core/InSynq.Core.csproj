@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InSynq.Common\InSynq.Common.csproj" />
+    <ProjectReference Include="..\InSynq.Core.Model\InSynq.Core.Model.csproj" />
+    <ProjectReference Include="..\InSynq.Infrastructure\InSynq.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
