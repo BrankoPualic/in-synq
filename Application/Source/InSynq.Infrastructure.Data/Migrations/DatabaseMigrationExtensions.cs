@@ -10,8 +10,6 @@ namespace InSynq.Infrastructure.Data.Migrations;
 
 internal static class DatabaseMigrationExtensions
 {
-	#region Enums as Views
-
 	internal static string GetLookupViewName(Type enumType) => $"vw_{enumType.Name.TrimStart('e')}_lu";
 
 	internal static string GetEnumLookupCreateScript(this IEnumerable<Type> enumTypes)
@@ -67,62 +65,12 @@ internal static class DatabaseMigrationExtensions
 
 	internal static void Down(this IEnumerable<IDatabaseView> views, Func<string, bool, OperationBuilder<SqlOperation>> sql) => views.ToList().ForEach(_ => sql(_.DropScript, false));
 
-	#endregion Enums as Views
-
-	#region Audit
-
 	internal static void Audit<T>(this MigrationBuilder migrationBuilder) => migrationBuilder.Sql(Triggers.Audit<T>());
 
-	//internal static void Audit<TModel>(this MigrationBuilder migrationBuilder)
-	//	where TModel : IAuditedEntity
-	//{
-	//	var table = typeof(TModel).Name;
-	//	var auditTable = $"{table}_aud";
-
-	//	var triggerExistsQuery = $@"
-	//       SELECT CASE WHEN EXISTS (
-	//           SELECT *
-	//           FROM information_schema.triggers
-	//           WHERE trigger_name = 'trg_{table}_Insert'
-	//       ) THEN 1 ELSE 0 END;
-	//	";
-
-	//	var properties = typeof(TModel).GetProperties().Select(_ => _.Name).ToList();
-
-	//	var columns = string.Join(", ", properties);
-	//	var newValues = string.Join(", ", properties.Select(_ => $"NEW.{_}"));
-	//	var oldValues = string.Join(", ", properties.Select(_ => $"OLD.{_}"));
-
-	//	migrationBuilder.Sql($@"
-	//       CREATE TRIGGER trg_{table}_Insert
-	//       AFTER INSERT ON {table}
-	//       FOR EACH ROW
-	//       BEGIN
-	//           INSERT INTO {auditTable} ({columns}, OperationType, ChangedAt, ChangedBy)
-	//           VALUES ({newValues}, 'INSERT', CURRENT_TIMESTAMP, USER());
-	//       END;
-	//	");
-
-	//	migrationBuilder.Sql($@"
-	//       CREATE TRIGGER trg_{table}_Update
-	//       AFTER UPDATE ON {table}
-	//       FOR EACH ROW
-	//       BEGIN
-	//           INSERT INTO {auditTable} ({columns}, OperationType, ChangedAt, ChangedBy)
-	//           VALUES ({newValues}, 'UPDATE', CURRENT_TIMESTAMP, USER());
-	//       END;
-	//	");
-
-	//	migrationBuilder.Sql($@"
-	//       CREATE TRIGGER trg_{table}_Delete
-	//       AFTER DELETE ON {table}
-	//       FOR EACH ROW
-	//       BEGIN
-	//           INSERT INTO {auditTable} ({columns}, OperationType, ChangedAt, ChangedBy)
-	//           VALUES ({oldValues}, 'DELETE', CURRENT_TIMESTAMP, USER());
-	//       END;
-	//	");
-	//}
-
-	#endregion Audit
+	internal static void Seed(this MigrationBuilder migrationBuilder, string file)
+	{
+		var path = Path.Combine("Scripts", "Seeds", file);
+		var sql = File.ReadAllText(path);
+		migrationBuilder.Sql(sql);
+	}
 }

@@ -173,11 +173,7 @@ namespace InSynq.Infrastructure.Data.Migrations
 
 			migrationBuilder.Audit<User>();
 
-			// Seeds
-
-			var sqlFilePath = Path.Combine("Scripts", "Seeds", "User.sql");
-			var sql = File.ReadAllText(sqlFilePath);
-			migrationBuilder.Sql(sql);
+			migrationBuilder.Seed("User.sql");
 		}
 
 		/// <inheritdoc />
@@ -194,10 +190,6 @@ namespace InSynq.Infrastructure.Data.Migrations
 			migrationBuilder.DropTable(
 				name: "User",
 				schema: "dbo");
-
-			migrationBuilder.Audit<User>();
-
-			migrationBuilder.Sql("DELETE FROM [dbo].[User] WHERE Id IN (1, 2, 3, 4)");
 		}
 	}
 }
