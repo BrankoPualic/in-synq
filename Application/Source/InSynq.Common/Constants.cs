@@ -9,4 +9,9 @@ public static class Constants
 	public const string AUDIT_LOG_TYPE_INSERT = "INS";
 	public const string AUDIT_LOG_TYPE_UPDATE = "UPD";
 	public const string AUDIT_LOG_TYPE_DELETE = "DEL";
+
+	public const string CLAIM_ID = "ID";
+	public const string CLAIM_USERNAME = "USERNAME";
+	public const string CLAIM_EMAIL = "EMAIL";
+	public const string CLAIM_ROLES = "ROLES";
 }
