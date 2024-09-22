@@ -19,7 +19,7 @@ public partial class DatabaseContext : DbContext
 			ConnectionString = _connectionString ?? Settings.Database
 		};
 
-		optionsBuilder.UseSqlServer(connection, _ => _.CommandTimeout(600).EnableRetryOnFailure().UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+		optionsBuilder.UseSqlServer(connection, _ => _.CommandTimeout(600).EnableRetryOnFailure());
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
