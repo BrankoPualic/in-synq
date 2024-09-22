@@ -4,11 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+	<SolutionName>InSynq</SolutionName>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
@@ -21,4 +18,6 @@
     <ProjectReference Include="..\InSynq.Infrastructure.DependencyRegister\InSynq.Infrastructure.DependencyRegister.csproj" />
   </ItemGroup>
 
+  <Target Name="CompileTypeScript" />
+	
 </Project>
