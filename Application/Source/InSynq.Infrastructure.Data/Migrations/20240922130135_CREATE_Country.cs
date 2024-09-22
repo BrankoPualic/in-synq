@@ -28,7 +28,7 @@ namespace InSynq.Infrastructure.Data.Migrations
 					table.PrimaryKey("PK_Country", x => x.Id);
 				});
 
-			migrationBuilder.Seed("Countries.sql");
+			migrationBuilder.Seed("Country.sql");
 		}
 
 		/// <inheritdoc />
