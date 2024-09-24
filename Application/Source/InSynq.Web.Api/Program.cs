@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using InSynq.Core.Model.Interfaces;
 using InSynq.Infrastructure.DependencyRegister.Modules;
+using InSynq.Web.Api.Middlewares;
 using InSynq.Web.Api.Objects;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,8 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(builder => builder
 	.AllowAnyHeader()
