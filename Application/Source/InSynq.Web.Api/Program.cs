@@ -8,8 +8,10 @@ using InSynq.Web.Api.Objects;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLogging();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Host
 	.UseServiceProviderFactory(new AutofacServiceProviderFactory())
