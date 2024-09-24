@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using InSynq.Core.Model.Interfaces;
+using InSynq.Infrastructure.Data;
 using InSynq.Infrastructure.DependencyRegister.Modules;
 using InSynq.Web.Api.Middlewares;
 using InSynq.Web.Api.Objects;
@@ -19,6 +20,17 @@ builder.Host
 	});
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+	var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+	var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+
+	var migrationResult = context.Migrate();
+
+	logger.LogInformation("{result}", migrationResult.Result);
+	migrationResult.Migrations.ForEach(_ => logger.LogInformation("{log}", _));
+}
 
 app.UseHttpsRedirection();
 app.UseRouting();

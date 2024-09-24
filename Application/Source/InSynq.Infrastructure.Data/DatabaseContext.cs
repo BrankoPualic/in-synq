@@ -1,6 +1,4 @@
-﻿using InSynq.Core.Model.Interfaces;
-
-namespace InSynq.Infrastructure.Data;
+﻿namespace InSynq.Infrastructure.Data;
 
 public partial class DatabaseContext : DbContext
 {
@@ -11,6 +9,28 @@ public partial class DatabaseContext : DbContext
 	public IDatabaseContext GetDatabaseContext() => new DatabaseContext(CurrentUser);
 
 	public DatabaseContext(IIdentityUser currentUser) => CurrentUser = currentUser;
+
+	private static readonly object MigrationLocker = new object();
+
+	public DatabaseMigrationResult Migrate(bool preview = false)
+	{
+		lock (MigrationLocker)
+		{
+			var startTime = DateTime.UtcNow;
+
+			var migrations = Database.GetPendingMigrations().ToList();
+			if (!preview && migrations.IsNotNullOrEmpty())
+				Database.Migrate();
+
+			var duration = DateTime.UtcNow - startTime;
+
+			var result = $"DATABASE UPDATE - {(migrations.Count > 0 ? $"{migrations.Count} Migrations" : "NO MIGRATIONS")}";
+
+			migrations.Add($"Duration: {duration}s");
+
+			return new DatabaseMigrationResult { Result = result, Migrations = migrations };
+		}
+	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
@@ -25,7 +45,7 @@ public partial class DatabaseContext : DbContext
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.HasDefaultSchema("dbo");
-		//modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
 		modelBuilder.SetTableNames();
 		modelBuilder.ApplyEntityConfigurations(typeof(ModelExtensions).Assembly);
 
