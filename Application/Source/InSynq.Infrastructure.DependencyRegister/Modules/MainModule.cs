@@ -10,5 +10,7 @@ public class MainModule : Module
 		builder.RegisterModule<InfrastructureModule>();
 		builder.RegisterModule<MapperModule>();
 		builder.RegisterModule<ServiceModule>();
+
+		base.Load(builder);
 	}
 }

@@ -1,4 +1,6 @@
-﻿namespace InSynq.Core.Model.Interfaces;
+﻿using InSynq.Core.Model.Models.Application.User;
+
+namespace InSynq.Core.Model.Interfaces;
 
 public interface IAuditedEntity
 {

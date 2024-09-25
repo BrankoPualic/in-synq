@@ -9,5 +9,7 @@ public class InfrastructureModule : Module
 	protected override void Load(ContainerBuilder builder)
 	{
 		builder.RegisterType<DatabaseContext>().As<IDatabaseContext>().InstancePerLifetimeScope();
+
+		base.Load(builder);
 	}
 }

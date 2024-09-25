@@ -1,6 +1,6 @@
 ﻿using InSynq.Core.Dtos._Base;
 
-namespace Nexus.Core.Service;
+namespace InSynq.Core.Service;
 
 public class BaseService(IDatabaseContext context)
 {
@@ -9,16 +9,9 @@ public class BaseService(IDatabaseContext context)
 	public static readonly Error ERROR_UNAUTHORIZED = ErrorConstants.ERROR_UNAUTHORIZED;
 	public static readonly Error ERROR_INTERNAL_ERROR = ErrorConstants.ERROR_INTERNAL_ERROR;
 
-	public BaseService(IDatabaseContext context, IMapper mapper) : this(context)
-	{
-		this.mapper = mapper;
-	}
-
 	public IDatabaseContext db => context;
 
 	public IIdentityUser CurrentUser { get; } = context.CurrentUser;
-
-	public IMapper mapper { get; }
 
 	public async Task<ResponseWrapper> ValidateAndSaveAsync<TModel, TModelDto>(TModel model, TModelDto data, Func<TModel, Task> preStage = null, Func<TModel, Task> postStage = null)
 		where TModel : BaseDomain<long>

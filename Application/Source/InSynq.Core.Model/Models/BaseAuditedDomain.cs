@@ -1,4 +1,6 @@
-﻿namespace InSynq.Core.Model.Models;
+﻿using InSynq.Core.Model.Models.Application.User;
+
+namespace InSynq.Core.Model.Models;
 
 public class BaseAuditedDomain<TKey> : BaseDomain<TKey>, IAuditedEntity
 	where TKey : struct

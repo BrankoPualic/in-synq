@@ -1,4 +1,6 @@
-﻿namespace InSynq.Core.Model.Interfaces.Audit;
+﻿using InSynq.Core.Model.Models.Application.User;
+
+namespace InSynq.Core.Model.Interfaces.Audit;
 
 public interface IAuditDomainEntity<TKey> : IAuditDomainEntity
 {
