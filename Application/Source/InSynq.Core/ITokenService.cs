@@ -1,6 +1,8 @@
-﻿namespace InSynq.Core;
+﻿using InSynq.Core.Model.Models.Application.User;
+
+namespace InSynq.Core;
 
 public interface ITokenService
 {
-	string GenerateJwtToken(long userId, string[] roles, string username, string email);
+	string GenerateJwtToken(User user);
 }

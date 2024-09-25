@@ -1,5 +1,4 @@
-﻿using InSynq.Common;
-using InSynq.Core;
+﻿using InSynq.Core.Model.Models.Application.User;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,7 +8,7 @@ namespace Nexus.Core.Service;
 
 public class TokenService : ITokenService
 {
-	public string GenerateJwtToken(long userId, string[] roles, string username, string email)
+	public string GenerateJwtToken(User user)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -22,11 +21,13 @@ public class TokenService : ITokenService
 
 		var claims = new List<Claim>
 		{
-			new(Constants.CLAIM_ID, userId.ToString()),
+			new(Constants.CLAIM_ID, user.Id.ToString()),
 			new(JwtRegisteredClaimNames.Iss, jwtSecrets.Issuer!),
-			new(Constants.CLAIM_USERNAME, username),
-			new(Constants.CLAIM_EMAIL, email)
+			new(Constants.CLAIM_USERNAME, user.Username),
+			new(Constants.CLAIM_EMAIL, user.Email)
 		};
+
+		var roles = user.Roles.Select(_ => _.RoleId.ToString()).ToList();
 
 		claims.AddRange(roles.Select(role => new Claim(Constants.CLAIM_ROLES, role)));
 
