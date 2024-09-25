@@ -9,6 +9,8 @@ public partial class DatabaseContext : IDatabaseContext
 
 	public virtual DbSet<UserRole> UserRoles { get; set; }
 
+	public virtual DbSet<UserSigninLog> Logins { get; set; }
+
 	// Reference Data
 
 	public virtual DbSet<Country> Countries { get; set; }

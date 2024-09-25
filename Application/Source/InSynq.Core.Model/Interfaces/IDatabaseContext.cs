@@ -14,6 +14,8 @@ public partial interface IDatabaseContext : IDatabaseContextBase, IDatabaseConte
 
 	DbSet<UserRole> UserRoles { get; }
 
+	DbSet<UserSigninLog> Logins { get; }
+
 	// Reference Data
 
 	DbSet<Country> Countries { get; }

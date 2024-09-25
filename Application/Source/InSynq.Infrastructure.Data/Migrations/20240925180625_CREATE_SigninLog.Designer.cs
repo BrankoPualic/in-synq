@@ -4,6 +4,7 @@ using InSynq.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InSynq.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240925180625_CREATE_SigninLog")]
+    partial class CREATE_SigninLog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,6 +62,27 @@ namespace InSynq.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Country", "dbo");
+                });
+
+            modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.SigninLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SigninLog", "dbo");
                 });
 
             modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.User", b =>
@@ -161,27 +185,6 @@ namespace InSynq.Infrastructure.Data.Migrations
                     b.ToTable("UserRole", "dbo");
                 });
 
-            modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.UserSigninLog", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserSigninLog", "dbo");
-                });
-
             modelBuilder.Entity("InSynq.Core.Model.Models.Audit.User_aud", b =>
                 {
                     b.Property<long>("AuditId")
@@ -275,6 +278,17 @@ namespace InSynq.Infrastructure.Data.Migrations
                     b.ToTable("User_aud", "dbo");
                 });
 
+            modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.SigninLog", b =>
+                {
+                    b.HasOne("InSynq.Core.Model.Models.Application.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.User", b =>
                 {
                     b.HasOne("InSynq.Core.Model.Models.Application.User.User", "CreatedByUser")
@@ -298,17 +312,6 @@ namespace InSynq.Infrastructure.Data.Migrations
                 {
                     b.HasOne("InSynq.Core.Model.Models.Application.User.User", "User")
                         .WithMany("Roles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("InSynq.Core.Model.Models.Application.User.UserSigninLog", b =>
-                {
-                    b.HasOne("InSynq.Core.Model.Models.Application.User.User", "User")
-                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
