@@ -13,7 +13,11 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService) :
 		if (model.IsNullOrEmpty())
 			return new(new Error(nameof(User), "Your credentials are incorrect.\r\nPlease try again."));
 
-		// BPR: Add signin log
+		// Sign in log
+		var signin = new UserSigninLog(model.Id);
+		db.Create(signin);
+		await db.SaveChangesAsync(false);
+
 		// BPR: Add incorect password lock functionality
 
 		var token = new TokenDto
