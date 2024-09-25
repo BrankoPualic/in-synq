@@ -1,4 +1,5 @@
 ﻿using InSynq.Common;
+using InSynq.Common.Attributes;
 using InSynq.Core.Model;
 using InSynq.Web.Api.Controllers._Base;
 using InSynq.Web.Api.ReinforcedTypings.Generator;
@@ -54,7 +55,8 @@ public static class FluentConfiguration
 			.Where(t => t.IsClass
 				&& t.Namespace != null
 				&& t.Namespace.Contains($"{Constants.SOLUTION_NAME}.Core.Dtos")
-				&& !t.IsDefined(typeof(CompilerGeneratedAttribute), false));
+				&& !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
+				&& !t.IsDefined(typeof(TsIgnoreAttribute), false));
 
 		builder.ExportAsInterfaces(
 			dtos

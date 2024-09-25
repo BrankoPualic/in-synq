@@ -28,10 +28,18 @@ using (var scope = app.Services.CreateScope())
 	var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
 	var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-	var migrationResult = context.Migrate();
+	try
+	{
+		var migrationResult = context.Migrate();
 
-	logger.LogInformation("{result}", migrationResult.Result);
-	migrationResult.Migrations.ForEach(_ => logger.LogInformation("{log}", _));
+		logger.LogInformation("{result}", migrationResult.Result);
+		migrationResult.Migrations.ForEach(_ => logger.LogInformation("{log}", _));
+	}
+	catch (Exception ex)
+	{
+		logger.LogError("MIGRATION - FAILED");
+		logger.LogError(ex, "An error occurred while migrating the database.");
+	}
 }
 
 app.UseHttpsRedirection();

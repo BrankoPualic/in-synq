@@ -1,8 +1,10 @@
 ﻿using InSynq.Common;
+using InSynq.Common.Attributes;
 using InSynq.Core.Model;
 
 namespace InSynq.Core.Dtos._Base;
 
+[TsIgnore]
 public abstract class BaseDto
 {
 	public Error Error { get; } = new();

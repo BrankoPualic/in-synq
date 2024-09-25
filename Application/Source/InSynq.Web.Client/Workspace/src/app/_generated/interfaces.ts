@@ -1,9 +1,5 @@
 import { eGender } from './enums';
 
-export interface IBaseDto
-{
-	error: any;
-}
 export interface ICountryDto
 {
 	id: number;
@@ -15,7 +11,7 @@ export interface ICountryDto
 }
 export interface ISigninDto
 {
-	username: string;
+	email: string;
 	password: string;
 }
 export interface ISignupDto
