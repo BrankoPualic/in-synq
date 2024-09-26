@@ -39,11 +39,11 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 
 	public async Task<ResponseWrapper<TokenDto>> Signup(SignupDto data)
 	{
-		var existingEmail = await db.Users.GetSingleAsync(_ => _.Email == data.Email);
+		var existingEmail = await db.Users.GetSingleAsync(_ => _.Email.Equals(data.Email));
 		if (existingEmail.IsNotNullOrEmpty())
 			return new(new Error(nameof(User.Email), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Email))));
 
-		var existingUsername = await db.Users.GetSingleAsync(_ => _.Username == data.Username);
+		var existingUsername = await db.Users.GetSingleAsync(_ => _.Username.Equals(data.Username));
 		if (existingUsername.IsNotNullOrEmpty())
 			return new(new Error(nameof(User.Username), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Username))));
 
@@ -54,7 +54,14 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 		data.ToModel(model);
 		model.Password = userManager.HashPassword(data.Password);
 
-		// BPR: Upload photo
+		// Upload photo
+		var uploadResult = await userManager.UploadPhotoAsync(model, data.Photo);
+		if (!uploadResult.IsSuccess)
+		{
+			var uploadErrors = uploadResult.Errors.GetValue("Image");
+			uploadErrors.ForEach(_ => data.Errors.AddError("Image", _));
+			return new(data.Errors);
+		}
 
 		db.Create(model);
 		await db.SaveChangesAsync();

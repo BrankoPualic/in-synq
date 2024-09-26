@@ -32,4 +32,6 @@ public static class Constants
 
 	public const int FILE_SIZE_10MB = 10 * 1024 * 1024;
 	public static readonly string[] FILE_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png"];
+
+	public const string CLOUDINARY_STORAGE_NAME = "insynq-social-media-app";
 }

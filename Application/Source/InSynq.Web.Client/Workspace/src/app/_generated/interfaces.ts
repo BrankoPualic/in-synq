@@ -25,7 +25,7 @@ export interface ISignupDto
 	confirmPassword: string;
 	dateOfBirth: Date;
 	biography: string;
-	image?: File;
+	photo?: File;
 	details: IUserDetailsDto;
 }
 export interface ISignupDtoValidator

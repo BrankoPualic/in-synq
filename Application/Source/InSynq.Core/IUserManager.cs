@@ -1,4 +1,7 @@
-﻿namespace InSynq.Core;
+﻿using InSynq.Core.Model.Models.Application.User;
+using Microsoft.AspNetCore.Http;
+
+namespace InSynq.Core;
 
 public interface IUserManager
 {
@@ -6,9 +9,13 @@ public interface IUserManager
 
 	bool VerifyPassword(string password, string storedPassword);
 
-	Task LockUser(string email);
+	Task LockUserAsync(string email);
 
-	Task UnlockUser(string email);
+	Task UnlockUserAsync(string email);
 
-	Task<bool> IsUserLocked(string email);
+	Task<bool> IsUserLockedAsync(string email);
+
+	Task<ResponseWrapper> UploadPhotoAsync(User user, IFormFile photo);
+
+	Task<ResponseWrapper> DeletePhotoAsync(string publicId);
 }

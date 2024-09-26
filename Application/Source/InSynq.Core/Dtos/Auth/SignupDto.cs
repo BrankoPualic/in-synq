@@ -25,7 +25,7 @@ public class SignupDto : BaseDto
 
 	public string Biography { get; set; }
 
-	public IFormFile? Image { get; set; }
+	public IFormFile? Photo { get; set; }
 
 	public UserDetailsDto Details { get; set; }
 

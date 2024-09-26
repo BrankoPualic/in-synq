@@ -20,4 +20,6 @@ public class Error
 			Errors[key] = [];
 		Errors[key].Add(message);
 	}
+
+	public List<string> GetValue(string key) => Errors.TryGetValue(key, out List<string>? value) ? value : [];
 }

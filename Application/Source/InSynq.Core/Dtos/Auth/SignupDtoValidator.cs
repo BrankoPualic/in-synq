@@ -54,10 +54,10 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
 				.Must(Functions.IsValidDate).WithMessage(ResourceValidation.Invalid.FormatWith("Date of Birth"))
 				.Must(AtLeast16YearsOld).WithMessage("Must be at least 16 years old.");
 
-			RuleFor(_ => _.Image)
+			RuleFor(_ => _.Photo)
 				.Must(Functions.IsValidImage).WithMessage(ResourceValidation.File_Wrong_Format.FormatWith("Image", Constants.FILE_IMAGE_EXTENSIONS.Join(", ")))
 				.Must(WithinFileSize).WithMessage(ResourceValidation.File_Too_Large.FormatWith("Image", "10MB"))
-				.When(_ => _.Image.IsNotNullOrEmpty());
+				.When(_ => _.Photo.IsNotNullOrEmpty());
 
 			// User Details
 			RuleFor(_ => _.Details.Phone)

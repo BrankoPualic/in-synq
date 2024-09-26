@@ -18,7 +18,7 @@ public class LockoutService : ILockoutService
 
 	public async Task<ResponseWrapper> IsUserLockedAsync(string email)
 	{
-		if (await _userManager.IsUserLocked(email))
+		if (await _userManager.IsUserLockedAsync(email))
 			return new(new Error(nameof(User), "Your account is locked.\r\nPlease get in touch with our Help Desk. Thank you."));
 
 		var lockout = await _redisDatabase.StringGetAsync(LockoutKey + email);
@@ -57,7 +57,7 @@ public class LockoutService : ILockoutService
 	{
 		await _redisDatabase.KeyDeleteAsync(FailedAttemptsKey + email);
 		await _redisDatabase.KeyDeleteAsync(LockoutKey + email);
-		await _userManager.UnlockUser(email);
+		await _userManager.UnlockUserAsync(email);
 	}
 
 	// private
@@ -71,6 +71,6 @@ public class LockoutService : ILockoutService
 	private async Task AdminLockout(string email)
 	{
 		await _redisDatabase.StringSetAsync(LockoutKey + email, DateTime.MaxValue.ToString());
-		await _userManager.LockUser(email);
+		await _userManager.LockUserAsync(email);
 	}
 }
