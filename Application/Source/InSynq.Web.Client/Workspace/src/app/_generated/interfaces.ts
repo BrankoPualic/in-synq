@@ -28,6 +28,9 @@ export interface ISignupDto
 	image?: File;
 	details: IUserDetailsDto;
 }
+export interface ISignupDtoValidator
+{
+}
 export interface ITokenDto
 {
 	token: string;

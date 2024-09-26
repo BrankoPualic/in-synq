@@ -18,7 +18,7 @@ public class BaseService(IDatabaseContext context)
 		where TModelDto : BaseDto
 	{
 		if (!data.IsValid())
-			return new(data.Error);
+			return new(data.Errors);
 
 		if (preStage != null)
 			await preStage(model);

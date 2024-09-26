@@ -23,4 +23,13 @@ public static class Constants
 
 	public const string SORTING_ORDER_DESC = "desc";
 	public const string SORTING_ORDER_ASC = "asc";
+
+	// DateTime
+
+	public static readonly DateTime MINIMUM_DATETIME = new(1900, 1, 1, 0, 0, 0);
+
+	// File
+
+	public const int FILE_SIZE_10MB = 10 * 1024 * 1024;
+	public static readonly string[] FILE_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png"];
 }

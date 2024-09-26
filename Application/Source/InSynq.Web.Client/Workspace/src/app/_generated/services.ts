@@ -3,11 +3,49 @@ import { HttpParams, HttpClient } from '@angular/common/http';
 import { SettingsService } from '../services/settings.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ITokenDto } from './interfaces';
+import { ISigninDto } from './interfaces';
+import { ISignupDto } from './interfaces';
 import { ICountryDto } from './interfaces';
 
 @Injectable() export class BaseController
 {
 	constructor (protected httpClient: HttpClient, protected settingsService: SettingsService) { } 
+}
+@Injectable() export class AuthController extends BaseController
+{
+	public Signin(data: ISigninDto) : Observable<ITokenDto | null>
+	{
+		const body = <any>data;
+		return this.httpClient.post<ITokenDto>(
+		this.settingsService.createApiUrl('Auth/Signin'),
+		body,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	public Signup(data: FormData) : Observable<ITokenDto | null>
+	{
+		const body = <any>data;
+		return this.httpClient.post<ITokenDto>(
+		this.settingsService.createApiUrl('Auth/Signup'),
+		body,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	constructor (httpClient: HttpClient, settingsService: SettingsService)
+	{
+		super(httpClient, settingsService);
+	}
 }
 @Injectable() export class ProviderController extends BaseController
 {

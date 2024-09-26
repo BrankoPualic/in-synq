@@ -1,13 +1,11 @@
-﻿using InSynq.Common;
-using InSynq.Common.Attributes;
-using InSynq.Core.Model;
+﻿using InSynq.Common.Attributes;
 
 namespace InSynq.Core.Dtos._Base;
 
 [TsIgnore]
 public abstract class BaseDto
 {
-	public Error Error { get; } = new();
+	public Error Errors { get; } = new();
 
 	public bool IsValid(eAuditChangeType? type = null)
 	{
@@ -23,7 +21,7 @@ public abstract class BaseDto
 		if (!type.HasValue)
 			ValidateOnCreateOrUpdate();
 
-		return !Error.HasErrors;
+		return !Errors.HasErrors;
 	}
 
 	public virtual void ValidateOnCreate()
@@ -37,4 +35,6 @@ public abstract class BaseDto
 
 	public virtual void ValidateOnCreateOrUpdate()
 	{ }
+
+	protected void AddValidationErrors(ValidationResult result) => result.Errors.ForEach(_ => Errors.AddError(_.PropertyName, _.ErrorMessage));
 }

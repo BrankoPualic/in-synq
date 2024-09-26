@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\InSynq.Common\InSynq.Common.csproj" />
     <ProjectReference Include="..\InSynq.Core.Model\InSynq.Core.Model.csproj" />
     <ProjectReference Include="..\InSynq.Infrastructure\InSynq.Infrastructure.csproj" />

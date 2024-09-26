@@ -1,5 +1,4 @@
 ﻿using InSynq.Core.Dtos.Auth;
-using InSynq.Core.Interfaces;
 using InSynq.Core.Model.Models.Application.User;
 
 namespace InSynq.Core.Service.Services;
@@ -11,7 +10,7 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 		var model = await db.Users.GetSingleAsync(_ => _.Email == data.Email, _ => _.Roles);
 
 		if (model.IsNullOrEmpty())
-			return new(new Error(nameof(User), "Your credentials are incorrect.\r\nPlease try again."));
+			return new(new Error(nameof(User), ResourceValidation.Invalid_Credentials));
 
 		// Check if the user is locked
 		var result = await lockoutService.IsUserLockedAsync(data.Email);
@@ -22,7 +21,7 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 		if (!userManager.VerifyPassword(data.Password, model.Password))
 		{
 			await lockoutService.RegisterFailedAttemptAsync(data.Email);
-			return new(new Error(nameof(User), "Your credentials are incorrect.\r\nPlease try again."));
+			return new(new Error(nameof(User), ResourceValidation.Invalid_Credentials));
 		}
 
 		// Successful signin
@@ -38,8 +37,30 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 		return new(token);
 	}
 
-	public Task<ResponseWrapper<TokenDto>> Signup(SignupDto data)
+	public async Task<ResponseWrapper<TokenDto>> Signup(SignupDto data)
 	{
-		throw new NotImplementedException();
+		var existingEmail = await db.Users.GetSingleAsync(_ => _.Email == data.Email);
+		if (existingEmail.IsNotNullOrEmpty())
+			return new(new Error(nameof(User.Email), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Email))));
+
+		var existingUsername = await db.Users.GetSingleAsync(_ => _.Username == data.Username);
+		if (existingUsername.IsNotNullOrEmpty())
+			return new(new Error(nameof(User.Username), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Username))));
+
+		if (!data.IsValid())
+			return new(data.Errors);
+
+		User model = new();
+		data.ToModel(model);
+		model.Password = userManager.HashPassword(data.Password);
+
+		// BPR: Upload photo
+
+		db.Create(model);
+		await db.SaveChangesAsync();
+
+		var token = new TokenDto { Token = tokenService.GenerateJwtToken(model) };
+
+		return new(token);
 	}
 }
