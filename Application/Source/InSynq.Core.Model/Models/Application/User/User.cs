@@ -30,6 +30,8 @@ public class User : BaseAuditedDomain<long>, IConfigurableEntity
 
 	public bool IsActive { get; set; }
 
+	public bool IsLocked { get; set; }
+
 	[InverseProperty(nameof(User))]
 	public virtual ICollection<UserRole> Roles { get; set; } = [];
 

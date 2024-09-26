@@ -25,4 +25,6 @@ public class User_aud : AuditDomain<long>
 	public string Details { get; set; }
 
 	public bool? IsActive { get; set; }
+
+	public bool? IsLocked { get; set; }
 }

@@ -11,19 +11,19 @@ public class UserManager(IDatabaseContext db) : IUserManager
 	public async Task LockUser(string email)
 	{
 		var model = await db.Users.GetSingleAsync(_ => _.Email == email);
-		model.IsActive = false;
+		model.IsLocked = true;
 		await db.SaveChangesAsync();
 	}
 
 	public async Task UnlockUser(string email)
 	{
 		var model = await db.Users.GetSingleAsync(_ => _.Email == email);
-		if (model.IsActive == false)
+		if (model.IsLocked == true)
 		{
-			model.IsActive = true;
+			model.IsLocked = false;
 			await db.SaveChangesAsync();
 		}
 	}
 
-	public async Task<bool> IsUserLocked(string email) => (await db.Users.Where(_ => _.Email == email).Select(_ => _.IsActive).FirstOrDefaultAsync()) == false;
+	public async Task<bool> IsUserLocked(string email) => (await db.Users.Where(_ => _.Email == email).Select(_ => _.IsLocked).FirstOrDefaultAsync()) == true;
 }

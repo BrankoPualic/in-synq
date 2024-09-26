@@ -1,5 +1,4 @@
-﻿using InSynq.Core.Interfaces;
-using InSynq.Core.Model.Models.Application.User;
+﻿using InSynq.Core.Model.Models.Application.User;
 using StackExchange.Redis;
 
 namespace InSynq.Core.Service.Services;
@@ -20,7 +19,7 @@ public class LockoutService : ILockoutService
 	public async Task<ResponseWrapper> IsUserLockedAsync(string email)
 	{
 		if (await _userManager.IsUserLocked(email))
-			return new(new Error(nameof(User), "Your account is locked.\r\nPlease get in touch with our Help Desk, thank you."));
+			return new(new Error(nameof(User), "Your account is locked.\r\nPlease get in touch with our Help Desk. Thank you."));
 
 		var lockout = await _redisDatabase.StringGetAsync(LockoutKey + email);
 
