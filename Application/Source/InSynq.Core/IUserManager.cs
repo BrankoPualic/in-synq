@@ -17,5 +17,5 @@ public interface IUserManager
 
 	Task<ResponseWrapper> UploadPhotoAsync(User user, IFormFile photo);
 
-	Task<ResponseWrapper> DeletePhotoAsync(string publicId);
+	Task<ResponseWrapper> DeletePhotoAsync(User user);
 }

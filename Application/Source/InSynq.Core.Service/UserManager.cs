@@ -38,7 +38,7 @@ public class UserManager(IDatabaseContext db, ICloudinaryService cloudinaryServi
 		var result = await cloudinaryService.UploadPhotoAsync(photo);
 
 		if (result.Error != null)
-			return new(new Error("Image", "There was and error while uploading photo."));
+			return new(new Error("Image", "There was an error while uploading photo."));
 
 		user.ProfileImageUrl = result.SecureUrl.AbsoluteUri;
 		user.PublicId = result.PublicId;
@@ -46,13 +46,18 @@ public class UserManager(IDatabaseContext db, ICloudinaryService cloudinaryServi
 		return new();
 	}
 
-	public async Task<ResponseWrapper> DeletePhotoAsync(string publicId)
+	public async Task<ResponseWrapper> DeletePhotoAsync(User user)
 	{
-		if (publicId.IsNullOrWhiteSpace())
+		if (user.PublicId.IsNullOrWhiteSpace())
 			return new(new Error("Image", Constants.ERROR_INVALID_OPERATION));
 
-		var result = await cloudinaryService.DeletePhotoAsync(publicId);
+		var result = await cloudinaryService.DeletePhotoAsync(user.PublicId);
 
-		return result.Error != null ? new(new Error("Image", "There was and error while uploading photo.")) : new();
+		if (result.Error != null)
+			return new(new Error("Image", "There was an error while deleting photo."));
+
+		user.ProfileImageUrl = null;
+		user.PublicId = null;
+		return new();
 	}
 }
