@@ -16,10 +16,10 @@ public class CloudinaryService : ICloudinaryService
 		if (file.Length < 1)
 			return new();
 
-		using var stram = file.OpenReadStream();
+		using var stream = file.OpenReadStream();
 		var uploadParams = new ImageUploadParams
 		{
-			File = new FileDescription(file.FileName, stram),
+			File = new FileDescription(file.FileName, stream),
 			Transformation = new Transformation().Height(300).Width(300).Crop("fill").Gravity("face"),
 			Folder = Common.Constants.CLOUDINARY_STORAGE_NAME
 		};

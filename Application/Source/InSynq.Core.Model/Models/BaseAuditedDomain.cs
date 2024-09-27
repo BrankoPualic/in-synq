@@ -1,6 +1,4 @@
-﻿using InSynq.Core.Model.Models.Application.User;
-
-namespace InSynq.Core.Model.Models;
+﻿namespace InSynq.Core.Model.Models;
 
 public class BaseAuditedDomain<TKey> : BaseDomain<TKey>, IAuditedEntity
 	where TKey : struct
@@ -12,10 +10,4 @@ public class BaseAuditedDomain<TKey> : BaseDomain<TKey>, IAuditedEntity
 	public DateTime LastChangedOn { get; set; }
 
 	public long LastChangedBy { get; set; }
-
-	[ForeignKey(nameof(CreatedBy))]
-	public virtual User CreatedByUser { get; set; }
-
-	[ForeignKey(nameof(LastChangedBy))]
-	public virtual User LastChangedByUser { get; set; }
 }

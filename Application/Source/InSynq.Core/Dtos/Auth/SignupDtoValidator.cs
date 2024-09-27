@@ -65,9 +65,9 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
 				.MinimumLength(8).WithMessage(ResourceValidation.MinimumLength.FormatWith("Phone Number", 8))
 				.MaximumLength(15).WithMessage(ResourceValidation.MaximumLength.FormatWith("Phone Number", 15));
 
-			RuleFor(_ => _.Details.Country)
+			RuleFor(_ => _.Details.CountryId)
 				.NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Country"))
-				.Must(_ => _.Id == default || _.Name.IsNullOrWhiteSpace()).WithMessage(ResourceValidation.Required.FormatWith("Country"));
+				.Must(_ => _ != default).WithMessage(ResourceValidation.Required.FormatWith("Country"));
 		});
 	}
 

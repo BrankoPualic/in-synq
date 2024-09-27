@@ -40,5 +40,5 @@ export interface IUserDetailsDto
 	genderId: eGender;
 	privacy: boolean;
 	phone: string;
-	country: ICountryDto;
+	countryId: number;
 }

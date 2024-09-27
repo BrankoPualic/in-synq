@@ -1,6 +1,4 @@
-﻿using InSynq.Core.Model.Models.Application.User;
-
-namespace InSynq.Core.Model.Interfaces;
+﻿namespace InSynq.Core.Model.Interfaces;
 
 public interface IAuditedEntity
 {
@@ -11,8 +9,4 @@ public interface IAuditedEntity
 	DateTime LastChangedOn { get; set; }
 
 	long LastChangedBy { get; set; }
-
-	User CreatedByUser { get; set; }
-
-	User LastChangedByUser { get; set; }
 }

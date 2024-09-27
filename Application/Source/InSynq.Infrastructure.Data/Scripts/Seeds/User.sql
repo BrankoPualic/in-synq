@@ -40,9 +40,9 @@ VALUES
     NULL,
     1,
     CURRENT_TIMESTAMP,
-    1,
+    0,
     CURRENT_TIMESTAMP,
-    1
+    0
 ),
 (
     2,

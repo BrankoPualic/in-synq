@@ -1,7 +1,4 @@
-﻿using InSynq.Core.Dtos.ProviderData;
-using InSynq.Core.Model;
-
-namespace InSynq.Core.Dtos.User;
+﻿namespace InSynq.Core.Dtos.User;
 
 public class UserDetailsDto
 {
@@ -11,5 +8,5 @@ public class UserDetailsDto
 
 	public string Phone { get; set; }
 
-	public CountryDto Country { get; set; }
+	public int CountryId { get; set; }
 }

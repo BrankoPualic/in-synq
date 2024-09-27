@@ -1,6 +1,4 @@
-﻿using InSynq.Core.Model.Models.Application.User;
-
-namespace InSynq.Core.Model.Models;
+﻿namespace InSynq.Core.Model.Models;
 
 public class AuditDomain<TKey> : IAuditDomainEntity<TKey>
 {
@@ -24,15 +22,6 @@ public class AuditDomain<TKey> : IAuditDomainEntity<TKey>
 	public long? DeletedBy { get; set; }
 
 	public DateTime? DeletedOn { get; set; }
-
-	[ForeignKey(nameof(CreatedBy))]
-	public virtual User CreatedByUser { get; set; }
-
-	[ForeignKey(nameof(LastChangedBy))]
-	public virtual User LastChangedByUser { get; set; }
-
-	[ForeignKey(nameof(DeletedBy))]
-	public virtual User DeletedByUser { get; set; }
 
 	public eAuditChangeType ChangeType => LogType switch
 	{
