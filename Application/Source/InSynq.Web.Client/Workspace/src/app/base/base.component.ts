@@ -7,6 +7,7 @@ import { eSystemRole } from "../_generated/enums";
 import { AuthService } from "../services/auth.service";
 import { INameofOptions } from "../models/function-options.model";
 import { Functions } from "../functions";
+import { ToastService } from "../services/toast.service";
 
 @Injectable()
 export abstract class BaseComponent implements IBaseComponent, OnDestroy {
@@ -18,7 +19,8 @@ export abstract class BaseComponent implements IBaseComponent, OnDestroy {
     constructor(
         protected errorService: ErrorService,
         protected loaderService: PageLoaderService,
-        private authService: AuthService
+        protected authService: AuthService,
+        private toastService: ToastService
     ) {
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);
     }
@@ -37,6 +39,19 @@ export abstract class BaseComponent implements IBaseComponent, OnDestroy {
             this.loaderService.show();
         else
             this.loaderService.hide();
+    }
+
+    // Notiifcations
+    error(error: Record<string, string[]>) {
+        const message = Object.values(error).flat().join('\r\n');
+        this.toastService.notifyError(message);
+    }
+    warning(error: Record<string, string[]>) {
+        const message = Object.values(error).flat().join('\r\n');
+        this.toastService.notifyWarning(message);
+    }
+    success(message: string) {
+        this.toastService.notifySuccess(message);
     }
 
     // Error handling

@@ -20,11 +20,7 @@ export abstract class BaseFormComponent<T extends object> extends BaseComponentG
 
     protected abstract initializeForm(): void;
 
-    /**
-   *  Submits data asynchronously.
-   * @returns {Promise<void>} A promise that you can resolve using extension method toPromise().
-   */
-    protected abstract submit(): Promise<void>;
+    protected abstract submit(): void;
 
     protected toFormData(formValueObj: T): void { }
 }
