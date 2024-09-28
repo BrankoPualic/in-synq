@@ -4,12 +4,12 @@ namespace InSynq.Web.Api.ReinforcedTypings.Generator;
 
 public class AngularMethodAttribute : TsFunctionAttribute
 {
-	public AngularMethodAttribute(Type returnType)
-	{
-		StrongType = returnType;
+    public AngularMethodAttribute(Type returnType)
+    {
+        StrongType = returnType;
 
-		CodeGeneratorType = typeof(AngularActionCallGenerator);
-	}
+        CodeGeneratorType = typeof(AngularActionCallGenerator);
+    }
 
-	public bool IsArrayBuffer { get; set; }
+    public bool IsArrayBuffer { get; set; }
 }

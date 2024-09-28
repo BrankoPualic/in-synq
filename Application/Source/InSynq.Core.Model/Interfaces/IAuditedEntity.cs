@@ -2,11 +2,11 @@
 
 public interface IAuditedEntity
 {
-	DateTime CreatedOn { get; set; }
+    DateTime CreatedOn { get; set; }
 
-	long CreatedBy { get; set; }
+    long CreatedBy { get; set; }
 
-	DateTime LastChangedOn { get; set; }
+    DateTime LastChangedOn { get; set; }
 
-	long LastChangedBy { get; set; }
+    long LastChangedBy { get; set; }
 }

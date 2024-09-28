@@ -1,22 +1,20 @@
-﻿using InSynq.Common;
-
-namespace InSynq.Core;
+﻿namespace InSynq.Core;
 
 public class ResponseWrapper
 {
-	public ResponseWrapper()
-	{
-		IsSuccess = true;
-		Errors = new();
-	}
+    public ResponseWrapper()
+    {
+        IsSuccess = true;
+        Errors = new();
+    }
 
-	public ResponseWrapper(Error error)
-	{
-		IsSuccess = false;
-		Errors = error;
-	}
+    public ResponseWrapper(Error error)
+    {
+        IsSuccess = false;
+        Errors = error;
+    }
 
-	public bool IsSuccess { get; }
+    public bool IsSuccess { get; }
 
-	public Error Errors { get; }
+    public Error Errors { get; }
 }

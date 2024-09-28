@@ -2,7 +2,7 @@
 
 public interface IDatabaseView
 {
-	string Script { get; }
+    string Script { get; }
 
-	string DropScript { get; }
+    string DropScript { get; }
 }

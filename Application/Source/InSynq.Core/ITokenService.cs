@@ -4,5 +4,5 @@ namespace InSynq.Core;
 
 public interface ITokenService
 {
-	string GenerateJwtToken(User user);
+    string GenerateJwtToken(User user);
 }

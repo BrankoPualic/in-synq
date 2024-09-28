@@ -8,11 +8,11 @@ namespace InSynq.Infrastructure.DependencyRegister.Modules;
 
 public class InfrastructureModule : Module
 {
-	protected override void Load(ContainerBuilder builder)
-	{
-		builder.RegisterType<DatabaseContext>().As<IDatabaseContext>().InstancePerLifetimeScope();
-		builder.RegisterType<CloudinaryService>().As<ICloudinaryService>().InstancePerLifetimeScope();
+    protected override void Load(ContainerBuilder builder)
+    {
+        builder.RegisterType<DatabaseContext>().As<IDatabaseContext>().InstancePerLifetimeScope();
+        builder.RegisterType<CloudinaryService>().As<ICloudinaryService>().InstancePerLifetimeScope();
 
-		base.Load(builder);
-	}
+        base.Load(builder);
+    }
 }

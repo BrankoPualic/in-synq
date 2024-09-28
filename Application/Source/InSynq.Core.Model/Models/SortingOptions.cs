@@ -2,11 +2,11 @@
 
 public class SortingOptions
 {
-	public string Field { get; set; }
+    public string Field { get; set; }
 
-	private string _dir;
+    private string _dir;
 
-	public string Dir { set => _dir = value; }
+    public string Dir { set => _dir = value; }
 
-	public bool Desc => _dir == Constants.SORTING_ORDER_DESC;
+    public bool Desc => _dir == Constants.SORTING_ORDER_DESC;
 }

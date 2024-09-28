@@ -4,7 +4,7 @@ namespace InSynq.Core.Interfaces;
 
 public interface IAuthService
 {
-	Task<ResponseWrapper<TokenDto>> Signup(SignupDto data);
+    Task<ResponseWrapper<TokenDto>> Signup(SignupDto data);
 
-	Task<ResponseWrapper<TokenDto>> Signin(SigninDto data);
+    Task<ResponseWrapper<TokenDto>> Signin(SigninDto data);
 }

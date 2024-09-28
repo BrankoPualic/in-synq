@@ -5,18 +5,18 @@ namespace InSynq.Core.Model;
 
 public partial interface IDatabaseContext
 {
-	IDatabaseContext GetDatabaseContext();
+    IDatabaseContext GetDatabaseContext();
 }
 
 public partial interface IDatabaseContext : IDatabaseContextBase, IDatabaseContextAudit
 {
-	DbSet<User> Users { get; }
+    DbSet<User> Users { get; }
 
-	DbSet<UserRole> UserRoles { get; }
+    DbSet<UserRole> UserRoles { get; }
 
-	DbSet<UserSigninLog> Logins { get; }
+    DbSet<UserSigninLog> Logins { get; }
 
-	// Reference Data
+    // Reference Data
 
-	DbSet<Country> Countries { get; }
+    DbSet<Country> Countries { get; }
 }

@@ -8,11 +8,11 @@ namespace InSynq.Web.Api.Controllers;
 
 public class AuthController(IAuthService authService) : BaseController
 {
-	[HttpPost]
-	[AngularMethod(typeof(TokenDto))]
-	public async Task<IActionResult> Signin(SigninDto data) => Result(await authService.Signin(data));
+    [HttpPost]
+    [AngularMethod(typeof(TokenDto))]
+    public async Task<IActionResult> Signin(SigninDto data) => Result(await authService.Signin(data));
 
-	[HttpPost]
-	[AngularMethod(typeof(TokenDto))]
-	public async Task<IActionResult> Signup([FromForm] SignupDto data) => Result(await authService.Signup(data));
+    [HttpPost]
+    [AngularMethod(typeof(TokenDto))]
+    public async Task<IActionResult> Signup([FromForm] SignupDto data) => Result(await authService.Signup(data));
 }

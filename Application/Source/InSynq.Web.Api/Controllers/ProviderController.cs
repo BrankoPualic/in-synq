@@ -8,7 +8,7 @@ namespace InSynq.Web.Api.Controllers;
 
 public class ProviderController(IProviderService providerService) : BaseController
 {
-	[HttpGet]
-	[AngularMethod(typeof(IEnumerable<CountryDto>))]
-	public async Task<IActionResult> GetCountries() => Result(await providerService.GetCountriesAsync());
+    [HttpGet]
+    [AngularMethod(typeof(IEnumerable<CountryDto>))]
+    public async Task<IActionResult> GetCountries() => Result(await providerService.GetCountriesAsync());
 }

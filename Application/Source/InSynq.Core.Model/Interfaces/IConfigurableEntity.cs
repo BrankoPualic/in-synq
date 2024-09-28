@@ -2,5 +2,5 @@
 
 public interface IConfigurableEntity
 {
-	void Configure(ModelBuilder builder);
+    void Configure(ModelBuilder builder);
 }

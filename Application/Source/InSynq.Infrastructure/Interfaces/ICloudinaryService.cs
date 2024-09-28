@@ -5,7 +5,7 @@ namespace InSynq.Infrastructure.Interfaces;
 
 public interface ICloudinaryService
 {
-	Task<ImageUploadResult> UploadPhotoAsync(IFormFile file);
+    Task<ImageUploadResult> UploadPhotoAsync(IFormFile file);
 
-	Task<DeletionResult> DeletePhotoAsync(string publicId);
+    Task<DeletionResult> DeletePhotoAsync(string publicId);
 }

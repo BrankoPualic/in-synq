@@ -6,25 +6,25 @@ namespace InSynq.Core.Model.Interfaces;
 
 public interface IDatabaseContextBase : IDisposable
 {
-	IIdentityUser CurrentUser { get; }
+    IIdentityUser CurrentUser { get; }
 
-	// methods
+    // methods
 
-	bool HasChanges();
+    bool HasChanges();
 
-	void ClearChanges();
+    void ClearChanges();
 
-	int SaveChanges(bool audit = true);
+    int SaveChanges(bool audit = true);
 
-	Task<int> SaveChangesAsync(bool audit = true, CancellationToken cancellationToken = default);
+    Task<int> SaveChangesAsync(bool audit = true, CancellationToken cancellationToken = default);
 
-	// DbContext
+    // DbContext
 
-	DatabaseFacade Database { get; }
+    DatabaseFacade Database { get; }
 
-	DbSet<TModel> Set<TModel>() where TModel : class;
+    DbSet<TModel> Set<TModel>() where TModel : class;
 
-	EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
-	IModel Model { get; }
+    IModel Model { get; }
 }

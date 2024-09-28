@@ -2,9 +2,9 @@
 
 public interface ILockoutService
 {
-	Task<ResponseWrapper> IsUserLockedAsync(string email);
+    Task<ResponseWrapper> IsUserLockedAsync(string email);
 
-	Task RegisterFailedAttemptAsync(string email);
+    Task RegisterFailedAttemptAsync(string email);
 
-	Task ResetFailedAttemptsAsync(string email);
+    Task ResetFailedAttemptsAsync(string email);
 }

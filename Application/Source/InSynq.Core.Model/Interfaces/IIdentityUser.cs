@@ -2,15 +2,15 @@
 
 public interface IIdentityUser
 {
-	long Id { get; }
+    long Id { get; }
 
-	string Email { get; }
+    string Email { get; }
 
-	string Username { get; }
+    string Username { get; }
 
-	List<eSystemRole> Roles { get; }
+    List<eSystemRole> Roles { get; }
 
-	bool IsAuthenticated { get; }
+    bool IsAuthenticated { get; }
 
-	bool HasRole(List<eSystemRole> roles);
+    bool HasRole(List<eSystemRole> roles);
 }

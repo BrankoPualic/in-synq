@@ -6,9 +6,9 @@ namespace InSynq.Infrastructure.DependencyRegister.Mappings;
 
 public class ApplicationProfile : Profile
 {
-	public ApplicationProfile()
-	{
-		// Reference Data
-		CreateMap<Country, CountryDto>();
-	}
+    public ApplicationProfile()
+    {
+        // Reference Data
+        CreateMap<Country, CountryDto>();
+    }
 }
