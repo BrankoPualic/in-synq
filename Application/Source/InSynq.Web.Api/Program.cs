@@ -14,32 +14,32 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Host
-	.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-	.ConfigureContainer<ContainerBuilder>(container =>
-	{
-		container.RegisterType<IdentityUser>().As<IIdentityUser>().InstancePerLifetimeScope().PropertiesAutowired();
-		container.RegisterModule<MainModule>();
-	});
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(container =>
+    {
+        container.RegisterType<IdentityUser>().As<IIdentityUser>().InstancePerLifetimeScope().PropertiesAutowired();
+        container.RegisterModule<MainModule>();
+    });
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-	var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
-	var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-	try
-	{
-		var migrationResult = context.Migrate();
+    try
+    {
+        var migrationResult = context.Migrate();
 
-		logger.LogInformation("{result}", migrationResult.Result);
-		migrationResult.Migrations.ForEach(_ => logger.LogInformation("{log}", _));
-	}
-	catch (Exception ex)
-	{
-		logger.LogError("MIGRATION - FAILED");
-		logger.LogError(ex, "An error occurred while migrating the database.");
-	}
+        logger.LogInformation("{result}", migrationResult.Result);
+        migrationResult.Migrations.ForEach(_ => logger.LogInformation("{log}", _));
+    }
+    catch (Exception ex)
+    {
+        logger.LogError("MIGRATION - FAILED");
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
 }
 
 app.UseHttpsRedirection();
@@ -48,11 +48,11 @@ app.UseRouting();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(builder => builder
-	.AllowAnyHeader()
-	.AllowAnyMethod()
-	.AllowCredentials()
-	.WithOrigins(InSynq.Common.Settings.Audience)
-	);
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins(InSynq.Common.Settings.Audience)
+    );
 
 app.UseAuthentication();
 app.UseAuthorization();
