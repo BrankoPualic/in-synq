@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseFormComponent } from '../../../base/base-form.component';
-import { ICountryDto, ISignupDto } from '../../../_generated/interfaces';
+import { ICountryDto, IEnumProvider, ISignupDto } from '../../../_generated/interfaces';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { AuthService } from '../../../services/auth.service';
@@ -18,19 +18,21 @@ import { Functions } from '../../../functions';
 import { ValidationDirective } from '../../../directives/validation.directive';
 import { FileSelectEvent, FileUploadModule } from 'primeng/fileupload';
 import { IBasicObject } from '../../../models/models';
+import { Providers } from '../../../_generated/providers';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [GLOBAL_MODULES, ReactiveFormsModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, FileUploadModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrl: './signup.component.scss',
+  providers: [Providers]
 })
 export class SignupComponent extends BaseFormComponent<ISignupDto> implements OnInit {
   image?: File;
   countries: ICountryDto[] = [];
   countryLoader = false;
-  genders = Functions.enumToArray(eGender).slice(1);
+  genders: IEnumProvider[] = [];
   icons = {
     faEyeSlash,
     faEye,
@@ -48,8 +50,9 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
       authService: AuthService,
       toastService: ToastService,
       fb: FormBuilder,
-      private providers: ProviderController,
-      private authController: AuthController
+      private providerController: ProviderController,
+      private authController: AuthController,
+      private providers: Providers
     ) {
     super(errorService, loaderService, authService, toastService, fb);
   }
@@ -57,8 +60,10 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
   ngOnInit(): void {
     this.initializeForm();
 
+    this.genders = this.providers.getGenders();
+
     this.countryLoader = true;
-    this.providers.GetCountries().toPromise()
+    this.providerController.GetCountries().toPromise()
       .then(_ => this.countries = _ ?? [])
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
       .finally(() => this.countryLoader = false);

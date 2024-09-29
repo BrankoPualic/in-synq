@@ -56,9 +56,12 @@
             [(ngModel)]="currentGender"
             [ngModelOptions]="{standalone: true}"
             [options]="genders"
-            optionLabel="name"
             [styleClass]="'form-select'"
-            (onChange)="onGenderChange()"/>
+            (onChange)="onGenderChange()">
+            <ng-template let-gender pTemplate="item">
+                <div [ngClass]="{ 'transparent-text': gender.description === '' }">{{ gender.name }}</div>
+            </ng-template>
+            </p-dropdown>
         </div>
 
         <div class="mb-2" formGroupName="details" appValidation="Details.CountryId">
