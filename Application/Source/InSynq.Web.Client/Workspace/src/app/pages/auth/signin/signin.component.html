@@ -1,1 +1,27 @@
-<p>signin works!</p>
+<div class="col-12 py-3">
+    <form [formGroup]="form" (onSubmit)="submit()">
+        <h3 class="text-center mb-2" style="color: #609af8">Sign in</h3>
+
+        <div class="mb-2" appValidation="Email">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="Email" formControlName="email">
+        </div>
+
+        <div class="mb-2" style="position: relative;" appValidation="Password">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="Password" formControlName="password" #password>
+            <fa-icon [icon]="currentIcon" class="form-input-icon" (click)="togglePassword(password)"/>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+
+        <div appValidation="User">
+        </div>
+
+        <div>
+            <a routerLink="/auth/signup" style="color: #609af8;">Don't have an account? Sign up now.</a>
+        </div>
+    </form>
+</div>

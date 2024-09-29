@@ -5,8 +5,12 @@ using User_ = InSynq.Core.Model.Models.Application.User.User;
 
 namespace InSynq.Core.Dtos.Auth;
 
-public class SignupDto : BaseDto
+public class SignupDto : BaseDto<SignupDto>
 {
+    public SignupDto() : base(new SignupDtoValidator())
+    {
+    }
+
     public string FirstName { get; set; }
 
     public string MiddleName { get; set; }
@@ -42,10 +46,4 @@ public class SignupDto : BaseDto
         model.IsActive = true;
         model.Roles = [new UserRole { RoleId = eSystemRole.Member }];
     }
-
-    // Validation
-
-    private readonly IValidator<SignupDto> _validator = new SignupDtoValidator();
-
-    public override void ValidateOnCreateOrUpdate() => AddValidationErrors(_validator.Validate(this, _ => _.IncludeRuleSets(eAuditChangeType.Create.ToString())));
 }

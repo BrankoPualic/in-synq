@@ -133,7 +133,7 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
     this.currentIcon = this.isPasswordVisible ? this.icons.faEye : this.icons.faEyeSlash;
   }
 
-  onGenderChange(event: DropdownChangeEvent): void {
+  onGenderChange(): void {
     this.form.get('details.genderId')?.setValue(this.currentGender?.id);
   }
 

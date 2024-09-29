@@ -7,6 +7,9 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 {
     public async Task<ResponseWrapper<TokenDto>> Signin(SigninDto data)
     {
+        if (!data.IsValid())
+            return new(data.Errors);
+
         var model = await db.Users.GetSingleAsync(_ => _.Email == data.Email, _ => _.Roles);
         if (model.IsNullOrEmpty())
             return new(new Error(nameof(User), ResourceValidation.Invalid_Credentials));

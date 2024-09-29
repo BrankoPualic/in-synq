@@ -19,13 +19,13 @@ public class LockoutService : ILockoutService
     public async Task<ResponseWrapper> IsUserLockedAsync(string email)
     {
         if (await _userManager.IsUserLockedAsync(email))
-            return new(new Error(nameof(User), "Your account is locked.\r\nPlease get in touch with our Help Desk. Thank you."));
+            return new(new Error(nameof(User), "Your account is locked. Please get in touch with our Help Desk. Thank you."));
 
         var lockout = await _redisDatabase.StringGetAsync(LockoutKey + email);
 
         if (!lockout.IsNull && DateTime.TryParse(lockout, out var lockUntil))
             if (lockUntil > DateTime.UtcNow)
-                return new(new Error(nameof(User), "Your account is temporarily locked.\r\nPlease try again later."));
+                return new(new Error(nameof(User), "Your account is temporarily locked. Please try again later."));
 
         return new();
     }

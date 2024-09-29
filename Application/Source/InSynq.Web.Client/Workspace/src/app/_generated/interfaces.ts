@@ -14,6 +14,9 @@ export interface ISigninDto
 	email: string;
 	password: string;
 }
+export interface ISigninDtoValidator
+{
+}
 export interface ISignupDto
 {
 	firstName: string;

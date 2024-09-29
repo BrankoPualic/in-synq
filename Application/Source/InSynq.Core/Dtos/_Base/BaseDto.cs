@@ -3,38 +3,42 @@
 namespace InSynq.Core.Dtos._Base;
 
 [TsIgnore]
-public abstract class BaseDto
+public abstract class BaseDto<TDto> where TDto : BaseDto<TDto>
 {
+    protected readonly IValidator<TDto> _validator;
+
+    protected BaseDto(IValidator<TDto> validator = null) => _validator = validator;
+
     public Error Errors { get; } = new();
 
     public bool IsValid(eAuditChangeType? type = null)
     {
-        if (type == eAuditChangeType.Create)
-            ValidateOnCreate();
+        try
+        {
+            if (type == eAuditChangeType.Create)
+                ValidateOnCreate();
 
-        if (type == eAuditChangeType.Update)
-            ValidateOnUpdate();
+            if (type == eAuditChangeType.Update)
+                ValidateOnUpdate();
 
-        if (type == eAuditChangeType.Delete)
-            ValidateOnDelete();
+            if (type == eAuditChangeType.Delete)
+                ValidateOnDelete();
 
-        if (!type.HasValue)
-            ValidateOnCreateOrUpdate();
+            if (!type.HasValue)
+                Validate();
+        }
+        catch { }
 
         return !Errors.HasErrors;
     }
 
-    public virtual void ValidateOnCreate()
-    { }
+    public virtual void ValidateOnCreate() => AddValidationErrors(_validator?.Validate((TDto)this, _ => _.IncludeRuleSets(eAuditChangeType.Create.ToString())));
 
-    public virtual void ValidateOnUpdate()
-    { }
+    public virtual void ValidateOnUpdate() => AddValidationErrors(_validator?.Validate((TDto)this, _ => _.IncludeRuleSets(eAuditChangeType.Update.ToString())));
 
-    public virtual void ValidateOnDelete()
-    { }
+    public virtual void ValidateOnDelete() => AddValidationErrors(_validator?.Validate((TDto)this, _ => _.IncludeRuleSets(eAuditChangeType.Delete.ToString())));
 
-    public virtual void ValidateOnCreateOrUpdate()
-    { }
+    public virtual void Validate() => AddValidationErrors(_validator?.Validate((TDto)this));
 
-    protected void AddValidationErrors(ValidationResult result) => result.Errors.ForEach(_ => Errors.AddError(_.PropertyName, _.ErrorMessage));
+    protected void AddValidationErrors(ValidationResult result = null) => result?.Errors.ForEach(_ => Errors.AddError(_.PropertyName, _.ErrorMessage));
 }

@@ -106,7 +106,7 @@ namespace InSynq.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your credentials are incorrect.\r\nPlease try again..
+        ///   Looks up a localized string similar to Your credentials are incorrect. Please try again..
         /// </summary>
         public static string Invalid_Credentials {
             get {

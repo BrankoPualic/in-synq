@@ -58,7 +58,7 @@
             [options]="genders"
             optionLabel="name"
             [styleClass]="'form-select'"
-            (onChange)="onGenderChange($event)"/>
+            (onChange)="onGenderChange()"/>
         </div>
 
         <div class="mb-2" formGroupName="details" appValidation="Details.CountryId">
@@ -131,7 +131,7 @@
             </div>
         </div>
 
-        <div class="mb-2">
+        <div>
             <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
         </div>
 

@@ -13,9 +13,9 @@ public class BaseService(IDatabaseContext context)
 
     public IIdentityUser CurrentUser { get; } = context.CurrentUser;
 
-    public async Task<ResponseWrapper> ValidateAndSaveAsync<TModel, TModelDto>(TModel model, TModelDto data, Func<TModel, Task> preStage = null, Func<TModel, Task> postStage = null)
+    public async Task<ResponseWrapper> ValidateAndSaveAsync<TModel, TDto>(TModel model, TDto data, Func<TModel, Task> preStage = null, Func<TModel, Task> postStage = null)
         where TModel : BaseDomain<long>
-        where TModelDto : BaseDto
+        where TDto : BaseDto<TDto>
     {
         if (!data.IsValid())
             return new(data.Errors);
