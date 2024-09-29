@@ -37,10 +37,10 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
                 .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Password"))
                 .MinimumLength(8).WithMessage(ResourceValidation.MinimumLength.FormatWith("Password", 8))
                 .MaximumLength(50).WithMessage(ResourceValidation.MaximumLength.FormatWith("Password", 50))
-                .Matches(@"(?=.*[a-z])").WithMessage("Passwrod must hast at least 1 lowercase letter.")
-                .Matches(@"(?=.*[A-Z])").WithMessage("Passwrod must hast at least 1 uppercase letter.")
-                .Matches(@"(?=.*\d)").WithMessage("Passwrod must hast at least 1 digit.")
-                .Matches(@"(?=.*[@$!%*?&])").WithMessage("Passwrod must hast at least 1 special character.");
+                .Matches(@"(?=.*[a-z])").WithMessage("Passwrod lacks 1 lowercase letter.")
+                .Matches(@"(?=.*[A-Z])").WithMessage("Passwrod lacks 1 uppercase letter.")
+                .Matches(@"(?=.*\d)").WithMessage("Passwrod lacks 1 digit.")
+                .Matches(@"(?=.*[@$!%*?&])").WithMessage("Passwrod lacks 1 special character.");
 
             RuleFor(_ => _.ConfirmPassword)
                 .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Confirm Password"))

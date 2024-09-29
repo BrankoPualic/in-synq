@@ -5,6 +5,23 @@ a {
     text-decoration: none;
 }
 
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    background-color: rgba(0,0,0,0.5);
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .form-input-icon {
     position: absolute;
     top: 0;

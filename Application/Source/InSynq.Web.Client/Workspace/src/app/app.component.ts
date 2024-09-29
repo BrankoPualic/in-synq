@@ -4,10 +4,11 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from './services/toast.service';
 import { RippleModule } from 'primeng/ripple';
+import { LoaderComponent } from './components/loader.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, RippleModule],
+  imports: [RouterOutlet, ToastModule, RippleModule, LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService]
