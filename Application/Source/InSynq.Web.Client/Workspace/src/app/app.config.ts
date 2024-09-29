@@ -17,6 +17,7 @@ import * as clr from './_generated/services';
 import { SettingsService } from './services/settings.service';
 
 import './extensions/observable-extension';
+import { jwtInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptors([])),
+    provideHttpClient(withFetch(), withInterceptors([jwtInterceptor])),
     serviceProviders(),
     controllerProviders(),
   ],

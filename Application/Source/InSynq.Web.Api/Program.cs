@@ -5,6 +5,9 @@ using InSynq.Infrastructure.Data;
 using InSynq.Infrastructure.DependencyRegister.Modules;
 using InSynq.Web.Api.Middlewares;
 using InSynq.Web.Api.Objects;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,25 @@ builder.Services.AddLogging();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<DatabaseContext>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = InSynq.Common.Settings.Issuer,
+        ValidAudience = InSynq.Common.Settings.Audience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(InSynq.Common.Settings.JwtKey)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Host
     .UseServiceProviderFactory(new AutofacServiceProviderFactory())
