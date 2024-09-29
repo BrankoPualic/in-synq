@@ -1,6 +1,6 @@
 ﻿namespace InSynq.Core.Model.Models;
 
-public class BaseAuditedDomain<TKey> : BaseDomain<TKey>, IAuditedEntity
+public abstract class BaseAuditedDomain<TKey> : BaseDomain<TKey>, IAuditedEntity
     where TKey : struct
 {
     public DateTime CreatedOn { get; set; }

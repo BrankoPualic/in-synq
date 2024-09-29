@@ -2,7 +2,7 @@
 
 namespace InSynq.Core.Model.Models.Application.User;
 
-public class User : BaseAuditedDomain<long>, IConfigurableEntity
+public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
 {
     public string FirstName { get; set; }
 
@@ -35,6 +35,32 @@ public class User : BaseAuditedDomain<long>, IConfigurableEntity
     [InverseProperty(nameof(User))]
     public virtual ICollection<UserRole> Roles { get; set; } = [];
 
+    //
+    // Indexes
+    //
+
+    public static IDatabaseIndex IX_User_Email => new DatabaseIndex(nameof(IX_User_Email))
+    {
+        Columns = { nameof(Email) },
+        IsUnique = true,
+    };
+
+    public static IDatabaseIndex IX_User_Username => new DatabaseIndex(nameof(IX_User_Username))
+    {
+        Columns = { nameof(Username) },
+        IsUnique = true,
+    };
+
+    public static IDatabaseIndex IX_User_IsActive_IsLocked => new DatabaseIndex(nameof(IX_User_IsActive_IsLocked))
+    {
+        Columns = { nameof(IsActive), nameof(IsLocked) },
+        Include = { nameof(Username), nameof(FirstName), nameof(MiddleName), nameof(LastName) },
+    };
+
+    //
+    // Configuration
+    //
+
     public void Configure(ModelBuilder builder)
     {
         builder.Entity<User>(_ =>
@@ -45,10 +71,6 @@ public class User : BaseAuditedDomain<long>, IConfigurableEntity
             _.Property(_ => _.Username).HasMaxLength(20).IsRequired();
             _.Property(_ => _.Email).HasMaxLength(80).IsRequired();
             _.Property(_ => _.Biography).HasMaxLength(255);
-
-            // indexes
-            _.HasIndex(_ => _.Username).IsUnique();
-            _.HasIndex(_ => _.Email).IsUnique();
         });
     }
 }

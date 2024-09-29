@@ -72,4 +72,13 @@ internal static class DatabaseMigrationExtensions
         var sql = File.ReadAllText(path);
         migrationBuilder.Sql(sql);
     }
+
+    // Indexes
+    internal static void Up(this MigrationBuilder migrationBuilder, IDatabaseIndex index) => migrationBuilder.Sql(index.DropSql + "\n" + index.Sql);
+
+    internal static void Down(this MigrationBuilder migrationBuilder, IDatabaseIndex index) => migrationBuilder.Sql(index.DropSql);
+
+    internal static void Up(this MigrationBuilder migrationBuilder, IEnumerable<IDatabaseIndex> indexes) => indexes.ToList().ForEach(_ => migrationBuilder.Sql(_.DropSql + "\n" + _.Sql));
+
+    internal static void Down(this MigrationBuilder migrationBuilder, IEnumerable<IDatabaseIndex> indexes) => indexes.ToList().ForEach(_ => migrationBuilder.Sql(_.DropSql));
 }

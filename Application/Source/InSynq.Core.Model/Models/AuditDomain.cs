@@ -1,6 +1,6 @@
 ﻿namespace InSynq.Core.Model.Models;
 
-public class AuditDomain<TKey> : IAuditDomainEntity<TKey>
+public abstract class AuditDomain<TKey> : IAuditDomainEntity<TKey>
 {
     [Key]
     public long AuditId { get; set; }
