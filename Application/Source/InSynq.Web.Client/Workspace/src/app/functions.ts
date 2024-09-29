@@ -1,4 +1,5 @@
 import { INameofOptions } from "./models/function-options.model";
+import { IBasicObject } from "./models/models";
 
 export class Functions {
     static nameof<T extends object>(
@@ -22,5 +23,15 @@ export class Functions {
 
     private static cleanseAssertionOperators(parsedName: string): string {
         return parsedName.replace(/[?!]/g, '');
+    }
+
+    // Enums
+    static enumToArray<T extends object>(enumObj: T): IBasicObject[] {
+        return Object.keys(enumObj)
+            .filter(key => isNaN(Number(key)))
+            .map(key => ({
+                id: (enumObj as any)[key],
+                name: key
+            }));
     }
 }

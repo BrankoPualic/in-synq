@@ -5,6 +5,7 @@ export enum eSystemRole {
 	Moderator = 4
 }
 export enum eGender {
+	NotSet = 0,
 	Male = 1,
 	Female = 2,
 	Other = 3

@@ -37,10 +37,10 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
                 .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Password"))
                 .MinimumLength(8).WithMessage(ResourceValidation.MinimumLength.FormatWith("Password", 8))
                 .MaximumLength(50).WithMessage(ResourceValidation.MaximumLength.FormatWith("Password", 50))
-                .Matches(@"(?=.*[a-z])").WithMessage("At least 1 lowercase letter.")
-                .Matches(@"(?=.*[A-Z])").WithMessage("At least 1 uppercase letter.")
-                .Matches(@"(?=.*\d)").WithMessage("At least 1 digit.")
-                .Matches(@"(?=.*[@$!%*?&])").WithMessage("At least 1 special character.");
+                .Matches(@"(?=.*[a-z])").WithMessage("Passwrod must hast at least 1 lowercase letter.")
+                .Matches(@"(?=.*[A-Z])").WithMessage("Passwrod must hast at least 1 uppercase letter.")
+                .Matches(@"(?=.*\d)").WithMessage("Passwrod must hast at least 1 digit.")
+                .Matches(@"(?=.*[@$!%*?&])").WithMessage("Passwrod must hast at least 1 special character.");
 
             RuleFor(_ => _.ConfirmPassword)
                 .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Confirm Password"))
@@ -51,6 +51,7 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
                 .When(_ => _.Biography.IsNotNullOrWhiteSpace());
 
             RuleFor(_ => _.DateOfBirth)
+                .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Date of Birth"))
                 .Must(Functions.IsValidDate).WithMessage(ResourceValidation.Invalid.FormatWith("Date of Birth"))
                 .Must(AtLeast16YearsOld).WithMessage("Must be at least 16 years old.");
 
@@ -60,14 +61,16 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
                 .When(_ => _.Photo.IsNotNullOrEmpty());
 
             // User Details
+            RuleFor(_ => _.Details.GenderId)
+                .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Gender"));
+
             RuleFor(_ => _.Details.Phone)
                 .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Phone Number"))
                 .MinimumLength(8).WithMessage(ResourceValidation.MinimumLength.FormatWith("Phone Number", 8))
                 .MaximumLength(15).WithMessage(ResourceValidation.MaximumLength.FormatWith("Phone Number", 15));
 
             RuleFor(_ => _.Details.CountryId)
-                .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Country"))
-                .Must(_ => _ != default).WithMessage(ResourceValidation.Required.FormatWith("Country"));
+                .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Country"));
         });
     }
 

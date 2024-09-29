@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/styles/variables';
+@import './assets/styles/primeng';
+
+a {
+    text-decoration: none;
+}
+
+.form-input-icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    color: $grey;
+}

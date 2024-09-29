@@ -16,12 +16,13 @@ export abstract class BaseComponent implements IBaseComponent, OnDestroy {
     errors = [];
     hasAccess = false;
 
-    constructor(
-        protected errorService: ErrorService,
-        protected loaderService: PageLoaderService,
-        protected authService: AuthService,
-        private toastService: ToastService
-    ) {
+    constructor
+        (
+            protected errorService: ErrorService,
+            protected loaderService: PageLoaderService,
+            protected authService: AuthService,
+            private toastService: ToastService
+        ) {
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);
     }
 

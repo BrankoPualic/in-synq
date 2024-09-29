@@ -38,6 +38,9 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
 
     public async Task<ResponseWrapper<TokenDto>> Signup(SignupDto data)
     {
+        if (!data.IsValid())
+            return new(data.Errors);
+
         var existingEmail = await db.Users.GetSingleAsync(_ => _.Email.Equals(data.Email));
         if (existingEmail.IsNotNullOrEmpty())
             return new(new Error(nameof(User.Email), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Email))));
@@ -45,9 +48,6 @@ public class AuthService(IDatabaseContext context, ITokenService tokenService, I
         var existingUsername = await db.Users.GetSingleAsync(_ => _.Username.Equals(data.Username));
         if (existingUsername.IsNotNullOrEmpty())
             return new(new Error(nameof(User.Username), ResourceValidation.Already_Exist.FormatWith(nameof(User), nameof(User.Username))));
-
-        if (!data.IsValid())
-            return new(data.Errors);
 
         User model = new();
         data.ToModel(model);

@@ -1,0 +1,145 @@
+<div class="col-12 py-3">
+    <form [formGroup]="form" (onSubmit)="submit()" enctype="multipart/form-data">
+        <h3 class="text-center mb-2" style="color: #609af8">Sign up</h3>
+
+        <div class="mb-2" appValidation="FirstName">
+            <label for="FirstName" class="form-label">First Name<app-required-field-mark/></label>
+            <input type="text" class="form-control" id="FirstName" formControlName="firstName">
+        </div>
+
+        <div class="mb-2" appValidation="MiddleName">
+            <label for="MiddleName" class="form-label">Middle Name</label>
+            <input type="text" class="form-control" id="MiddleName" formControlName="middleName">
+        </div>
+
+        <div class="mb-2" appValidation="LastName">
+            <label for="LastName" class="form-label">Last Name<app-required-field-mark/></label>
+            <input type="text" class="form-control" id="LastName" formControlName="lastName">
+        </div>
+
+        <div class="mb-2" appValidation="Username">
+            <label for="Username" class="form-label">Username<app-required-field-mark/></label>
+            <input type="text" class="form-control" id="Username" formControlName="username">
+        </div>
+
+        <div class="mb-2" appValidation="Email">
+            <label for="Email" class="form-label">Email<app-required-field-mark/></label>
+            <input type="email" class="form-control" id="Email" formControlName="email">
+        </div>
+
+        <div class="mb-2" style="position: relative" appValidation="Password">
+            <label for="Password" class="form-label">Password<app-required-field-mark/></label>
+            <input type="password" class="form-control" id="Password" formControlName="password" #password>
+            <fa-icon [icon]="currentIcon" class="form-input-icon" (click)="togglePassword(password, confirmPassword)"/>
+        </div>
+
+        <div class="mb-2" appValidation="ConfirmPassword">
+            <label for="ConfirmPassword" class="form-label">Confirm Password<app-required-field-mark/></label>
+            <input type="password" class="form-control" id="ConfirmPassword" formControlName="confirmPassword" #confirmPassword>
+        </div>
+
+        <div class="mb-2" style="position: relative;" appValidation="DateOfBirth">
+            <label for="DateOfBirth" class="form-label">Date of Birth<app-required-field-mark/></label>
+            <p-calendar 
+            formControlName="dateOfBirth"
+            [iconDisplay]="'input'" 
+            [showIcon]="false"
+            id="DateOfBirth"
+            [inputStyleClass]="'form-control'"
+            class="w-100 d-flex"/>
+            <fa-icon [icon]="icons.faCalendar" class="form-input-icon"/>
+        </div>
+
+        <div class="mb-2" appValidation="Details.GenderId">
+            <label for="GenderId" class="form-label">Gender<app-required-field-mark/></label>
+            <p-dropdown 
+            [(ngModel)]="currentGender"
+            [ngModelOptions]="{standalone: true}"
+            [options]="genders"
+            optionLabel="name"
+            [styleClass]="'form-select'"
+            (onChange)="onGenderChange($event)"/>
+        </div>
+
+        <div class="mb-2" formGroupName="details" appValidation="Details.CountryId">
+            <label for="CountryId" class="form-label">Country<app-required-field-mark/></label>
+            <p-dropdown 
+            [options]="countries"
+            optionLabel="name"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+            [filter]="true"
+            filterBy="name"
+            (onChange)="onCountryChange($event)"
+            [styleClass]="'form-select form-select-flags'">
+                <ng-template pTemplate="selectedItem">
+                    @if(currentCountry){
+                        <div class="d-flex align-items-center gap-2 small-paddings">
+                            <img [src]="[getCountry(currentCountry.id).flagUrl]" alt="Selected country image">
+                            <div>{{ getCountry(currentCountry.id).name }}</div>
+                        </div>
+                    }
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{ country.flagUrl }}" alt="Country flag" style="width: 18px;" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="mb-2" formGroupName="details" appValidation="Details.Phone">
+            <label for="Phone" class="form-label">Phone<app-required-field-mark/></label>
+            <input type="tel" class="form-control" id="Phone" formControlName="phone" />
+        </div>
+
+        <div class="mb-2">
+            <label for="Biography" class="form-label">Biography</label>
+            <textarea id="Biography" class="form-control" formControlName="biography" rows="5" style="resize: none;"></textarea>
+        </div>
+
+        <div class="mb-2" appValidation="Photo">
+            <label for="Photo" class="form-label">Profile Photo</label>
+            <p-fileUpload 
+            mode="basic" 
+            name="demo[]" 
+            url="https://www.primefaces.org/cdn/api/upload.php" 
+            chooseLabel="Choose" 
+            chooseIcon="pi pi-upload"
+            accept="image/*" 
+            maxFileSize="1000000" 
+            [auto]="false"
+            (onSelect)="onFileSelect($event)" />
+        </div>
+
+        <div class="mb-2" formGroupName="details">
+            <div class="form-check" aria-describedby="privacyHelp">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="privacy"
+                formControlName="privacy"
+              />
+              <label class="form-check-label pointer" for="privacy">
+                Do you want your profile to be private?</label
+              >
+            </div>
+            <div id="privacyHelp" class="form-text">
+              This setting can be changed later in profile settings.
+            </div>
+        </div>
+
+        <div class="mb-2">
+            <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+        </div>
+
+        <div appValidation="User">
+        </div>
+
+        <div>
+            <a routerLink="/auth/signin" style="color: #609af8;">Already have an account? Sign in now.</a>
+        </div>
+    </form>
+</div>

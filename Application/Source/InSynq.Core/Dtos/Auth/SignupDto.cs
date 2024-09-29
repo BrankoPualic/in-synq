@@ -38,7 +38,8 @@ public class SignupDto : BaseDto
         model.Email = Email;
         model.Biography = Biography;
         model.DateOfBirth = DateOfBirth;
-        model.Details = Details.SerializeJsonObject();
+        model.Details = Details.SerializeJsonObject(defaultValueHandling: Newtonsoft.Json.DefaultValueHandling.Include);
+        model.IsActive = true;
         model.Roles = [new UserRole { RoleId = eSystemRole.Member }];
     }
 

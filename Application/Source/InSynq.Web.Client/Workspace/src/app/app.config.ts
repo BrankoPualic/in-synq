@@ -16,6 +16,8 @@ import {
 import * as clr from './_generated/services';
 import { SettingsService } from './services/settings.service';
 
+import './extensions/observable-extension';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),

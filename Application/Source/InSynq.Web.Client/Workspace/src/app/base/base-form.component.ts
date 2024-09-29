@@ -1,6 +1,7 @@
 import { AuthService } from "../services/auth.service";
 import { ErrorService } from "../services/error.service";
 import { PageLoaderService } from "../services/page-loader.service";
+import { ToastService } from "../services/toast.service";
 import { BaseComponentGeneric } from "./base.component";
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -11,8 +12,15 @@ export abstract class BaseFormComponent<T extends object> extends BaseComponentG
     protected form: FormGroup;
     protected formData: FormData;
 
-    constructor(errorService: ErrorService, loaderService: PageLoaderService, authService: AuthService, protected fb: FormBuilder) {
-        super(errorService, loaderService, authService);
+    constructor
+        (
+            errorService: ErrorService,
+            loaderService: PageLoaderService,
+            authService: AuthService,
+            toastService: ToastService,
+            protected fb: FormBuilder
+        ) {
+        super(errorService, loaderService, authService, toastService);
 
         this.form = this.fb.group({});
         this.formData = new FormData();
