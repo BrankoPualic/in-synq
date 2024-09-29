@@ -9,6 +9,12 @@ export interface ICountryDto
 	dialCode: string;
 	flagUrl: string;
 }
+export interface IEnumProvider
+{
+	id: number;
+	name: string;
+	description: string;
+}
 export interface ISigninDto
 {
 	email: string;

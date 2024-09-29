@@ -27,6 +27,13 @@ public static class FluentConfiguration
         .ExportTo("services.ts")
         .WithCodeGenerator<AngularControllerGenerator>();
 
+    private static readonly Action<EnumExportBuilder> _enumProviderConfiguration = config =>
+        config
+        .AddImport("{ Injectable }", "@angular/core")
+        .AddImport("{ IEnumProvider }", "./interfaces")
+        .ExportTo("providers.ts")
+        .WithCodeGenerator<EnumProviderGenerator>();
+
     public static void Configure(Reinforced.Typings.Fluent.ConfigurationBuilder builder)
     {
         builder.Global(config => config.CamelCaseForProperties()
@@ -58,8 +65,10 @@ public static class FluentConfiguration
                 && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
                 && !t.IsDefined(typeof(TsIgnoreAttribute), false));
 
+        var additionalInterfaces = new List<Type>([typeof(IEnumProvider)]);
+
         builder.ExportAsInterfaces(
-            dtos
+            dtos.Concat(additionalInterfaces)
             .OrderBy(i => i.Name)
             .ToArray(),
             _interfaceConfiguration
@@ -75,6 +84,12 @@ public static class FluentConfiguration
             .ToArray(),
             _serviceConfiguration
             );
+
+        // Enum Providers
+        builder.ExportAsEnums(
+            [typeof(Providers)],
+            _enumProviderConfiguration
+            );
     }
 
     private static TBuilder ConfigureTypeMapping<TBuilder>(this TBuilder config)
@@ -88,4 +103,13 @@ public static class FluentConfiguration
 
         return config;
     }
+}
+
+internal interface IEnumProvider
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Description { get; set; }
 }
