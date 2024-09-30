@@ -1,4 +1,5 @@
-﻿using Reinforced.Typings;
+﻿using InSynq.Core.Model.Attributes;
+using Reinforced.Typings;
 using Reinforced.Typings.Ast;
 using Reinforced.Typings.Ast.TypeNames;
 using Reinforced.Typings.Generators;
@@ -58,8 +59,16 @@ public class EnumProviderGenerator : ClassCodeGenerator
             var descriptionAttribute = enumType.GetField(enumName)?.GetCustomAttribute<DescriptionAttribute>();
             var description = descriptionAttribute != null ? descriptionAttribute.Description : enumName;
 
+            // Get BgColor if exists
+            var bgColorAttribute = enumType.GetField(enumName)?.GetCustomAttribute<BgColorAttribute>();
+            var bgColor = bgColorAttribute != null
+                ? (bgColorAttribute.BgColor.StartsWith('#') && bgColorAttribute.BgColor.Length == 7
+                    ? bgColorAttribute.BgColor
+                    : null)
+                : null;
+
             // Create the enum object string
-            var enumObject = $@"{{ id: {enumId}, name: '{enumName}', description: '{description}' }}";
+            var enumObject = $@"{{ id: {enumId}, name: '{enumName}', description: '{description}', bgColor: '{bgColor}' }}";
 
             enumArray.Add(enumObject); // Add the string representation
         }

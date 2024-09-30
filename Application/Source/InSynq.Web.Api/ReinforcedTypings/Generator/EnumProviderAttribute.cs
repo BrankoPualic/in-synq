@@ -14,13 +14,3 @@ public abstract class EnumProviderAttribute : Attribute
 
     public EnumProviderAttribute(Type enumType) => EnumType = enumType;
 }
-
-//public class EnumProviderAttribute : TsFunctionAttribute
-//{
-//    public Type EnumType { get; }
-
-//    public EnumProviderAttribute(Type enumType)
-//    {
-//        EnumType = enumType;
-//    }
-//}

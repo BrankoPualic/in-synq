@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using InSynq.Core.Model.Attributes;
+using System.ComponentModel;
 
 namespace InSynq.Core.Model;
 
@@ -28,9 +29,15 @@ public enum eAuditChangeType
 public enum eGender
 {
     [Description("")]
+    [BgColor("#D7D7D7")]
     NotSet = 0,
 
+    [BgColor("#00FFFF")]
     Male = 1,
+
+    [BgColor("#FF0000")]
     Female = 2,
+
+    [BgColor("#00FFFF")]
     Other = 3
 }
