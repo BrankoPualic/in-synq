@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { Constants } from './constants';
+import { Constants } from './constants/constants';
 
 export const routes: Routes = [
     // Authentication and Authorization

@@ -9,17 +9,21 @@ export class ToastService {
   private _error = new Subject<string>();
   private _success = new Subject<string>();
 
-  notifyWarning(message: string) {
+  notifyWarning(message: string): void {
     this._warining.next(message);
   }
 
-  notifyError(message: string) {
+  notifyError(message: string): void {
     console.log(message)
     this._error.next(message);
   }
 
-  notifySuccess(message: string) {
+  notifySuccess(message: string): void {
     this._success.next(message);
+  }
+
+  notifyGeneralError(): void {
+    this._error.next("Something went wrong.");
   }
 
   get warning() {

@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { IBaseComponent } from "../models/base-component.model";
+import { BaseConstants, IBaseComponent } from "../models/base-component.model";
 import { Subject, takeUntil } from "rxjs";
 import { PageLoaderService } from "../services/page-loader.service";
 import { ErrorService } from "../services/error.service";
@@ -10,7 +10,7 @@ import { Functions } from "../functions";
 import { ToastService } from "../services/toast.service";
 
 @Injectable()
-export abstract class BaseComponent implements IBaseComponent, OnDestroy {
+export abstract class BaseComponent extends BaseConstants implements IBaseComponent, OnDestroy {
     private _loading = false;
     private _destroy$ = new Subject<void>();
     errors = [];
@@ -23,6 +23,7 @@ export abstract class BaseComponent implements IBaseComponent, OnDestroy {
             protected authService: AuthService,
             private toastService: ToastService
         ) {
+        super();
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);
     }
 

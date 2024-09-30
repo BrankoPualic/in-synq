@@ -1,3 +1,6 @@
+import { Constants } from "../constants/constants";
+import { DateConstants } from "../constants/date-constants";
+import { IconConstants } from "../constants/icon-constants";
 import { IModelError } from "./error.model";
 
 export interface IBaseComponent {
@@ -7,4 +10,10 @@ export interface IBaseComponent {
 
     hasError(key: string): boolean;
     cleanErrors(): void;
+}
+
+export class BaseConstants {
+    Constants = Constants;
+    Icons = IconConstants;
+    DateConstants = DateConstants;
 }

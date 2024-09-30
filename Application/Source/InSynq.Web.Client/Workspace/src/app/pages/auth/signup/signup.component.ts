@@ -33,13 +33,8 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
   countries: ICountryDto[] = [];
   countryLoader = false;
   genders: IEnumProvider[] = [];
-  icons = {
-    faEyeSlash,
-    faEye,
-    faCalendar
-  };
   isPasswordVisible = false;
-  currentIcon = this.icons.faEyeSlash;
+  currentIcon = this.Icons.EYE_SLASH;
   currentCountry?: ICountryDto;
   currentGender?: IBasicObject;
 
@@ -135,7 +130,7 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
     this.isPasswordVisible = !this.isPasswordVisible;
     password.type = this.isPasswordVisible ? 'text' : 'password';
     confirmPassword.type = this.isPasswordVisible ? 'text' : 'password';
-    this.currentIcon = this.isPasswordVisible ? this.icons.faEye : this.icons.faEyeSlash;
+    this.currentIcon = this.isPasswordVisible ? this.Icons.EYE : this.Icons.EYE_SLASH;
   }
 
   onGenderChange(): void {

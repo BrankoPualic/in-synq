@@ -21,11 +21,7 @@ import { ValidationDirective } from '../../../directives/validation.directive';
 })
 export class SigninComponent extends BaseFormComponent<ISigninDto> implements OnInit {
   isPasswordVisible = false;
-  icons = {
-    faEyeSlash,
-    faEye
-  };
-  currentIcon = this.icons.faEyeSlash;
+  currentIcon = this.Icons.EYE_SLASH;
 
   constructor
     (
@@ -66,7 +62,7 @@ export class SigninComponent extends BaseFormComponent<ISigninDto> implements On
   togglePassword(password: HTMLInputElement): void {
     this.isPasswordVisible = !this.isPasswordVisible;
     password.type = this.isPasswordVisible ? 'text' : 'password';
-    this.currentIcon = this.isPasswordVisible ? this.icons.faEye : this.icons.faEyeSlash;
+    this.currentIcon = this.isPasswordVisible ? this.Icons.EYE : this.Icons.EYE_SLASH;
   }
 
 }
