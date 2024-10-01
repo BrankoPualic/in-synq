@@ -1,10 +1,24 @@
 @import './assets/styles/variables';
 @import './assets/styles/primeng';
+@import './assets/styles/mixins';
 
-a {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     text-decoration: none;
 }
 
+// Flex styles
+.align-row-center {
+    @include flex-center(row);
+}
+.align-column-center {
+    @include flex-center(column);
+}
+
+
+// Custom
 .backdrop {
     position: fixed;
     top: 0;
@@ -31,4 +45,12 @@ a {
 
 .transparent-text {
     color: transparent;
+}
+
+.shadow-style {
+    box-shadow:
+        rgba(17, 17, 26, 0.1) 0px 1px 0px,
+        rgba(17, 17, 26, 0.1) 0px -1px 0px,
+        rgba(17, 17, 26, 0.1) 1px 0px 0px,
+        rgba(17, 17, 26, 0.1) -1px 0px 0px;
 }
