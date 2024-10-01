@@ -30,4 +30,9 @@ public static class EnumExtensions
 
     public static string[] GetEnumNames<T>(this IEnumerable<int> enums) where T : struct, Enum
         => enums.Any() ? enums.Select(_ => ((T)(object)_).ToString()).ToArray() : [];
+
+    public static List<T> GetEnums<T>() where T : struct, Enum
+        => !typeof(T).IsEnum
+            ? throw new ArgumentException($"{typeof(T)} must be an enumerated type.")
+            : Enum.GetValues(typeof(T)).Cast<T>().ToList();
 }

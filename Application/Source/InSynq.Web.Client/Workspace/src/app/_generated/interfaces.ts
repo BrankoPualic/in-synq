@@ -16,6 +16,12 @@ export interface IEnumProvider
 	description: string;
 	bgColor: string;
 }
+export interface ILookupValueDto
+{
+	id: number;
+	name: string;
+	description: string;
+}
 export interface ISigninDto
 {
 	email: string;
