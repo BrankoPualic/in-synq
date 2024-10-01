@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { ICurrentUser } from '../models/current-user.model';
 import { Router } from '@angular/router';
 import { ITokenDto } from '../_generated/interfaces';
@@ -10,16 +9,12 @@ import { eSystemRole } from '../_generated/enums';
   providedIn: 'root'
 })
 export class AuthService {
-  private _currentUserSource = new BehaviorSubject<ICurrentUser | null>(null);
-  currentUser$ = this._currentUserSource.asObservable();
-
   constructor(
     private router: Router
   ) { }
 
   signout() {
     localStorage.removeItem('token');
-    this._currentUserSource.next(null);
     this.router.navigateByUrl('/');
   }
 
@@ -32,7 +27,7 @@ export class AuthService {
       email: tokenInfo.EMAIL,
       username: tokenInfo.USERNAME,
       token: data.token,
-      tokenExpiryDate: DateTime.fromMillis(tokenInfo.exp * 1000).toJSDate()
+      tokenExpirationDate: DateTime.fromMillis(tokenInfo.exp * 1000).toJSDate()
     };
 
     if (Array.isArray(tokenInfo.ROLES))
@@ -41,16 +36,60 @@ export class AuthService {
       userSource.roles?.push(tokenInfo.ROLES);
 
     localStorage.setItem('token', data.token);
-    this._currentUserSource.next(userSource);
     this.router.navigateByUrl('/');
   }
 
+  getCurrentUser(): ICurrentUser | null {
+    const token = this.getToken();
+    if (!token) {
+      this.signout();
+      return null;
+    }
+
+    const tokenInfo = this.getDecodedToken(token);
+
+    return {
+      id: tokenInfo.ID,
+      roles: [],
+      email: tokenInfo.EMAIL,
+      username: tokenInfo.USERNAME,
+      token: token,
+      tokenExpirationDate: DateTime.fromMillis(tokenInfo.exp * 1000).toJSDate()
+    }
+  }
+
+  getToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token)
+      return null;
+
+    const decodedToken = this.getDecodedToken(token);
+    if (!decodedToken.exp)
+      return null;
+
+    const currentTimestamp = DateTime.now().toSeconds();
+    if (currentTimestamp >= decodedToken.exp)
+      return null;
+
+    return token;
+  }
+
   hasAccess(...roles: eSystemRole[]): boolean {
-    const user = this._currentUserSource.getValue();
-    if (!user?.roles)
+    const token = this.getToken();
+    if (!token)
       return false;
 
-    return roles.some(_ => user.roles?.includes(_));
+    const userRoles: number[] = [];
+    var decodedToken = this.getDecodedToken(token);
+    if (Array.isArray(decodedToken.ROLES))
+      decodedToken.ROLES.forEach((_: string) => userRoles.push(Number(_)));
+    else
+      userRoles.push(decodedToken.ROLES);
+
+    if (userRoles.length < 1)
+      return false;
+
+    return roles.some(_ => userRoles.includes(_));
   }
 
   // private

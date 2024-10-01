@@ -9,7 +9,7 @@ import { IEnumProvider } from '../_generated/interfaces';
 export class EnumNamePipe implements PipeTransform {
   constructor(private providers: Providers) { }
 
-  transform(value: number, provider: string, property: keyof IEnumProvider = 'description'): string | number | null {
+  transform(value: number, provider: string, field: keyof IEnumProvider = 'description'): string | number | null {
     const methodName = `get${provider}` as keyof Providers;
 
     const providerMethod = this.providers[methodName] as (() => IEnumProvider[]) | undefined;
@@ -22,6 +22,6 @@ export class EnumNamePipe implements PipeTransform {
     if (!enumItem)
       return null;
 
-    return enumItem[property] || null;
+    return enumItem[field] || null;
   }
 }

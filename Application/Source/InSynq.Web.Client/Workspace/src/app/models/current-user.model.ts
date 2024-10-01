@@ -6,5 +6,5 @@ export interface ICurrentUser {
   email?: string;
   roles?: eSystemRole[];
   token?: string;
-  tokenExpiryDate?: Date;
+  tokenExpirationDate?: Date;
 }

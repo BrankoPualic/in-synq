@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ToastService } from './services/toast.service';
 import { RippleModule } from 'primeng/ripple';
 import { LoaderComponent } from './components/loader.component';
+import { AuthService } from './services/auth.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,11 +15,14 @@ import { LoaderComponent } from './components/loader.component';
   providers: [MessageService]
 })
 export class AppComponent implements OnInit {
-  constructor(private messageService: MessageService, private toastService: ToastService) { }
+  constructor(private messageService: MessageService, private toastService: ToastService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.toastService.error.subscribe(_ => this.messageService.add({ severity: 'error', summary: 'Error', detail: _ }));
     this.toastService.warning.subscribe(_ => this.messageService.add({ severity: 'warn', detail: _ }));
     this.toastService.success.subscribe(_ => this.messageService.add({ severity: 'success', detail: _ }));
+
+    const token = this.authService.getToken();
+    this.router.navigateByUrl(token === null ? '/auth' : '/');
   }
 }
