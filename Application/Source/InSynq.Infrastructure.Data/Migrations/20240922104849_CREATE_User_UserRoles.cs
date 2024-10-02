@@ -173,7 +173,7 @@ namespace InSynq.Infrastructure.Data.Migrations
 
             migrationBuilder.Audit<User>();
 
-            migrationBuilder.Seed("User.sql");
+            //migrationBuilder.Seed("User.sql");
         }
 
         /// <inheritdoc />

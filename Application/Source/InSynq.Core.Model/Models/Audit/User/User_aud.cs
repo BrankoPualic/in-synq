@@ -24,6 +24,14 @@ public class User_aud : AuditDomain<long>
 
     public string Details { get; set; }
 
+    public eGender? GenderId { get; set; }
+
+    public int? CountryId { get; set; }
+
+    public string Phone { get; set; }
+
+    public bool? Privacy { get; set; }
+
     public bool? IsActive { get; set; }
 
     public bool? IsLocked { get; set; }

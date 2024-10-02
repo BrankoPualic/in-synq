@@ -1,5 +1,4 @@
-﻿using InSynq.Core.Dtos.User;
-using InSynq.Core.Model.Models.Application.User;
+﻿using InSynq.Core.Model.Models.Application.User;
 using Microsoft.AspNetCore.Http;
 using User_ = InSynq.Core.Model.Models.Application.User.User;
 
@@ -29,9 +28,15 @@ public class SignupDto : BaseDto<SignupDto>
 
     public string Biography { get; set; }
 
-    public IFormFile? Photo { get; set; }
+    public IFormFile Photo { get; set; }
 
-    public UserDetailsDto Details { get; set; }
+    public eGender GenderId { get; set; }
+
+    public int CountryId { get; set; }
+
+    public string Phone { get; set; }
+
+    public bool Privacy { get; set; }
 
     public void ToModel(User_ model)
     {
@@ -42,7 +47,10 @@ public class SignupDto : BaseDto<SignupDto>
         model.Email = Email;
         model.Biography = Biography;
         model.DateOfBirth = DateOfBirth;
-        model.Details = Details.SerializeJsonObject(defaultValueHandling: Newtonsoft.Json.DefaultValueHandling.Include);
+        model.GenderId = GenderId;
+        model.CountryId = CountryId;
+        model.Phone = Phone;
+        model.Privacy = Privacy;
         model.IsActive = true;
         model.Roles = [new UserRole { RoleId = eSystemRole.Member }];
     }

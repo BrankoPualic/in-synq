@@ -1,9 +1,5 @@
 ﻿SET IDENTITY_INSERT [User] ON;
 
--- Disable both foreign key constraints
-ALTER TABLE [User] NOCHECK CONSTRAINT FK_User_User_CreatedBy;
-ALTER TABLE [User] NOCHECK CONSTRAINT FK_User_User_LastChangedBy;
-
 INSERT INTO [User]
 (
     Id,
@@ -17,8 +13,12 @@ INSERT INTO [User]
     PublicId,
     Biography,
     DateOfBirth,
-    Details,
+    GenderId,
+    CountryId,
+    Phone,
+    Privacy,
     IsActive,
+    IsLocked,
     CreatedOn,
     CreatedBy,
     LastChangedOn,
@@ -37,8 +37,12 @@ VALUES
     NULL,
     NULL,
     '2002-10-10 00:00:00.000',
-    NULL,
     1,
+    155,
+    '+381 640230105',
+    1,
+    1,
+    0,
     CURRENT_TIMESTAMP,
     0,
     CURRENT_TIMESTAMP,
@@ -56,8 +60,12 @@ VALUES
     NULL,
     NULL,
     '2002-10-10 00:00:00.000',
-    NULL,
     1,
+    155,
+    '+381 640230105',
+    1,
+    1,
+    0,
     CURRENT_TIMESTAMP,
     1,
     CURRENT_TIMESTAMP,
@@ -75,8 +83,12 @@ VALUES
     NULL,
     NULL,
     '2002-10-10 00:00:00.000',
-    NULL,
     1,
+    155,
+    '+381 640230105',
+    1,
+    1,
+    0,
     CURRENT_TIMESTAMP,
     1,
     CURRENT_TIMESTAMP,
@@ -94,8 +106,12 @@ VALUES
     NULL,
     NULL,
     '2002-10-10 00:00:00.000',
-    NULL,
     1,
+    155,
+    '+381 640230105',
+    1,
+    1,
+    0,
     CURRENT_TIMESTAMP,
     1,
     CURRENT_TIMESTAMP,
@@ -103,10 +119,6 @@ VALUES
 );
 
 SET IDENTITY_INSERT [User] OFF;
-
--- Re-enable the foreign key constraints
-ALTER TABLE [User] CHECK CONSTRAINT FK_User_User_CreatedBy;
-ALTER TABLE [User] CHECK CONSTRAINT FK_User_User_LastChangedBy;
 
 -- User Roles
 

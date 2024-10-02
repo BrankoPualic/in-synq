@@ -1,4 +1,5 @@
 ﻿using InSynq.Common.Extensions;
+using InSynq.Core.Model.Models.Application.ReferenceData;
 
 namespace InSynq.Core.Model.Models.Application.User;
 
@@ -26,11 +27,19 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
 
     public DateTime DateOfBirth { get; set; }
 
-    public string Details { get; set; }
+    public eGender GenderId { get; set; }
+
+    public int CountryId { get; set; }
+
+    public string Phone { get; set; }
+
+    public bool Privacy { get; set; }
 
     public bool IsActive { get; set; }
 
     public bool IsLocked { get; set; }
+
+    public virtual Country Country { get; set; }
 
     [InverseProperty(nameof(User))]
     public virtual ICollection<UserRole> Roles { get; set; } = [];
@@ -67,10 +76,11 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
         {
             _.Property(_ => _.FirstName).HasMaxLength(20).IsRequired();
             _.Property(_ => _.MiddleName).HasMaxLength(20);
-            _.Property(_ => _.LastChangedBy).HasMaxLength(30).IsRequired();
+            _.Property(_ => _.LastName).HasMaxLength(30).IsRequired();
             _.Property(_ => _.Username).HasMaxLength(20).IsRequired();
             _.Property(_ => _.Email).HasMaxLength(80).IsRequired();
             _.Property(_ => _.Biography).HasMaxLength(255);
+            _.Property(_ => _.Phone).HasMaxLength(20).IsRequired();
         });
     }
 }

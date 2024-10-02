@@ -58,16 +58,15 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
             .Must(WithinFileSize).WithMessage(ResourceValidation.File_Too_Large.FormatWith("Image", "10MB"))
             .When(_ => _.Photo.IsNotNullOrEmpty());
 
-        // User Details
-        RuleFor(_ => _.Details.GenderId)
+        RuleFor(_ => _.GenderId)
             .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Gender"));
 
-        RuleFor(_ => _.Details.Phone)
+        RuleFor(_ => _.Phone)
             .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Phone Number"))
             .MinimumLength(8).WithMessage(ResourceValidation.MinimumLength.FormatWith("Phone Number", 8))
             .MaximumLength(15).WithMessage(ResourceValidation.MaximumLength.FormatWith("Phone Number", 15));
 
-        RuleFor(_ => _.Details.CountryId)
+        RuleFor(_ => _.CountryId)
             .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Country"));
     }
 
