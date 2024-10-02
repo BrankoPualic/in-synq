@@ -1,5 +1,4 @@
-﻿using InSynq.Common.Extensions;
-using InSynq.Core.Model.Models.Application.ReferenceData;
+﻿using InSynq.Core.Model.Models.Application.ReferenceData;
 
 namespace InSynq.Core.Model.Models.Application.User;
 
@@ -11,7 +10,8 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
 
     public string LastName { get; set; }
 
-    public string FullName => $"{FirstName} {(MiddleName.IsNotNullOrWhiteSpace() ? MiddleName + " " : "")}{LastName}";
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public string FullName { get; set; }
 
     public string Username { get; set; }
 
@@ -81,6 +81,7 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
             _.Property(_ => _.Email).HasMaxLength(80).IsRequired();
             _.Property(_ => _.Biography).HasMaxLength(255);
             _.Property(_ => _.Phone).HasMaxLength(20).IsRequired();
+            _.Property(_ => _.FullName).HasMaxLength(70).HasComputedColumnSql("[FirstName] + CASE WHEN [MiddleName] IS NOT NULL AND [MiddleName] <> '' THEN ' ' + [MiddleName] ELSE '' END + ' ' + [LastName]");
         });
     }
 }
