@@ -1,0 +1,7 @@
+﻿CREATE FULLTEXT INDEX ON [dbo].[User]
+	([SearchPattern] LANGUAGE 1033, [FullName] LANGUAGE 1033)
+	KEY INDEX [PH_User]
+	ON [ftCatalog]
+	WITH STOPLIST OFF;
+
+GO
