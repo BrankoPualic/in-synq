@@ -1,4 +1,4 @@
-﻿namespace InSynq.Core.Model.Models;
+﻿namespace InSynq.Common.Sorting;
 
 public class SortingOptions
 {

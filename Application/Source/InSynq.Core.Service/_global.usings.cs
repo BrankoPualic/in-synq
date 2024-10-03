@@ -3,7 +3,6 @@ global using Humanizer;
 global using InSynq.Common;
 global using InSynq.Common.Extensions;
 global using InSynq.Common.Resources;
-global using InSynq.Core;
 global using InSynq.Core.Interfaces;
 global using InSynq.Core.Model;
 global using InSynq.Core.Model.Interfaces;

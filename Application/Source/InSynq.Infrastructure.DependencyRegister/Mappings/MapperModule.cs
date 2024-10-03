@@ -11,7 +11,7 @@ public class MapperModule : Module
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<ApplicationProfile>();
+                cfg.AddProfile<ApplicationMappingProfile>();
             });
 
             var mapper = config.CreateMapper();

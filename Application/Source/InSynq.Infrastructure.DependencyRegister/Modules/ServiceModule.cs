@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using InSynq.Core;
 using InSynq.Core.Interfaces;
+using InSynq.Core.Interfaces.Person;
 using InSynq.Core.Service.Services;
-using Nexus.Core.Service;
+using InSynq.Core.Service.Services.Person;
 using StackExchange.Redis;
 
 namespace InSynq.Infrastructure.DependencyRegister.Modules;
@@ -26,6 +27,8 @@ public class ServiceModule : Module
         builder.RegisterType<ProviderService>().As<IProviderService>().InstancePerLifetimeScope();
         // Auth
         builder.RegisterType<AuthService>().As<IAuthService>().InstancePerLifetimeScope();
+
+        builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 
         base.Load(builder);
     }

@@ -1,4 +1,6 @@
-﻿namespace InSynq.Core.Model.Models;
+﻿using InSynq.Common.Sorting;
+
+namespace InSynq.Common.Search;
 
 public class SearchOptions
 {

@@ -3,7 +3,7 @@ using InSynq.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
-namespace Nexus.Core.Service;
+namespace InSynq.Core.Service.Services;
 
 public class UserManager(IDatabaseContext db, ICloudinaryService cloudinaryService) : IUserManager
 {
@@ -28,7 +28,7 @@ public class UserManager(IDatabaseContext db, ICloudinaryService cloudinaryServi
         }
     }
 
-    public async Task<bool> IsUserLockedAsync(string email) => (await db.Users.Where(_ => _.Email == email).Select(_ => _.IsLocked).FirstOrDefaultAsync()) == true;
+    public async Task<bool> IsUserLockedAsync(string email) => await db.Users.Where(_ => _.Email == email).Select(_ => _.IsLocked).FirstOrDefaultAsync() == true;
 
     public async Task<ResponseWrapper> UploadPhotoAsync(User user, IFormFile photo)
     {

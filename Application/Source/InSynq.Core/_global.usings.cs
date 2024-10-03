@@ -4,5 +4,8 @@ global using Humanizer;
 global using InSynq.Common;
 global using InSynq.Common.Extensions;
 global using InSynq.Common.Resources;
+global using InSynq.Common.Search;
+global using InSynq.Core.Dtos;
 global using InSynq.Core.Dtos._Base;
 global using InSynq.Core.Model;
+global using InSynq.Core.Search;

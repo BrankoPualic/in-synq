@@ -22,6 +22,11 @@ export interface ILookupValueDto
 	name: string;
 	description: string;
 }
+export interface IPagingResultDto<TData>
+{
+	data: TData[];
+	total: number;
+}
 export interface ISigninDto
 {
 	email: string;
@@ -41,8 +46,11 @@ export interface ISignupDto
 	confirmPassword: string;
 	dateOfBirth: Date;
 	biography: string;
-	photo?: File;
-	details: IUserDetailsDto;
+	photo: File;
+	genderId: eGender;
+	countryId: number;
+	phone: string;
+	privacy: boolean;
 }
 export interface ISignupDtoValidator
 {
@@ -51,10 +59,14 @@ export interface ITokenDto
 {
 	token: string;
 }
-export interface IUserDetailsDto
+export interface IUserDto
 {
-	genderId: eGender;
+	id: number;
+	username: string;
+	fullName: string;
+	profileImageUrl: string;
+	biography: string;
+	gender: ILookupValueDto;
+	country: ICountryDto;
 	privacy: boolean;
-	phone: string;
-	countryId: number;
 }

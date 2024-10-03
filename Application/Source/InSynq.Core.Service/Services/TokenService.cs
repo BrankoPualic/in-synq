@@ -4,7 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Nexus.Core.Service;
+namespace InSynq.Core.Service.Services;
 
 public class TokenService : ITokenService
 {

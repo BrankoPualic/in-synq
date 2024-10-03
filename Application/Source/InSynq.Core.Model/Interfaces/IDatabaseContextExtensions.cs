@@ -1,4 +1,6 @@
 ﻿using InSynq.Common.Extensions;
+using InSynq.Common.Search;
+using InSynq.Common.Sorting;
 using InSynq.Core.Model.Models;
 using System.Linq.Expressions;
 
