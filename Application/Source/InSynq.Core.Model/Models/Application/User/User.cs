@@ -11,9 +11,12 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
     public string LastName { get; set; }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    public string FullName { get; set; }
+    public string FullName { get; private set; }
 
     public string Username { get; set; }
+
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public string SearchPattern { get; private set; }
 
     public string Email { get; set; }
 
@@ -82,6 +85,7 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
             _.Property(_ => _.Biography).HasMaxLength(255);
             _.Property(_ => _.Phone).HasMaxLength(20).IsRequired();
             _.Property(_ => _.FullName).HasMaxLength(70).HasComputedColumnSql("[FirstName] + CASE WHEN [MiddleName] IS NOT NULL AND [MiddleName] <> '' THEN ' ' + [MiddleName] ELSE '' END + ' ' + [LastName]");
+            _.Property(_ => _.SearchPattern).HasMaxLength(255).HasComputedColumnSql("[Username] + ' ' + [FirstName] + ' ' + [LastName] + CASE WHEN [MiddleName] IS NOT NULL AND [MiddleName] <> '' THEN ' ' + [MiddleName] ELSE '' END");
         });
     }
 }
