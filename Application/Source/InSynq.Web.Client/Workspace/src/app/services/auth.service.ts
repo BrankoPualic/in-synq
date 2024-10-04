@@ -21,22 +21,6 @@ export class AuthService {
   }
 
   setUser(data: ITokenDto) {
-    const tokenInfo = this.getDecodedToken(data.token);
-
-    const userSource: ICurrentUser = {
-      id: tokenInfo.ID,
-      roles: [],
-      email: tokenInfo.EMAIL,
-      username: tokenInfo.USERNAME,
-      token: data.token,
-      tokenExpirationDate: DateTime.fromMillis(tokenInfo.exp * 1000).toJSDate()
-    };
-
-    if (Array.isArray(tokenInfo.ROLES))
-      tokenInfo.ROLES.forEach((_: string) => userSource.roles?.push(Number(_)));
-    else
-      userSource.roles?.push(tokenInfo.ROLES);
-
     this.storageService.set('token', data.token);
     this.router.navigateByUrl('/');
   }
@@ -51,7 +35,7 @@ export class AuthService {
     const tokenInfo = this.getDecodedToken(token);
 
     return {
-      id: tokenInfo.ID,
+      id: Number(tokenInfo.ID),
       roles: [],
       email: tokenInfo.EMAIL,
       username: tokenInfo.USERNAME,

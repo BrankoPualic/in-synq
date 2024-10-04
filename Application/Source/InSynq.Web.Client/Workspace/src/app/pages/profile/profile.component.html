@@ -1,9 +1,14 @@
 <div class="container-fluid">
     <div class="header">
-        <div class="float-start align-row-center height100 section-header">{{ model?.username }} <fa-icon [icon]="Icons.ANGLE_DOWN" style="font-size: 0.8rem;" class="ms-1"/></div>
+        <div class="float-start align-row-center height-100 section-header">{{ model?.username }} <fa-icon [icon]="Icons.ANGLE_DOWN" style="font-size: 0.8rem;" class="ms-1"/></div>
         <div class="float-end actions align-row-center">
             <fa-icon [icon]="Icons.BARS"/>
         </div>
+        @if(showPrivacy()){
+            <div class="d-row align-items-center height-100">
+                <small class="small ms-2">{{ model?.privacy ? 'private' : 'public'}}</small>
+            </div>
+        }
     </div>
 
     <div class="mt-3">

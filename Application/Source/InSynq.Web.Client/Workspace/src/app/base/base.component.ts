@@ -8,6 +8,7 @@ import { AuthService } from "../services/auth.service";
 import { INameofOptions } from "../models/function-options.model";
 import { Functions } from "../functions";
 import { ToastService } from "../services/toast.service";
+import { ICurrentUser } from "../models/current-user.model";
 
 @Injectable()
 export abstract class BaseComponent extends BaseConstants implements IBaseComponent, OnDestroy {
@@ -15,6 +16,7 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
     private _destroy$ = new Subject<void>();
     errors = [];
     hasAccess = false;
+    currentUser: ICurrentUser | null;
 
     constructor
         (
@@ -25,6 +27,7 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
         ) {
         super();
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);
+        this.currentUser = authService.getCurrentUser() || null;
     }
 
     ngOnDestroy(): void {

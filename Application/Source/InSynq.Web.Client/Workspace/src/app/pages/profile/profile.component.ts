@@ -42,13 +42,14 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
     this.loadUser();
   }
 
+  showPrivacy = (): boolean => !!this.currentUser && this.model?.id === this.currentUser.id;
+
   private loadUser(): void {
-    const user = this.authService.getCurrentUser();
-    if (!user)
+    if (!this.currentUser)
       return;
 
     this.loading = true;
-    this.userController.GetSingle(user.id!).toPromise()
+    this.userController.GetSingle(this.currentUser.id!).toPromise()
       .then(_ => this.model = _)
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
       .finally(() => this.loading = false);
