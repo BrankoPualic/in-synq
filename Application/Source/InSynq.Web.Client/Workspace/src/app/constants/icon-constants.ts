@@ -1,5 +1,6 @@
 import * as solid from '@fortawesome/free-solid-svg-icons';
 import * as regular from '@fortawesome/free-regular-svg-icons';
+import * as brands from '@fortawesome/free-brands-svg-icons';
 
 export class IconConstants {
     static readonly EYE = regular.faEye;
@@ -12,4 +13,12 @@ export class IconConstants {
     static readonly COMMENT_DOTS = regular.faCommentDots;
     static readonly USER = regular.faUser;
     static readonly USER_CIRCLE = regular.faUserCircle;
+    static readonly BARS = solid.faBars;
+    static readonly ANGLE_DOWN = solid.faAngleDown;
+    static readonly THREADS = brands.faThreads;
+    static readonly BOOKMARK = regular.faBookmark;
+    static readonly FILM = solid.faFilm;
+    static readonly CIRCLE_PLAY = regular.faCirclePlay;
+    static readonly CLIPBOARD_USER = solid.faClipboardUser;
+    static readonly ID_BADGE = regular.faIdBadge;
 }

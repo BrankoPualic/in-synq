@@ -10,11 +10,29 @@
 }
 
 // Flex styles
+.d-row {
+    display: flex;
+    flex-direction: row
+}
+.d-column {
+    display: flex;
+    flex-direction: column;
+}
+.flex-1 {
+    flex: 1;
+}
+
 .align-row-center {
     @include flex-center(row);
 }
 .align-column-center {
     @include flex-center(column);
+}
+.row-center-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
@@ -53,4 +71,39 @@
         rgba(17, 17, 26, 0.1) 0px -1px 0px,
         rgba(17, 17, 26, 0.1) 1px 0px 0px,
         rgba(17, 17, 26, 0.1) -1px 0px 0px;
+}
+.shadow-style-bottom {
+    box-shadow:
+        rgba(17, 17, 26, 0.1) 0px 1px 0px;
+}
+
+.height100 {
+    height: 100%;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.section-header {
+    font-size: 1.2rem !important;
+    font-weight: 600;
+}
+
+.small {
+    color: $grey;
+}
+
+.header {
+    height: 3rem;
+
+    .actions {
+        height: 100%;
+    }
+
+    fa-icon {
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+    }
 }

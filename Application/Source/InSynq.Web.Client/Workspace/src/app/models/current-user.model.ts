@@ -1,7 +1,7 @@
 import { eSystemRole } from '../_generated/enums';
 
 export interface ICurrentUser {
-  id?: string;
+  id?: number;
   username?: string;
   email?: string;
   roles?: eSystemRole[];

@@ -1,16 +1,15 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { BaseFormComponent } from '../../../base/base-form.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { GLOBAL_MODULES } from '../../../../_global.modules';
 import { ISigninDto } from '../../../_generated/interfaces';
+import { AuthController } from '../../../_generated/services';
+import { BaseFormComponent } from '../../../base/base-form.component';
+import { ValidationDirective } from '../../../directives/validation.directive';
+import { AuthService } from '../../../services/auth.service';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
-import { AuthService } from '../../../services/auth.service';
 import { ToastService } from '../../../services/toast.service';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { AuthController } from '../../../_generated/services';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { HttpErrorResponse } from '@angular/common/http';
-import { GLOBAL_MODULES } from '../../../../_global.modules';
-import { ValidationDirective } from '../../../directives/validation.directive';
 
 @Component({
   selector: 'app-signin',
