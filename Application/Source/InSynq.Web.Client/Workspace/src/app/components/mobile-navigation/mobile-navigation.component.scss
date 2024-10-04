@@ -6,20 +6,18 @@ fa-icon {
     align-items: center;
 }
 
-.header {
+.navigation {
     height: 3rem;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
 
-    .logo {
-        height: 100%;
-        width: 125px;
-
+    .icon {
+        width: 30px;
+        @include flex-center(column);
         svg {
             width: 100%;
             height: 100%;
         }
-    }
-
-    .actions {
-        height: 100%;
     }
 }

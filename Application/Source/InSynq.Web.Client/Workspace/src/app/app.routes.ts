@@ -4,12 +4,29 @@ import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
-        path: '',
-        title: 'Home | ' + Constants.TITLE,
-        loadComponent: () =>
-            import('./pages/home/home.component').then(_ => _.HomeComponent),
-        canActivate: [authGuard]
+        path: Constants.ROUTE_HOME,
+        canActivate: [authGuard],
+        runGuardsAndResolvers: 'always',
+        children: [
+            {
+                path: Constants.ROUTE_HOME,
+                title: 'Home | ' + Constants.TITLE,
+                loadComponent: () =>
+                    import('./pages/home/home.component').then(_ => _.HomeComponent),
+                pathMatch: 'full'
+            },
+
+            // Profile Pages
+            {
+                path: Constants.ROUTE_PROFILE,
+                title: 'Profile | ' + Constants.TITLE,
+                loadComponent: () =>
+                    import('./pages/profile/profile.component').then(_ => _.ProfileComponent)
+            }
+        ]
     },
+
+    // Authentication and Authorization Pages
     {
         path: Constants.ROUTE_AUTH,
         children: [
@@ -33,10 +50,7 @@ export const routes: Routes = [
         ]
     },
 
-
-
-    // Errors
-
+    // Error Pages
     {
         path: Constants.ROUTE_NOT_FOUND,
         title: 'Not Found | ' + Constants.TITLE,
