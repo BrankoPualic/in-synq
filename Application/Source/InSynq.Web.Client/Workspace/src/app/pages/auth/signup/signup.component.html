@@ -1,4 +1,4 @@
-<div class="col-12 py-3">
+<div class="col-12 py-3 container-fluid">
     <form [formGroup]="form" (onSubmit)="submit()" enctype="multipart/form-data">
         <h3 class="text-center mb-2" style="color: #609af8">Sign up</h3>
 
@@ -50,7 +50,7 @@
             <fa-icon [icon]="Icons.CALENDAR" class="form-input-icon"/>
         </div>
 
-        <div class="mb-2" appValidation="Details.GenderId">
+        <div class="mb-2" appValidation="GenderId">
             <label for="GenderId" class="form-label">Gender<app-required-field-mark/></label>
             <p-dropdown 
             [(ngModel)]="currentGender"
@@ -64,7 +64,7 @@
             </p-dropdown>
         </div>
 
-        <div class="mb-2" formGroupName="details" appValidation="Details.CountryId">
+        <div class="mb-2" appValidation="CountryId">
             <label for="CountryId" class="form-label">Country<app-required-field-mark/></label>
             <p-dropdown 
             [options]="countries"
@@ -92,12 +92,12 @@
             </p-dropdown>
         </div>
 
-        <div class="mb-2" formGroupName="details" appValidation="Details.Phone">
+        <div class="mb-2" appValidation="Phone">
             <label for="Phone" class="form-label">Phone<app-required-field-mark/></label>
             <input type="tel" class="form-control" id="Phone" formControlName="phone" />
         </div>
 
-        <div class="mb-2">
+        <div class="mb-2" appValidation="Biography">
             <label for="Biography" class="form-label">Biography</label>
             <textarea id="Biography" class="form-control" formControlName="biography" rows="5" style="resize: none;"></textarea>
         </div>
@@ -108,7 +108,7 @@
             mode="basic" 
             name="demo[]" 
             url="https://www.primefaces.org/cdn/api/upload.php" 
-            chooseLabel="Choose" 
+            chooseLabel="&nbsp;&nbsp;Choose" 
             chooseIcon="pi pi-upload"
             accept="image/*" 
             maxFileSize="1000000" 
@@ -116,7 +116,7 @@
             (onSelect)="onFileSelect($event)" />
         </div>
 
-        <div class="mb-2" formGroupName="details">
+        <div class="mb-2">
             <div class="form-check" aria-describedby="privacyHelp">
               <input
                 class="form-check-input"

@@ -8,7 +8,6 @@ namespace InSynq.Infrastructure.Data;
 
 public partial class DatabaseContext : DbContext
 {
-    private readonly string? _connectionString = null;
     private SqlConnection _sqlConnection;
     private ILoggerFactory _loggerFactory;
 
@@ -44,11 +43,11 @@ public partial class DatabaseContext : DbContext
     {
         _sqlConnection ??= new SqlConnection
         {
-            ConnectionString = _connectionString ?? Settings.Database
+            ConnectionString = Settings.Database
         };
 
         optionsBuilder.UseSqlServer(_sqlConnection, _ => _.CommandTimeout(600).EnableRetryOnFailure())
-            .LogTo(_ => Debug.WriteLine(_));
+            .LogTo(_ => Debug.WriteLine(_), LogLevel.Information);
 
         _loggerFactory ??= LoggerFactory.Create(_ => _.AddDebug());
 

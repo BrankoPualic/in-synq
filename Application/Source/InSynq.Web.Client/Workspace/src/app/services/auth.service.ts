@@ -4,17 +4,19 @@ import { Router } from '@angular/router';
 import { ITokenDto } from '../_generated/interfaces';
 import { DateTime } from 'luxon';
 import { eSystemRole } from '../_generated/enums';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   constructor(
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) { }
 
   signout() {
-    localStorage.removeItem('token');
+    this.storageService.remove('token');
     this.router.navigateByUrl('/');
   }
 
@@ -35,7 +37,7 @@ export class AuthService {
     else
       userSource.roles?.push(tokenInfo.ROLES);
 
-    localStorage.setItem('token', data.token);
+    this.storageService.set('token', data.token);
     this.router.navigateByUrl('/');
   }
 
@@ -59,7 +61,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    const token = localStorage.getItem('token');
+    const token = this.storageService.get('token');
     if (!token)
       return null;
 

@@ -11,4 +11,5 @@ export class IconConstants {
     static readonly SQUARE_PLUS = regular.faSquarePlus;
     static readonly COMMENT_DOTS = regular.faCommentDots;
     static readonly USER = regular.faUser;
+    static readonly USER_CIRCLE = regular.faUserCircle;
 }

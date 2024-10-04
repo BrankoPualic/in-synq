@@ -18,6 +18,7 @@ import { SettingsService } from './services/settings.service';
 
 import './extensions/observable-extension';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
+import { Providers } from './_generated/providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,9 +33,12 @@ export const appConfig: ApplicationConfig = {
 };
 
 function controllerProviders(): Provider[] {
-  return [clr.ProviderController, clr.AuthController];
+  return [
+    clr.ProviderController,
+    clr.AuthController,
+    clr.UserController];
 }
 
 function serviceProviders(): Provider[] {
-  return [SettingsService];
+  return [SettingsService, Providers];
 }
