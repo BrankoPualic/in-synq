@@ -6,7 +6,7 @@
         </div>
         @if(showPrivacy()){
             <div class="d-row align-items-center height-100">
-                <small class="small ms-2">{{ model?.privacy ? 'private' : 'public'}}</small>
+                <small class="light-grey ms-2">{{ model?.privacy ? 'private' : 'public'}}</small>
             </div>
         }
     </div>
@@ -18,15 +18,15 @@
             </div>
             <div class="d-row justify-content-between align-items-center flex-1 mx-4">
                 <div class="d-column align-items-center">
-                    <span>1</span>
+                    <span class="bold">1</span>
                     <small>posts</small>
                 </div>
                 <div class="d-column align-items-center">
-                    <span>1</span>
+                    <span class="bold" [ngClass]="{'light-grey': !model?.followers}" >{{ model?.followers }}</span>
                     <small>followers</small>
                 </div>
                 <div class="d-column align-items-center">
-                    <span>1</span>
+                    <span class="bold" [ngClass]="{'light-grey': !model?.following}" >{{ model?.following }}</span>
                     <small>following</small>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <img [src]="model?.country?.flagUrl" alt="Country flag">
                 </span>
             </div>
-            <div style="margin-top: -0.5rem;"><small class="small">&commat;{{ model?.username }}</small></div>
+            <div style="margin-top: -0.5rem;"><small class="light-grey">&commat;{{ model?.username }}</small></div>
         </div>
 
         <div class="my-2">

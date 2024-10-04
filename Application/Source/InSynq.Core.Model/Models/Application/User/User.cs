@@ -45,10 +45,10 @@ public class User : BaseIndexAuditedDomain<User, long>, IConfigurableEntity
     public virtual ICollection<UserRole> Roles { get; set; } = [];
 
     [InverseProperty(nameof(UserFollow.Follower))]
-    public virtual ICollection<UserFollow> Following { get; set; } = [];
+    public virtual ICollection<UserFollow> UserFollowing { get; set; } = [];
 
     [InverseProperty(nameof(UserFollow.Following))]
-    public virtual ICollection<UserFollow> Followers { get; set; } = [];
+    public virtual ICollection<UserFollow> UserFollowers { get; set; } = [];
 
     //
     // Indexes

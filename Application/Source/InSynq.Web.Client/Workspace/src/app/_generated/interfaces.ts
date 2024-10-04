@@ -69,4 +69,6 @@ export interface IUserDto
 	gender: ILookupValueDto;
 	country: ICountryDto;
 	privacy: boolean;
+	followers: number;
+	following: number;
 }

@@ -11,6 +11,8 @@ public partial class DatabaseContext : IDatabaseContext
 
     public virtual DbSet<UserSigninLog> Logins { get; set; }
 
+    public virtual DbSet<UserFollow> Follows { get; set; }
+
     // Reference Data
 
     public virtual DbSet<Country> Countries { get; set; }

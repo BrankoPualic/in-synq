@@ -3,6 +3,7 @@ using InSynq.Core.Dtos.User;
 using InSynq.Core.Interfaces.Person;
 using InSynq.Core.Model.Models.Application.User;
 using InSynq.Core.Search;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace InSynq.Core.Service.Services.Person;
@@ -12,7 +13,24 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
     public async Task<ResponseWrapper<UserDto>> GetSingleAsync(long id)
     {
         var result = await db.Users.GetSingleAsync(_ => _.Id == id, _ => _.Country);
-        return result == null ? new(ERROR_NOT_FOUND) : new(mapper.To<UserDto>(result));
+        if (result == null)
+            return new(ERROR_NOT_FOUND);
+
+        var follows = await db.Follows
+            .Where(_ => _.FollowerId == id || _.FollowingId == id)
+            .GroupBy(_ => _.FollowingId == id)
+            .Select(_ => new
+            {
+                Following = _.Count(_ => _.FollowingId == id),
+                Followers = _.Count(_ => _.FollowerId == id)
+            })
+            .FirstOrDefaultAsync();
+
+        var data = mapper.To<UserDto>(result);
+        data.Followers = follows?.Followers ?? 0;
+        data.Following = follows?.Following ?? 0;
+
+        return new(data);
     }
 
     public async Task<ResponseWrapper<PagingResultDto<UserDto>>> SearchAsync(UserSearchOptions options)

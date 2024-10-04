@@ -19,4 +19,8 @@ public class UserDto
     public CountryDto Country { get; set; }
 
     public bool Privacy { get; set; }
+
+    public long Followers { get; set; }
+
+    public long Following { get; set; }
 }
