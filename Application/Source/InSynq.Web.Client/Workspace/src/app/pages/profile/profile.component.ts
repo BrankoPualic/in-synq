@@ -17,12 +17,19 @@ import { ProfileVideosComponent } from './profile-videos/profile-videos.componen
 import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
 import { ProfileBookmarksComponent } from './profile-bookmarks/profile-bookmarks.component';
 
-enum ComponentState {
+enum eComponentState {
   Gallery = 1,
   Threads = 2,
   Videos = 3,
   Tags = 4,
   Bookmarks = 5
+}
+interface IComponentState {
+  gallery: boolean;
+  threads: boolean;
+  videos: boolean;
+  tags: boolean;
+  bookmarks: boolean;
 }
 @Component({
   selector: 'app-profile',
@@ -37,14 +44,8 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
   userId: number = 0;
   isFollowed = false;
   followData = {} as IFollowDto;
-  state = {
-    gallery: true,
-    threads: false,
-    videos: false,
-    tags: false,
-    bookmarks: false
-  }
-  ComponentState = ComponentState;
+  state = {} as IComponentState;
+  ComponentState = eComponentState;
 
   constructor(
     errorService: ErrorService,
@@ -70,10 +71,20 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = +params['get']('id')!;
+
       this.followData = {
         followerId: this.currentUser?.id || 0,
         followingId: this.userId
-      }
+      };
+
+      this.state = {
+        gallery: true,
+        threads: false,
+        videos: false,
+        tags: false,
+        bookmarks: false
+      };
+
       this.loadUser();
       this.isUserFollowed();
       this.loadComponent();
@@ -105,7 +116,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       .finally(() => this.loading = false);
   }
 
-  changeComponent(state: ComponentState): void {
+  changeComponent(state: eComponentState): void {
     this.state = {
       gallery: false,
       threads: false,
@@ -115,19 +126,19 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
     };
 
     switch (state) {
-      case ComponentState.Gallery:
+      case eComponentState.Gallery:
         this.state.gallery = true;
         break;
-      case ComponentState.Threads:
+      case eComponentState.Threads:
         this.state.threads = true;
         break;
-      case ComponentState.Videos:
+      case eComponentState.Videos:
         this.state.videos = true;
         break;
-      case ComponentState.Tags:
+      case eComponentState.Tags:
         this.state.tags = true;
         break;
-      case ComponentState.Bookmarks:
+      case eComponentState.Bookmarks:
         this.state.bookmarks = true;
         break;
       default:
