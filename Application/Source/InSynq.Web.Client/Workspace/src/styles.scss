@@ -102,7 +102,7 @@
 }
 
 .section-header {
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;
     font-weight: 600;
 }
 
@@ -121,8 +121,18 @@
     }
 
     fa-icon {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         display: flex;
         align-items: center;
     }
+}
+
+.relative {
+    position: relative;
+}
+.position-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

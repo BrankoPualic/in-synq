@@ -6,7 +6,8 @@ export class IconConstants {
     static readonly EYE = regular.faEye;
     static readonly EYE_SLASH = regular.faEyeSlash;
     static readonly CALENDAR = regular.faCalendar;
-    static readonly ARROW_LEFT_LONG = solid.faArrowLeftLong;
+    static readonly ANGLE_LEFT = solid.faAngleLeft;
+    static readonly ANGLE_RIGHT = solid.faAngleRight;
     static readonly HEART = regular.faHeart;
     static readonly MAGNIFYING_GLASS = solid.faMagnifyingGlass;
     static readonly SQUARE_PLUS = regular.faSquarePlus;
@@ -21,4 +22,6 @@ export class IconConstants {
     static readonly CIRCLE_PLAY = regular.faCirclePlay;
     static readonly CLIPBOARD_USER = solid.faClipboardUser;
     static readonly ID_BADGE = regular.faIdBadge;
+    static readonly GEAR = solid.faGear;
+    static readonly FOLDER = regular.faFolder;
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="header">
         <div class="float-start align-row-center height-100 section-header">{{ model?.username }} <fa-icon [icon]="Icons.ANGLE_DOWN" style="font-size: 0.8rem;" class="ms-1"/></div>
-        <div class="float-end actions align-row-center">
+        <div class="float-end actions align-row-center" routerLink="/profile/{{ userId }}/settings">
             <fa-icon [icon]="Icons.BARS"/>
         </div>
         @if(isMyProfile()){
@@ -199,9 +199,6 @@
             </div>
             <div class="icon" (click)="changeComponent(ComponentState.Tags)">
                 <fa-icon [icon]="Icons.ID_BADGE" style="font-size: 1.3rem;"/>
-            </div>
-            <div class="icon" (click)="changeComponent(ComponentState.Bookmarks)">
-                <fa-icon [icon]="Icons.BOOKMARK" style="font-size: 1.2rem;"/>
             </div>
         </div>
 

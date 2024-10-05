@@ -10,6 +10,7 @@ export class Constants {
     static readonly ROUTE_AUTH_SIGNUP = 'signup';
     static readonly ROUTE_AUTH_SIGNIN = 'signin';
     static readonly ROUTE_PROFILE = 'profile';
+    static readonly ROUTE_SETTINGS = 'settings';
 
     // Route Paths
     static readonly ROUTE_PATH_HOME = '/';
@@ -19,6 +20,7 @@ export class Constants {
     static readonly ROUTE_PATH_AUTH_SIGNUP = '/auth/signup';
     static readonly ROUTE_PATH_AUTH_SIGNIN = '/auth/signin';
     static readonly ROUTE_PATH_PROFILE = '/profile';
+    static readonly ROUTE_PATH_PROFILE_SETTINGS = '/settings'
 
     // Route Parameters
     static readonly PARAM_ID = ':id';

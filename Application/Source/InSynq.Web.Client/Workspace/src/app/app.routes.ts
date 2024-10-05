@@ -19,10 +19,21 @@ export const routes: Routes = [
             // Profile Pages
             {
                 path: Constants.ROUTE_PROFILE + '/' + Constants.PARAM_ID,
-                title: 'Profile | ' + Constants.TITLE,
-                loadComponent: () =>
-                    import('./pages/profile/profile.component').then(_ => _.ProfileComponent)
-            }
+                children: [
+                    {
+                        path: '',
+                        title: 'Profile | ' + Constants.TITLE,
+                        loadComponent: () =>
+                            import('./pages/profile/profile.component').then(_ => _.ProfileComponent),
+                    },
+                    {
+                        path: Constants.ROUTE_SETTINGS,
+                        title: 'Settings | ' + Constants.TITLE,
+                        loadComponent: () =>
+                            import('./pages/profile/profile-settings/profile-settings.component').then(_ => _.ProfileSettingsComponent)
+                    }
+                ]
+            },
         ]
     },
 

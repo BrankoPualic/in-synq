@@ -22,14 +22,12 @@ enum eComponentState {
   Threads = 2,
   Videos = 3,
   Tags = 4,
-  Bookmarks = 5
 }
 interface IComponentState {
   gallery: boolean;
   threads: boolean;
   videos: boolean;
   tags: boolean;
-  bookmarks: boolean;
 }
 @Component({
   selector: 'app-profile',
@@ -81,8 +79,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
         gallery: true,
         threads: false,
         videos: false,
-        tags: false,
-        bookmarks: false
+        tags: false
       };
 
       this.loadUser();
@@ -121,8 +118,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       gallery: false,
       threads: false,
       videos: false,
-      tags: false,
-      bookmarks: false
+      tags: false
     };
 
     switch (state) {
@@ -137,9 +133,6 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
         break;
       case eComponentState.Tags:
         this.state.tags = true;
-        break;
-      case eComponentState.Bookmarks:
-        this.state.bookmarks = true;
         break;
       default:
         this.state.gallery = true;
@@ -161,8 +154,6 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       component = ProfileVideosComponent;
     else if (this.state.tags)
       component = ProfileTagsComponent;
-    else if (this.state.bookmarks)
-      component = ProfileBookmarksComponent;
 
     this.container?.createComponent(component!);
   }
