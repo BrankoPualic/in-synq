@@ -1,6 +1,6 @@
 <div class="container-fluid header shadow-style-bottom relative">
     <div class="float-start actions align-row-center" (click)="goBack()">
-        <fa-icon [icon]="Icons.ANGLE_LEFT" style="font-size: 1.1rem;"/>
+        <span [class]="Icons.NG_ANGLE_LEFT" style="font-size: 1.1rem;"></span>
     </div>
     <div class="position-center bold">
         Settings
@@ -10,51 +10,51 @@
 <div class="container-fluid d-column">
     <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.GEAR"/>
+            <span [class]="Icons.NG_COG"></span>
             <span class="ms-2">Settings and privacy</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('archive')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.FOLDER"/>
+            <span [class]="Icons.NG_FOLDER"></span>
             <span class="ms-2">Archive</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('saved')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.BOOKMARK"/>
+            <span [class]="Icons.NG_BOOKMARK"></span>
             <span class="ms-2">Saved</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
     
     <div class="py-2 setting" [routerLink]="getRoute('report')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.BAN"/>
+            <span [class]="Icons.NG_BAN"></span>
             <span class="ms-2">Report</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('help')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.CIRCLE_QUESTION"/>
+            <span [class]="Icons.NG_QUESTION_CIRCLE"></span>
             <span class="ms-2">Help</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 </div>

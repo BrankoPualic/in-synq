@@ -1,19 +1,17 @@
 <div class="navigation container-fluid shadow-style align-row-center justify-content-between">
     <div class="icon" [routerLink]="[Constants.ROUTE_PATH_HOME]">
-        <svg width="906" height="906" viewBox="0 0 906 906" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M196.928 755.632V476.282H103.808L453 150.363L802.187 476.273H709.072V755.628H522.837V546.115H383.162V755.628L196.928 755.632Z" stroke="black" stroke-width="50" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+        <span [class]="Icons.NG_HOME" style="font-size: 1.3rem;"></span>
     </div>
     <div class="icon">
-        <fa-icon [icon]="Icons.MAGNIFYING_GLASS"/>
+         <span [class]="Icons.NG_SEARCH" style="font-size: 1.2rem;"></span>
     </div>
     <div class="icon">
-        <fa-icon [icon]="Icons.SQUARE_PLUS" style="font-size: 1.6rem;"/>
+         <span [class]="Icons.NG_PLUS_CIRCLE" style="font-size: 1.2rem;"></span>
     </div>
     <div class="icon">
-        <fa-icon [icon]="Icons.COMMENT_DOTS" style="font-size: 1.5rem;"/>
+         <span [class]="Icons.NG_COMMENT" style="font-size: 1.2rem;"></span>
     </div>
-    <div class="icon">
-        <fa-icon [icon]="Icons.USER_CIRCLE" [routerLink]="[Constants.ROUTE_PATH_PROFILE, currentUser?.id]"/>
+    <div class="icon" [routerLink]="[Constants.ROUTE_PATH_PROFILE, currentUser?.id]">
+        <span [class]="Icons.NG_USER" style="font-size: 1.2rem;"></span>
     </div>
 </div>

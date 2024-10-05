@@ -1,6 +1,6 @@
 <div class="container-fluid header shadow-style-bottom relative">
     <div class="float-start actions align-row-center" (click)="goBack()">
-        <fa-icon [icon]="Icons.ANGLE_LEFT" style="font-size: 1.1rem;"/>
+        <span [class]="Icons.NG_ANGLE_LEFT" style="font-size: 1.1rem;"></span>
     </div>
     <div class="position-center bold">
         Help
@@ -10,31 +10,31 @@
 <div class="container-fluid d-column">
     <div class="py-2 setting" [routerLink]="getRoute('help/help_desk')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.CIRCLE_QUESTION"/>
+            <span [class]="Icons.NG_QUESTION_CIRCLE"></span>
             <span class="ms-2">Help desk</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('help/privacy_policy')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.CIRCLE_INFO"/>
+            <span [class]="Icons.NG_INFO_CIRCLE"></span>
             <span class="ms-2">Privacy policy</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('help/terms_of_use')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.CIRCLE_INFO"/>
+            <span [class]="Icons.NG_INFO_CIRCLE"></span>
             <span class="ms-2">Terms of use</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 </div>

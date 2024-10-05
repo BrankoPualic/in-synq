@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
       <h2>Unauthorized!</h2>
       <h3>401</h3>
       <button class="btn btn-primary" (click)="goBack()">
-        <fa-icon [icon]="Icons.ANGLE_LEFT"></fa-icon> Go Back
+      <span [class]="Icons.NG_ANGLE_LEFT" style="font-size: 1.1rem;"></span> Go Back
       </button>
     </div>
   `,

@@ -1,6 +1,6 @@
 <div class="container-fluid header shadow-style-bottom relative">
     <div class="float-start actions align-row-center" (click)="goBack()">
-        <fa-icon [icon]="Icons.ANGLE_LEFT" style="font-size: 1.1rem;"/>
+        <span [class]="Icons.NG_ANGLE_LEFT" style="font-size: 1.1rem;"></span>
     </div>
     <div class="position-center bold">
         Settings and Privacy
@@ -10,41 +10,41 @@
 <div class="container-fluid d-column">
     <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy/profile_privacy')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.LOCK"/>
+            <span [class]="Icons.NG_LOCK"></span>
             <span class="ms-2">Profile privacy</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy/profile_about')">
         <div class="float-start actions align-row-center label">
-            <fa-icon [icon]="Icons.CIRCLE_INFO"/>
+            <span [class]="Icons.NG_INFO_CIRCLE"></span>
             <span class="ms-2">About your profile</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy/add_profile')">
         <div class="float-start actions align-row-center label green">
-            <fa-icon [icon]="Icons.USER_PLUS"/>
+            <span [class]="Icons.NG_USER_PLUS"></span>
             <span class="ms-2">Add profile</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 
     <div class="py-2 setting" (click)="signout()">
         <div class="float-start actions align-row-center label red">
-            <fa-icon [icon]="Icons.SIGNOUT"/>
+            <span [class]="Icons.NG_SIGNOUT"></span>
             <span class="ms-2">Sign out</span>
         </div>
         <div class="float-end arrow-right">
-            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
 </div>

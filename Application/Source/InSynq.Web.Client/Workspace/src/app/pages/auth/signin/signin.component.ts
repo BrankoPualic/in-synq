@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent extends BaseFormComponent<ISigninDto> implements OnInit {
   isPasswordVisible = false;
-  currentIcon = this.Icons.EYE_SLASH;
+  currentIcon = this.Icons.NG_EYE_SLASH;
 
   constructor
     (
@@ -63,7 +63,7 @@ export class SigninComponent extends BaseFormComponent<ISigninDto> implements On
   togglePassword(password: HTMLInputElement): void {
     this.isPasswordVisible = !this.isPasswordVisible;
     password.type = this.isPasswordVisible ? 'text' : 'password';
-    this.currentIcon = this.isPasswordVisible ? this.Icons.EYE : this.Icons.EYE_SLASH;
+    this.currentIcon = this.isPasswordVisible ? this.Icons.NG_EYE : this.Icons.NG_EYE_SLASH;
   }
 
 }
