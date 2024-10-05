@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ITokenDto } from './interfaces';
 import { ISigninDto } from './interfaces';
 import { ISignupDto } from './interfaces';
+import { IFollowDto } from './interfaces';
 import { ICountryDto } from './interfaces';
 import { IUserDto } from './interfaces';
 
@@ -34,6 +35,55 @@ import { IUserDto } from './interfaces';
 		const body = <any>data;
 		return this.httpClient.post<ITokenDto>(
 		this.settingsService.createApiUrl('Auth/Signup'),
+		body,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	constructor (httpClient: HttpClient, settingsService: SettingsService)
+	{
+		super(httpClient, settingsService);
+	}
+}
+@Injectable() export class FollowController extends BaseController
+{
+	public Follow(data: IFollowDto) : Observable<any>
+	{
+		const body = <any>data;
+		return this.httpClient.post<any>(
+		this.settingsService.createApiUrl('Follow/Follow'),
+		body,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	public Unfollow(data: IFollowDto) : Observable<any>
+	{
+		const body = <any>data;
+		return this.httpClient.post<any>(
+		this.settingsService.createApiUrl('Follow/Unfollow'),
+		body,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	public IsFollowing(data: IFollowDto) : Observable<boolean | null>
+	{
+		const body = <any>data;
+		return this.httpClient.post<boolean>(
+		this.settingsService.createApiUrl('Follow/IsFollowing'),
 		body,
 		{
 			responseType: 'json',

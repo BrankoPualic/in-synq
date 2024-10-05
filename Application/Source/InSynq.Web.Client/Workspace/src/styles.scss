@@ -36,7 +36,23 @@
 }
 
 
+// Button
+.btn-primary {
+    background-color: $blue;
+    border: none;
+}
+.btn-secondary {
+    background-color: $light;
+    border: none;
+}
+.btn-border {
+    border: 1px solid $light;
+}
+
 // Custom
+.w-49 {
+    width: 49% !important;
+}
 .backdrop {
     position: fixed;
     top: 0;

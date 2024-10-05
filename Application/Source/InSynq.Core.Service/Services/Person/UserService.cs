@@ -21,8 +21,8 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
             .GroupBy(_ => _.FollowingId == id)
             .Select(_ => new
             {
-                Following = _.Count(_ => _.FollowingId == id),
-                Followers = _.Count(_ => _.FollowerId == id)
+                Following = _.Count(_ => _.FollowerId == id),
+                Followers = _.Count(_ => _.FollowingId == id)
             })
             .FirstOrDefaultAsync();
 

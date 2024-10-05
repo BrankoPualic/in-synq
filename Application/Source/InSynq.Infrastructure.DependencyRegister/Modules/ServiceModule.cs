@@ -1,8 +1,10 @@
 ﻿using Autofac;
 using InSynq.Core;
 using InSynq.Core.Interfaces;
+using InSynq.Core.Interfaces.Follow;
 using InSynq.Core.Interfaces.Person;
 using InSynq.Core.Service.Services;
+using InSynq.Core.Service.Services.Follow;
 using InSynq.Core.Service.Services.Person;
 using StackExchange.Redis;
 
@@ -29,6 +31,7 @@ public class ServiceModule : Module
         builder.RegisterType<AuthService>().As<IAuthService>().InstancePerLifetimeScope();
 
         builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+        builder.RegisterType<FollowService>().As<IFollowService>().InstancePerLifetimeScope();
 
         base.Load(builder);
     }

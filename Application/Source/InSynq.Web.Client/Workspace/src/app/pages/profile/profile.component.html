@@ -4,7 +4,7 @@
         <div class="float-end actions align-row-center">
             <fa-icon [icon]="Icons.BARS"/>
         </div>
-        @if(showPrivacy()){
+        @if(isMyProfile()){
             <div class="d-row align-items-center height-100">
                 <small class="light-grey ms-2">{{ model?.privacy ? 'private' : 'public'}}</small>
             </div>
@@ -22,11 +22,11 @@
                     <small>posts</small>
                 </div>
                 <div class="d-column align-items-center">
-                    <span class="bold" [ngClass]="{'light-grey': !model?.followers}" >{{ model?.followers }}</span>
+                    <span class="bold" [ngClass]="{'light-grey': !model?.followers}" >{{ model?.followers || 0 }}</span>
                     <small>followers</small>
                 </div>
                 <div class="d-column align-items-center">
-                    <span class="bold" [ngClass]="{'light-grey': !model?.following}" >{{ model?.following }}</span>
+                    <span class="bold" [ngClass]="{'light-grey': !model?.following}" >{{ model?.following || 0 }}</span>
                     <small>following</small>
                 </div>
             </div>
@@ -44,6 +44,18 @@
 
         <div class="my-2">
             {{ model?.biography }}
+        </div>
+
+        <div class="d-flex justify-content-between">
+            @if(!isMyProfile()){
+                @if(isFollowed){
+                    <button class="btn btn-border w-49 p-1 mb-2" (click)="unfollow()">Unfollow</button>
+                    <button class="btn btn-border w-49 p-1 mb-2">Message</button>
+                }
+                @else {
+                    <button class="btn btn-primary w-100 p-1 mb-2" (click)="follow()">Follow</button>
+                }
+            }
         </div>
 
         <div class="d-row justify-content-between align-items-center shadow-style-bottom pb-2">

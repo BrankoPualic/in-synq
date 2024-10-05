@@ -1,3 +1,4 @@
+import { Router } from "@angular/router";
 import { AuthService } from "../services/auth.service";
 import { ErrorService } from "../services/error.service";
 import { PageLoaderService } from "../services/page-loader.service";
@@ -18,9 +19,10 @@ export abstract class BaseFormComponent<T extends object> extends BaseComponentG
             loaderService: PageLoaderService,
             authService: AuthService,
             toastService: ToastService,
+            router: Router,
             protected fb: FormBuilder
         ) {
-        super(errorService, loaderService, authService, toastService);
+        super(errorService, loaderService, authService, toastService, router);
 
         this.form = this.fb.group({});
         this.formData = new FormData();

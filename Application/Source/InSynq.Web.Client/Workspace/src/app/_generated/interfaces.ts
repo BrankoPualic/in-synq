@@ -9,6 +9,11 @@ export interface ICountryDto
 	dialCode: string;
 	flagUrl: string;
 }
+export interface IFollowDto
+{
+	followerId: number;
+	followingId: number;
+}
 export interface IEnumProvider
 {
 	id: number;

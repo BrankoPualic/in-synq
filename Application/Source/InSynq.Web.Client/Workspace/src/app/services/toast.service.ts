@@ -14,7 +14,6 @@ export class ToastService {
   }
 
   notifyError(message: string): void {
-    console.log(message)
     this._error.next(message);
   }
 

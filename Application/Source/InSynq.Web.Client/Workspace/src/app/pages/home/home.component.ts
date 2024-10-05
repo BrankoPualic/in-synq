@@ -11,5 +11,4 @@ import { MobileNavigationComponent } from "../../components/mobile-navigation/mo
   styleUrl: './home.component.scss'
 })
 export class HomeComponent extends BaseComponent {
-
 }

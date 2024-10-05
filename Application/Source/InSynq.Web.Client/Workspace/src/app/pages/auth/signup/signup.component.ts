@@ -16,6 +16,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { ToastService } from '../../../services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -40,12 +41,13 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
       loaderService: PageLoaderService,
       authService: AuthService,
       toastService: ToastService,
+      router: Router,
       fb: FormBuilder,
       private providerController: ProviderController,
       private authController: AuthController,
       private providers: Providers
     ) {
-    super(errorService, loaderService, authService, toastService, fb);
+    super(errorService, loaderService, authService, toastService, router, fb);
   }
 
   ngOnInit(): void {

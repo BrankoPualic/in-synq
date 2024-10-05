@@ -36,7 +36,9 @@ function controllerProviders(): Provider[] {
   return [
     clr.ProviderController,
     clr.AuthController,
-    clr.UserController];
+    clr.UserController,
+    clr.FollowController
+  ];
 }
 
 function serviceProviders(): Provider[] {

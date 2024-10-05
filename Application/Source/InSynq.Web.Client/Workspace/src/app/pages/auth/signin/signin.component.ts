@@ -10,6 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { ToastService } from '../../../services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -28,10 +29,11 @@ export class SigninComponent extends BaseFormComponent<ISigninDto> implements On
       loaderService: PageLoaderService,
       authService: AuthService,
       toastService: ToastService,
+      router: Router,
       fb: FormBuilder,
       private authController: AuthController
     ) {
-    super(errorService, loaderService, authService, toastService, fb);
+    super(errorService, loaderService, authService, toastService, router, fb);
   }
 
   ngOnInit(): void {

@@ -1,14 +1,15 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { BaseConstants, IBaseComponent } from "../models/base-component.model";
+import { Router } from "@angular/router";
 import { Subject, takeUntil } from "rxjs";
-import { PageLoaderService } from "../services/page-loader.service";
-import { ErrorService } from "../services/error.service";
 import { eSystemRole } from "../_generated/enums";
-import { AuthService } from "../services/auth.service";
-import { INameofOptions } from "../models/function-options.model";
 import { Functions } from "../functions";
-import { ToastService } from "../services/toast.service";
+import { BaseConstants, IBaseComponent } from "../models/base-component.model";
 import { ICurrentUser } from "../models/current-user.model";
+import { INameofOptions } from "../models/function-options.model";
+import { AuthService } from "../services/auth.service";
+import { ErrorService } from "../services/error.service";
+import { PageLoaderService } from "../services/page-loader.service";
+import { ToastService } from "../services/toast.service";
 
 @Injectable()
 export abstract class BaseComponent extends BaseConstants implements IBaseComponent, OnDestroy {
@@ -23,7 +24,8 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
             protected errorService: ErrorService,
             protected loaderService: PageLoaderService,
             protected authService: AuthService,
-            private toastService: ToastService
+            private toastService: ToastService,
+            private router: Router
         ) {
         super();
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);
@@ -52,6 +54,11 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
         const message = Object.values(error).flat().join('\r\n');
         this.toastService.notifyError(message);
     }
+    errorAndRedirect(error: Record<string, string[]>) {
+        this.error(error);
+        this.router.navigateByUrl('/');
+    }
+
     warning(error: Record<string, string[]>) {
         const message = Object.values(error).flat().join('\r\n');
         this.toastService.notifyWarning(message);
