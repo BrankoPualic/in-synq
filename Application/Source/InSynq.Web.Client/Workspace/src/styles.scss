@@ -112,6 +112,12 @@
 .light-grey {
     color: $light-grey;
 }
+.red {
+    color: $error;
+}
+.green {
+    color: $success;
+}
 
 .header {
     height: 3rem;

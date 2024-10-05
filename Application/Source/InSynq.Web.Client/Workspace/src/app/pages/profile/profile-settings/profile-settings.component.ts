@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { GLOBAL_MODULES } from '../../../../_global.modules';
-import { BaseConstants } from '../../../models/base-component.model';
 import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { GLOBAL_MODULES } from '../../../../_global.modules';
+import { BaseProfileSettingsComponent } from '../../../base/base-profile-settings.component';
 
 @Component({
   selector: 'app-profile-settings',
@@ -10,10 +11,8 @@ import { Location } from '@angular/common';
   templateUrl: './profile-settings.component.html',
   styleUrl: './profile-settings.component.scss'
 })
-export class ProfileSettingsComponent extends BaseConstants {
-  constructor(private location: Location) {
-    super()
+export class ProfileSettingsComponent extends BaseProfileSettingsComponent {
+  constructor(location: Location, route: ActivatedRoute) {
+    super(location, route)
   }
-
-  goBack = () => this.location.back();
 }

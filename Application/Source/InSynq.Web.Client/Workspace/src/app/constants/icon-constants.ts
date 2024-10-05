@@ -24,4 +24,10 @@ export class IconConstants {
     static readonly ID_BADGE = regular.faIdBadge;
     static readonly GEAR = solid.faGear;
     static readonly FOLDER = regular.faFolder;
+    static readonly BAN = solid.faBan;
+    static readonly CIRCLE_QUESTION = regular.faCircleQuestion;
+    static readonly CIRCLE_INFO = solid.faInfoCircle;
+    static readonly LOCK = solid.faLock;
+    static readonly SIGNOUT = solid.faArrowRightToBracket;
+    static readonly USER_PLUS = solid.faUserPlus;
 }

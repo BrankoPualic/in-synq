@@ -8,8 +8,8 @@
 </div>
 
 <div class="container-fluid d-column">
-    <div class="py-2 setting">
-        <div class="float-start actions align-row-center">
+    <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy')">
+        <div class="float-start actions align-row-center label">
             <fa-icon [icon]="Icons.GEAR"/>
             <span class="ms-2">Settings and privacy</span>
         </div>
@@ -18,8 +18,8 @@
         </div>
     </div>
 
-    <div class="py-2 setting">
-        <div class="float-start actions align-row-center">
+    <div class="py-2 setting" [routerLink]="getRoute('archive')">
+        <div class="float-start actions align-row-center label">
             <fa-icon [icon]="Icons.FOLDER"/>
             <span class="ms-2">Archive</span>
         </div>
@@ -28,10 +28,30 @@
         </div>
     </div>
 
-    <div class="py-2 setting">
-        <div class="float-start actions align-row-center">
+    <div class="py-2 setting" [routerLink]="getRoute('saved')">
+        <div class="float-start actions align-row-center label">
             <fa-icon [icon]="Icons.BOOKMARK"/>
             <span class="ms-2">Saved</span>
+        </div>
+        <div class="float-end arrow-right">
+            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+        </div>
+    </div>
+    
+    <div class="py-2 setting" [routerLink]="getRoute('report')">
+        <div class="float-start actions align-row-center label">
+            <fa-icon [icon]="Icons.BAN"/>
+            <span class="ms-2">Report</span>
+        </div>
+        <div class="float-end arrow-right">
+            <fa-icon [icon]="Icons.ANGLE_RIGHT"/>
+        </div>
+    </div>
+
+    <div class="py-2 setting" [routerLink]="getRoute('help')">
+        <div class="float-start actions align-row-center label">
+            <fa-icon [icon]="Icons.CIRCLE_QUESTION"/>
+            <span class="ms-2">Help</span>
         </div>
         <div class="float-end arrow-right">
             <fa-icon [icon]="Icons.ANGLE_RIGHT"/>

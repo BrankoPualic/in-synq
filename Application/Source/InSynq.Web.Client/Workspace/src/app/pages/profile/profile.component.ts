@@ -1,21 +1,20 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL_MODULES } from '../../../_global.modules';
+import { eGender } from '../../_generated/enums';
+import { IFollowDto, IUserDto } from '../../_generated/interfaces';
+import { FollowController, UserController } from '../../_generated/services';
 import { BaseComponentGeneric } from '../../base/base.component';
+import { MobileNavigationComponent } from "../../components/mobile-navigation/mobile-navigation.component";
 import { AuthService } from '../../services/auth.service';
 import { ErrorService } from '../../services/error.service';
 import { PageLoaderService } from '../../services/page-loader.service';
 import { ToastService } from '../../services/toast.service';
-import { MobileNavigationComponent } from "../../components/mobile-navigation/mobile-navigation.component";
-import { FollowController, UserController } from '../../_generated/services';
-import { IFollowDto, IUserDto } from '../../_generated/interfaces';
-import { HttpErrorResponse } from '@angular/common/http';
-import { eGender } from '../../_generated/enums';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.component';
+import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
 import { ProfileThreadsComponent } from './profile-threads/profile-threads.component';
 import { ProfileVideosComponent } from './profile-videos/profile-videos.component';
-import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
-import { ProfileBookmarksComponent } from './profile-bookmarks/profile-bookmarks.component';
 
 enum eComponentState {
   Gallery = 1,
@@ -39,7 +38,7 @@ interface IComponentState {
 export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements OnInit {
   @ViewChild('container', { read: ViewContainerRef, static: true }) container?: ViewContainerRef;
   model: IUserDto | null = null;
-  userId: number = 0;
+  userId = 0;
   isFollowed = false;
   followData = {} as IFollowDto;
   state = {} as IComponentState;
