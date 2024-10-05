@@ -14,6 +14,6 @@
         <fa-icon [icon]="Icons.COMMENT_DOTS" style="font-size: 1.5rem;"/>
     </div>
     <div class="icon">
-        <fa-icon [icon]="Icons.USER_CIRCLE" [routerLink]="[Constants.ROUTE_PATH_PROFILE]"/>
+        <fa-icon [icon]="Icons.USER_CIRCLE" [routerLink]="[Constants.ROUTE_PATH_PROFILE, currentUser?.id]"/>
     </div>
 </div>

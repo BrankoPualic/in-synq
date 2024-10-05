@@ -18,7 +18,7 @@ export const routes: Routes = [
 
             // Profile Pages
             {
-                path: Constants.ROUTE_PROFILE,
+                path: Constants.ROUTE_PROFILE + '/' + Constants.PARAM_ID,
                 title: 'Profile | ' + Constants.TITLE,
                 loadComponent: () =>
                     import('./pages/profile/profile.component').then(_ => _.ProfileComponent)

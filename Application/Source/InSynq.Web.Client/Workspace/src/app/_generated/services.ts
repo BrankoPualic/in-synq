@@ -71,11 +71,9 @@ import { IUserDto } from './interfaces';
 {
 	public GetSingle(id: number) : Observable<IUserDto | null>
 	{
-		const body = <any>{'id': id};
 		return this.httpClient.get<IUserDto>(
-		this.settingsService.createApiUrl('User/GetSingle'),
+		this.settingsService.createApiUrl('User/GetSingle') + '/' + id,
 		{
-			params: new HttpParams({ fromObject: body }),
 			responseType: 'json',
 			observe: 'response',
 			withCredentials: true
