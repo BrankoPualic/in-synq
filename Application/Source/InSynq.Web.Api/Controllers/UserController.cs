@@ -20,6 +20,11 @@ public class UserController(IUserService userService) : BaseController
     [AngularMethod(typeof(UserDto))]
     public async Task<IActionResult> GetCurrentUser(long id) => Result(await userService.GetCurrentUserAsync(id));
 
+    [HttpGet("{id}")]
+    [Authorize]
+    [AngularMethod(typeof(UserLogDto))]
+    public async Task<IActionResult> GetUserLog(long id) => Result(await userService.GetUserLogAsync(id));
+
     [HttpGet]
     [Authorize]
     [AngularMethod(typeof(IEnumerable<UserDto>))]

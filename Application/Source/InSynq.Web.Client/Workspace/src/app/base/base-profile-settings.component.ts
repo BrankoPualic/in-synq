@@ -6,9 +6,11 @@ import { ErrorService } from "../services/error.service";
 import { PageLoaderService } from "../services/page-loader.service";
 import { ToastService } from "../services/toast.service";
 import { BaseComponent } from "./base.component";
+import { IUserDto } from "../_generated/interfaces";
 
 @Injectable()
 export class BaseProfileSettingsComponent extends BaseComponent {
+    profile: IUserDto | null = null;
     userId = 0;
 
     constructor(

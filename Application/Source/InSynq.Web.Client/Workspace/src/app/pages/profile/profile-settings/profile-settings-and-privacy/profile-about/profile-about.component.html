@@ -6,3 +6,41 @@
         About Your Profile
     </div>
 </div>
+
+<div class="container-fluid d-column align-items-center my-3">
+    <div class="profile-photo">
+        <img [src]="profile?.profileImageUrl" alt="Profile photo">
+    </div>
+    <div class="bold mt-2" style="font-size: 1.1rem;">
+        {{ profile?.username }}
+    </div>
+    <small class="light-grey text-center">
+        Here, you can view and update your personal details, including your name and other relevant information. Ensure your profile reflects the most accurate information for a better experience!
+    </small>
+</div>
+
+<div class="container-fluid">
+    <div class="mt-2 d-row align-items-center w-100">
+        <span class="me-2">Date Joined:</span>
+        <span class="light-grey">{{ profile?.createdOn | date: 'longDate' }}</span>
+    </div>
+    <div class="mt-2 d-row align-items-center justify-content-between w-100" (click)="showUsernames()">
+        <div>
+            <span class="me-2">Past Usernames:</span>
+            <span class="light-grey">{{ userLog?.usernameCount }}</span>
+        </div>
+        <span [class]="Icons.NG_ANGLE_RIGHT" class="arrow-right"></span>
+    </div>
+</div>
+
+<p-dialog 
+    header="Past Usernames" 
+    [(visible)]="usernamesVisible" 
+    [modal]="true" 
+    [style]="{ width: '80vw' }" 
+    [draggable]="false" 
+    [resizable]="false">
+        <p>
+            {{ userLog?.usernames?.join(', ') }}
+        </p>
+</p-dialog>

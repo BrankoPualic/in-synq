@@ -8,6 +8,8 @@ public interface IUserService
 
     Task<ResponseWrapper<UserDto>> GetCurrentUserAsync(long id);
 
+    Task<ResponseWrapper<UserLogDto>> GetUserLogAsync(long id);
+
     Task<ResponseWrapper<PagingResultDto<UserDto>>> SearchAsync(UserSearchOptions options);
 
     Task<ResponseWrapper> UpdateAsync(UserDto data);

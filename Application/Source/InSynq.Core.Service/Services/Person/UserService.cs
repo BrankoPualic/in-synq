@@ -39,6 +39,17 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
         return result == null ? new(ERROR_NOT_FOUND) : new(mapper.To<UserDto>(result));
     }
 
+    public async Task<ResponseWrapper<UserLogDto>> GetUserLogAsync(long id)
+    {
+        var result = await db.User_aud
+            .Where(_ => _.Id == id)
+            .Select(_ => _.Username)
+            .Distinct()
+            .ToListAsync();
+
+        return new(new UserLogDto { Usernames = result, UsernameCount = result.Count });
+    }
+
     public async Task<ResponseWrapper<PagingResultDto<UserDto>>> SearchAsync(UserSearchOptions options)
     {
         var filters = new List<Expression<Func<User, bool>>>();

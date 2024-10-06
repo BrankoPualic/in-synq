@@ -80,4 +80,10 @@ export interface IUserDto
 	privacy: boolean;
 	followers: number;
 	following: number;
+	createdOn: Date;
+}
+export interface IUserLogDto
+{
+	usernameCount: number;
+	usernames: string[];
 }

@@ -23,7 +23,6 @@ import { QueueService } from '../../../../../services/queue.service';
   styleUrl: './profile-privacy.component.scss'
 })
 export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implements OnInit {
-  profile: IUserDto | null = null;
   privacy = false;
 
   constructor(

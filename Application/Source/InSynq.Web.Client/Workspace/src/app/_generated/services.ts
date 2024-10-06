@@ -9,6 +9,7 @@ import { ISignupDto } from './interfaces';
 import { IFollowDto } from './interfaces';
 import { ICountryDto } from './interfaces';
 import { IUserDto } from './interfaces';
+import { IUserLogDto } from './interfaces';
 
 @Injectable() export class BaseController
 {
@@ -135,6 +136,18 @@ import { IUserDto } from './interfaces';
 	{
 		return this.httpClient.get<IUserDto>(
 		this.settingsService.createApiUrl('User/GetCurrentUser') + '/' + id,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	public GetUserLog(id: number) : Observable<IUserLogDto | null>
+	{
+		return this.httpClient.get<IUserLogDto>(
+		this.settingsService.createApiUrl('User/GetUserLog') + '/' + id,
 		{
 			responseType: 'json',
 			observe: 'response',

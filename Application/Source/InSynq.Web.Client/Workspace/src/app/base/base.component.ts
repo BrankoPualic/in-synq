@@ -24,8 +24,8 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
             protected errorService: ErrorService,
             protected loaderService: PageLoaderService,
             protected authService: AuthService,
-            private toastService: ToastService,
-            private router: Router
+            protected toastService: ToastService,
+            protected router: Router
         ) {
         super();
         loaderService.loaderState$.pipe(takeUntil(this._destroy$)).subscribe(_ => this._loading = _);

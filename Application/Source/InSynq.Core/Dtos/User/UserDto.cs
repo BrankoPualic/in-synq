@@ -33,6 +33,8 @@ public class UserDto
 
     public long Following { get; set; }
 
+    public DateTime CreatedOn { get; set; }
+
     public void ToModel(User_ model)
     {
         // BPR: Validate fields on update
