@@ -15,6 +15,7 @@ import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.compo
 import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
 import { ProfileThreadsComponent } from './profile-threads/profile-threads.component';
 import { ProfileVideosComponent } from './profile-videos/profile-videos.component';
+import { ProfileService } from '../../services/profile.service';
 
 enum eComponentState {
   Gallery = 1,
@@ -51,6 +52,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
     toastService: ToastService,
     router: Router,
     private route: ActivatedRoute,
+    private profileService: ProfileService,
     private userController: UserController,
     private followController: FollowController
   ) {
@@ -58,11 +60,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
   }
 
   get profilePhoto(): string {
-    return this.model?.profileImageUrl ||
-      `../../../assets/images/${this.model?.gender.id === eGender.Male
-        ? 'default-avatar-profile-picture-male-icon.png'
-        : 'default-avatar-profile-picture-female-icon.png'}`;
-
+    return this.profileService.getProfilePhoto(this.model?.profileImageUrl, this.model?.gender.id);
   }
 
   ngOnInit(): void {

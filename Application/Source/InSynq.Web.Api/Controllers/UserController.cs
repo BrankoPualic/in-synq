@@ -15,8 +15,18 @@ public class UserController(IUserService userService) : BaseController
     [AngularMethod(typeof(UserDto))]
     public async Task<IActionResult> GetSingle(long id) => Result(await userService.GetSingleAsync(id));
 
+    [HttpGet("{id}")]
+    [Authorize]
+    [AngularMethod(typeof(UserDto))]
+    public async Task<IActionResult> GetCurrentUser(long id) => Result(await userService.GetCurrentUserAsync(id));
+
     [HttpGet]
     [Authorize]
     [AngularMethod(typeof(IEnumerable<UserDto>))]
     public async Task<IActionResult> Search(UserSearchOptions options) => Result(await userService.SearchAsync(options));
+
+    [HttpPost]
+    [Authorize]
+    [AngularMethod(typeof(void))]
+    public async Task<IActionResult> Update(UserDto data) => Result(await userService.UpdateAsync(data));
 }

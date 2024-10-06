@@ -6,5 +6,9 @@ public interface IUserService
 {
     Task<ResponseWrapper<UserDto>> GetSingleAsync(long id);
 
+    Task<ResponseWrapper<UserDto>> GetCurrentUserAsync(long id);
+
     Task<ResponseWrapper<PagingResultDto<UserDto>>> SearchAsync(UserSearchOptions options);
+
+    Task<ResponseWrapper> UpdateAsync(UserDto data);
 }

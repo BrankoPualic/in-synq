@@ -6,3 +6,25 @@
         Profile Privacy
     </div>
 </div>
+
+<div class="container-fluid d-column align-items-center my-3">
+    <div class="profile-photo">
+        <img [src]="profile?.profileImageUrl" alt="Profile photo">
+    </div>
+    <div class="bold mt-2" style="font-size: 1.1rem;">
+        {{ profile?.username }}
+    </div>
+    <small class="light-grey text-center">
+        Setting your profile to private means only people you approve as followers will be able to see your posts, stories, and personal information. This gives you full control over who can interact with your content on the platform.
+    </small>
+
+</div>
+
+<div class="container-fluid">
+    <div class="mt-2 d-row align-items-center justify-content-between w-100">
+        <span class="bold">Private</span>
+        <span>
+            <p-inputSwitch [(ngModel)]="privacy"/>
+        </span>
+    </div>
+</div>

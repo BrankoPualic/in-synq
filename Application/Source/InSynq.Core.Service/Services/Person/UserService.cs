@@ -33,6 +33,12 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
         return new(data);
     }
 
+    public async Task<ResponseWrapper<UserDto>> GetCurrentUserAsync(long id)
+    {
+        var result = await db.Users.GetSingleAsync(_ => _.Id == CurrentUser.Id, _ => _.Country);
+        return result == null ? new(ERROR_NOT_FOUND) : new(mapper.To<UserDto>(result));
+    }
+
     public async Task<ResponseWrapper<PagingResultDto<UserDto>>> SearchAsync(UserSearchOptions options)
     {
         var filters = new List<Expression<Func<User, bool>>>();
@@ -50,5 +56,13 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
             Total = result.Total,
             Data = mapper.To<UserDto>(result.Data)
         });
+    }
+
+    public async Task<ResponseWrapper> UpdateAsync(UserDto data)
+    {
+        var model = await db.Users.FindAsync(data.Id);
+        data.ToModel(model);
+        await db.SaveChangesAsync();
+        return new();
     }
 }

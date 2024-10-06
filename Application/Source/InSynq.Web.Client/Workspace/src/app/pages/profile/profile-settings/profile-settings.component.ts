@@ -1,8 +1,12 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL_MODULES } from '../../../../_global.modules';
 import { BaseProfileSettingsComponent } from '../../../base/base-profile-settings.component';
+import { ErrorService } from '../../../services/error.service';
+import { PageLoaderService } from '../../../services/page-loader.service';
+import { AuthService } from '../../../services/auth.service';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -12,7 +16,15 @@ import { BaseProfileSettingsComponent } from '../../../base/base-profile-setting
   styleUrl: './profile-settings.component.scss'
 })
 export class ProfileSettingsComponent extends BaseProfileSettingsComponent {
-  constructor(location: Location, route: ActivatedRoute) {
-    super(location, route)
+  constructor(
+    errorService: ErrorService,
+    loaderService: PageLoaderService,
+    authService: AuthService,
+    toastService: ToastService,
+    router: Router,
+    location: Location,
+    route: ActivatedRoute,
+  ) {
+    super(errorService, loaderService, authService, toastService, router, location, route)
   }
 }

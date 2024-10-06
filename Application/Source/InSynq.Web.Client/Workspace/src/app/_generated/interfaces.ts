@@ -69,8 +69,12 @@ export interface IUserDto
 	id: number;
 	username: string;
 	fullName: string;
+	firstName: string;
+	middleName: string;
+	lastName: string;
 	profileImageUrl: string;
 	biography: string;
+	genderId: eGender;
 	gender: ILookupValueDto;
 	country: ICountryDto;
 	privacy: boolean;

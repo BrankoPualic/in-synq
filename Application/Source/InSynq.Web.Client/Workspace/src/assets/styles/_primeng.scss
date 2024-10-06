@@ -59,6 +59,13 @@
             }
         }
     }
+
+    // Inputswitch
+    .p-inputswitch.p-inputswitch-checked {
+        .p-inputswitch-slider {
+            background-color: $primary;
+        }
+    }
 }
 
 .p-dropdown-items-wrapper {

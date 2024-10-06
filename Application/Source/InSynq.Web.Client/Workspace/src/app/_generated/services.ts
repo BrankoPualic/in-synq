@@ -131,6 +131,18 @@ import { IUserDto } from './interfaces';
 		.pipe(map(response => response.body));
 		
 	}
+	public GetCurrentUser(id: number) : Observable<IUserDto | null>
+	{
+		return this.httpClient.get<IUserDto>(
+		this.settingsService.createApiUrl('User/GetCurrentUser') + '/' + id,
+		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
 	public Search(options: any) : Observable<IUserDto[] | null>
 	{
 		const body = <any>{'options': options};
@@ -138,6 +150,20 @@ import { IUserDto } from './interfaces';
 		this.settingsService.createApiUrl('User/Search'),
 		{
 			params: new HttpParams({ fromObject: body }),
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	public Update(data: IUserDto) : Observable<any>
+	{
+		const body = <any>data;
+		return this.httpClient.post<any>(
+		this.settingsService.createApiUrl('User/Update'),
+		body,
+		{
 			responseType: 'json',
 			observe: 'response',
 			withCredentials: true
