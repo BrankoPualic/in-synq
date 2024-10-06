@@ -13,6 +13,7 @@ import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { AuthService } from '../../../../../services/auth.service';
 import { ToastService } from '../../../../../services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { QueueService } from '../../../../../services/queue.service';
 
 @Component({
   selector: 'app-profile-privacy',
@@ -33,6 +34,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
     router: Router,
     location: Location,
     route: ActivatedRoute,
+    private $q: QueueService,
     private profileService: ProfileService,
     private userController: UserController
   ) {
@@ -51,14 +53,13 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
       this.profile.privacy = this.privacy;
 
     this.loading = true;
-    this.userController.Update(this.profile ?? {} as IUserDto).toPromise()
-      .then(() => {
-        this.userController.GetSingle(this.profile!.id).toPromise()
-          .then(_ => {
-            this.profileService.setProfile(_!);
-            this.location.back();
-          })
-          .catch((_: HttpErrorResponse) => this.error(_.error.errors));
+    this.$q.sequential([
+      () => this.userController.Update(this.profile ?? {} as IUserDto).toPromise(),
+      () => this.userController.GetSingle(this.profile!.id).toPromise()
+    ])
+      .then((result) => {
+        this.profileService.setProfile(result[1]);
+        this.location.back();
       })
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
       .finally(() => this.loading = false);
