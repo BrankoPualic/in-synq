@@ -5,10 +5,11 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { LoaderComponent } from './components/loader.component';
 import { ToastService } from './services/toast.service';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastModule, RippleModule, LoaderComponent],
+  imports: [RouterOutlet, ToastModule, RippleModule, LoaderComponent, ConfirmDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [MessageService]

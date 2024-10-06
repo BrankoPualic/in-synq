@@ -79,3 +79,14 @@
         border-color: $error;
     }
 }
+
+// Confirmation dialog
+
+// Custom overlay for dialog (replacing surface-overlay)
+.custom-confirm-overlay {
+    background-color: white;  // Dark semi-transparent overlay
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+}

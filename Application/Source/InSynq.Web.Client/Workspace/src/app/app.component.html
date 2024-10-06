@@ -4,3 +4,17 @@
 
 <p-toast [life]="5000" [baseZIndex]="10000"/>
 <app-loader/>
+<p-confirmDialog #cd>
+    <ng-template pTemplate="headless" let-message>
+        <div class="custom-confirm-overlay d-column align-items-center">
+            <span class="block mb-2 bold blue" style="font-size: 1.3rem;">
+                {{ message.header }}
+            </span>
+            <p class="mb-0 grey">{{ message.message }}</p>
+            <div class="d-row justify-content-end mt-3">
+                <button class="btn btn-primary me-2" (click)="cd.accept()">Proceed</button>
+                <button class="btn btn-border" (click)="cd.reject()">Cancel</button>
+            </div>
+        </div>
+    </ng-template>
+</p-confirmDialog>

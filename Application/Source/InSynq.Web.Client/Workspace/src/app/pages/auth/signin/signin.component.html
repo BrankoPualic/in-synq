@@ -10,7 +10,7 @@
         <div class="mb-2" style="position: relative;" appValidation="Password">
             <label for="Password" class="form-label">Password</label>
             <input type="password" class="form-control" id="Password" formControlName="password" #password>
-            <fa-icon [icon]="currentIcon" class="form-input-icon" (click)="togglePassword(password)"/>
+            <span [class]="currentIcon" class="form-input-icon" (click)="togglePassword(password)"></span>
         </div>
 
         <div>

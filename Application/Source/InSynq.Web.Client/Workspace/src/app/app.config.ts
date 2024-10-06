@@ -19,6 +19,7 @@ import { SettingsService } from './services/settings.service';
 import './extensions/observable-extension';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
 import { Providers } from './_generated/providers';
+import { ConfirmationService } from 'primeng/api';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,5 +43,9 @@ function controllerProviders(): Provider[] {
 }
 
 function serviceProviders(): Provider[] {
-  return [SettingsService, Providers];
+  return [
+    Providers,
+    SettingsService,
+    ConfirmationService
+  ];
 }

@@ -7,11 +7,21 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const storageService = inject(StorageService);
 
+  const url = state.url;
   const token = storageService.get('token');
-  if (!token) {
-    router.navigateByUrl(Constants.ROUTE_AUTH_SIGNIN);
-    return false;
+
+  if (typeof window !== 'undefined') {
+    if (!token && !url.includes('auth')) {
+      router.navigateByUrl(Constants.ROUTE_PATH_AUTH);
+      return false;
+    }
+    else if (token && url.includes('auth')) {
+      router.navigateByUrl(Constants.ROUTE_PATH_HOME)
+      return false;
+    }
+
+    return true;
   }
 
-  return true;
+  return false;
 };

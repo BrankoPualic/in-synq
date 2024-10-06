@@ -8,11 +8,11 @@ import { Location } from '@angular/common';
   standalone: true,
   imports: [GLOBAL_MODULES, RouterLink],
   template: `
-    <div class="text-center">
+    <div class="d-column align-items-center pt-3">
       <h2>Page Not Found!</h2>
       <h3>404</h3>
-      <button class="btn btn-primary" (click)="goBack()">
-        <span [class]="Icons.NG_ANGLE_LEFT" style="font-size: 1.1rem;"></span> Go Back
+      <button class="btn btn-primary d-row align-items-center" (click)="goBack()">
+        <span [class]="Icons.NG_ANGLE_LEFT" class="me-2" style="font-size: 1.1rem;"></span> Go Back
       </button>
     </div>
   `,

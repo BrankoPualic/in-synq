@@ -121,6 +121,7 @@ export const routes: Routes = [
     // Authentication and Authorization Pages
     {
         path: Constants.ROUTE_AUTH,
+        canActivate: [authGuard],
         children: [
             {
                 path: Constants.ROUTE_AUTH_SIGNIN,
