@@ -19,4 +19,6 @@ public static class StringExtensions
     public static bool HasValue(this string text) => text.IsNotNullOrEmpty() && text.IsNotNullOrWhiteSpace();
 
     public static bool In(this string text, params string[] args) => args.Contains(text);
+
+    public static string TrimText(this string text) => text.IsNotNullOrWhiteSpace() ? text.TrimStart(' ', '\n', '\r').TrimEnd(' ', '\n', '\r') : text;
 }

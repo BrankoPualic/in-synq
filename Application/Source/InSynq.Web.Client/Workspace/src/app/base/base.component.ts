@@ -49,6 +49,8 @@ export abstract class BaseComponent extends BaseConstants implements IBaseCompon
             this.loaderService.hide();
     }
 
+    clone = Functions.clone;
+
     // Notiifcations
     error(error: Record<string, string[]>) {
         const message = Object.values(error).flat().join('\r\n');

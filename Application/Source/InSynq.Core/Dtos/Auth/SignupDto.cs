@@ -40,16 +40,16 @@ public class SignupDto : BaseDto<SignupDto>
 
     public void ToModel(User_ model)
     {
-        model.FirstName = FirstName;
-        model.MiddleName = MiddleName;
-        model.LastName = LastName;
-        model.Username = Username;
-        model.Email = Email;
-        model.Biography = Biography;
+        model.FirstName = FirstName.TrimText();
+        model.MiddleName = MiddleName.TrimText();
+        model.LastName = LastName.TrimText();
+        model.Username = Username.TrimText();
+        model.Email = Email.TrimText();
+        model.Biography = Biography.TrimText();
         model.DateOfBirth = DateOfBirth;
         model.GenderId = GenderId;
         model.CountryId = CountryId;
-        model.Phone = Phone;
+        model.Phone = Phone.TrimText();
         model.Privacy = Privacy;
         model.IsActive = true;
         model.Roles = [new UserRole { RoleId = eSystemRole.Member }];

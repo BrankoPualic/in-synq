@@ -4,7 +4,7 @@ import { GLOBAL_MODULES } from '../../../../../../_global.modules';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../../../../services/profile.service';
-import { take } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { IUserDto } from '../../../../../_generated/interfaces';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { UserController } from '../../../../../_generated/services';
@@ -23,6 +23,7 @@ import { QueueService } from '../../../../../services/queue.service';
   styleUrl: './profile-privacy.component.scss'
 })
 export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implements OnInit {
+  private _cpDestroy$ = new Subject<void>();
   privacy = false;
 
   constructor(
@@ -41,10 +42,15 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
   }
 
   ngOnInit(): void {
-    this.profileService.$profile.pipe(take(1)).subscribe(_ => {
+    this.profileService.profile$.pipe(takeUntil(this._cpDestroy$)).subscribe(_ => {
       this.profile = _;
       this.privacy = _?.privacy!;
     });
+  }
+
+  override ngOnDestroy(): void {
+    this._cpDestroy$.next();
+    this._cpDestroy$.complete();
   }
 
   override goBack(): void {

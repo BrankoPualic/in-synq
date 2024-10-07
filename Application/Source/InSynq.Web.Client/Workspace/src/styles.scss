@@ -39,14 +39,26 @@
 // Button
 .btn-primary {
     background-color: $primary;
-    border: none;
+    border: 1px solid $primary;
 }
 .btn-secondary {
     background-color: $light;
-    border: none;
+    border: 1px solid $light;
 }
 .btn-border {
     border: 1px solid $light;
+}
+.btn-primary-border {
+    border: 1px solid $primary;
+    color: $primary;
+}
+.btn-danger {
+    background-color: $error;
+    border: 1px solid $error;
+}
+.btn-danger-border {
+    border: 1px solid $error;
+    color: $error;
 }
 
 // Custom

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace InSynq.Core.Dtos.Auth;
+﻿namespace InSynq.Core.Dtos.Auth;
 
 public class SignupDtoValidator : AbstractValidator<SignupDto>
 {
@@ -51,11 +49,11 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
         RuleFor(_ => _.DateOfBirth)
             .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Date of Birth"))
             .Must(Functions.IsValidDate).WithMessage(ResourceValidation.Invalid.FormatWith("Date of Birth"))
-            .Must(AtLeast16YearsOld).WithMessage("Must be at least 16 years old.");
+            .Must(Functions.AtLeast16YearsOld).WithMessage("Must be at least 16 years old.");
 
         RuleFor(_ => _.Photo)
             .Must(Functions.IsValidImage).WithMessage(ResourceValidation.File_Wrong_Format.FormatWith("Image", Constants.FILE_IMAGE_EXTENSIONS.Join(", ")))
-            .Must(WithinFileSize).WithMessage(ResourceValidation.File_Too_Large.FormatWith("Image", "10MB"))
+            .Must(Functions.WithinFileSize).WithMessage(ResourceValidation.File_Too_Large.FormatWith("Image", "10MB"))
             .When(_ => _.Photo.IsNotNullOrEmpty());
 
         RuleFor(_ => _.GenderId)
@@ -69,8 +67,4 @@ public class SignupDtoValidator : AbstractValidator<SignupDto>
         RuleFor(_ => _.CountryId)
             .NotEmpty().WithMessage(ResourceValidation.Required.FormatWith("Country"));
     }
-
-    private bool AtLeast16YearsOld(DateTime dob) => dob <= DateTime.Today.AddYears(-16);
-
-    private bool WithinFileSize(IFormFile image) => image.Length <= Constants.FILE_SIZE_10MB;
 }

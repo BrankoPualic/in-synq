@@ -33,21 +33,25 @@ export class ValidationDirective implements OnInit, OnDestroy {
     }
 
     private handleErrors(errors: IModelError[] | null): void {
-        if (!errors) return;
-
         // Remove existing error elements if any
         const existingErrors = this.el.nativeElement.querySelectorAll('.validation-feedback');
         existingErrors.forEach((element: HTMLElement) => {
             this.renderer.removeChild(this.el.nativeElement, element);
         });
 
-        const error = errors.find(_ => _.key === this.appValidation());
         const formElements = this.el.nativeElement.querySelectorAll('input, select, textarea, p-dropdown');
-
         formElements.forEach((element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
             // Remove both error and valid classes if any
             this.renderer.removeClass(element, 'is-invalid');
             this.renderer.removeClass(element, 'is-valid');
+        })
+
+        if (!errors)
+            return;
+
+        const error = errors.find(_ => _.key === this.appValidation());
+
+        formElements.forEach((element: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
 
             // Check if the element has a value
             let hasValue = !!element.value && element.value.trim().length > 0;

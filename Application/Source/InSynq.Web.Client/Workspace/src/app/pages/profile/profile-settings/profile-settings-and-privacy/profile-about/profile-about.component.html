@@ -19,12 +19,12 @@
     </small>
 </div>
 
-<div class="container-fluid">
+<div class="container-fluid shadow-style-bottom">
     <div class="mt-2 d-row align-items-center w-100">
         <span class="me-2">Date Joined:</span>
-        <span class="light-grey">{{ profile?.createdOn | date: 'longDate' }}</span>
+        <span class="light-grey">{{ profile?.createdOn | date: 'd. MMMM yyyy.' }}</span>
     </div>
-    <div class="mt-2 d-row align-items-center justify-content-between w-100" (click)="showUsernames()">
+    <div class="mt-2 pb-2 d-row align-items-center justify-content-between w-100" (click)="showUsernames()">
         <div>
             <span class="me-2">Past Usernames:</span>
             <span class="light-grey">{{ userLog?.usernameCount }}</span>
@@ -32,7 +32,6 @@
         <span [class]="Icons.NG_ANGLE_RIGHT" class="arrow-right"></span>
     </div>
 </div>
-
 <p-dialog 
     header="Past Usernames" 
     [(visible)]="usernamesVisible" 
@@ -44,3 +43,114 @@
             {{ userLog?.usernames?.join(', ') }}
         </p>
 </p-dialog>
+
+@if(!!profile){
+    <div class="container-fluid">
+        <div class="mt-2 d-row justify-content-between align-items-center">
+            <span class="bold">User Information</span>
+            @if(!isEditMode){
+                <button class="btn btn-primary-border py-1" (click)="edit()">Edit</button>
+            }
+            @else {
+                <div>
+                    <button class="btn btn-primary py-1 me-1" (click)="save()">Save</button>
+                    <button class="btn btn-danger py-1" (click)="cancel()">Cancel</button>
+                </div>
+            }
+        </div>
+        <div class="mt-2" appValidation="FirstName">
+            <label for="FirstName" class="form-label">First Name<app-required-field-mark/></label>
+            <input class="form-control" type="text" id="FirstName" [(ngModel)]="profile.firstName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+        </div>
+
+        <div class="mt-2" appValidation="MiddleName">
+            <label for="MiddleName" class="form-label">Middle Name</label>
+            <input class="form-control" type="text" id="MiddleName" [(ngModel)]="profile.middleName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+        </div>
+
+        <div class="mt-2" appValidation="LastName">
+            <label for="LastName" class="form-label">Last Name<app-required-field-mark/></label>
+            <input class="form-control" type="text" id="LastName" [(ngModel)]="profile.lastName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+        </div>
+
+        <div class="mt-2" appValidation="Username">
+            <label for="Username" class="form-label">Username<app-required-field-mark/></label>
+            <input class="form-control" type="text" id="Username" [(ngModel)]="profile.username" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+        </div>
+
+        <div class="mt-2" appValidation="DateOfBirth">
+            <label for="DateOfBirth" class="form-label">Date of Birth<app-required-field-mark/></label>
+            <p-calendar 
+            [(ngModel)]="profile.dateOfBirth"
+            dateFormat="dd. MM yy."
+            [disabled]="!isEditMode"
+            id="DateOfBirth"
+            [inputStyleClass]="'form-control'"
+            class="w-100 d-flex"
+            [touchUI]="true"
+            (onSelect)="onDoBSelect()"/>
+        </div>
+
+        <div class="mt-2" appValidation="GenderId">
+            <label for="GenderId" class="form-label">Gender<app-required-field-mark/></label>
+            <p-dropdown 
+            [(ngModel)]="currentGender"
+            [ngModelOptions]="{standalone: true}"
+            [options]="genders"
+            optionLabel="description"
+            [styleClass]="'form-select'"
+            [disabled]="!isEditMode"
+            (onChange)="onGenderChange()">
+            <ng-template let-gender pTemplate="selectedItem">
+                <div [ngClass]="{ 'transparent-text': currentGender?.description === '' }">
+                    {{ currentGender?.name }}
+                </div>
+            </ng-template>
+            <ng-template let-gender pTemplate="item">
+                <div [ngClass]="{ 'transparent-text': gender.description === '' }">{{ gender.name }}</div>
+            </ng-template>
+            </p-dropdown>
+        </div>
+
+
+        <div class="mt-2" appValidation="Country">
+            <label for="CountryId" class="form-label">Country<app-required-field-mark/></label>
+            <p-dropdown 
+            [(ngModel)]="currentCountry"
+            [options]="countries"
+            optionLabel="name"
+            [virtualScroll]="true"
+            [virtualScrollItemSize]="38"
+            [filter]="true"
+            filterBy="name"
+            [disabled]="!isEditMode"
+            (onChange)="onCountryChange($event)"
+            [styleClass]="'form-select form-select-flags'">
+                <ng-template pTemplate="selectedItem">
+                    @if(currentCountry){
+                        <div class="d-flex align-items-center gap-2 small-paddings">
+                            <img [src]="[getCountry(currentCountry.id).flagUrl]" alt="Selected country image">
+                            <div>{{ getCountry(currentCountry.id).name }}</div>
+                        </div>
+                    }
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="{{ country.flagUrl }}" alt="Country flag" style="width: 18px;" />
+                        <div>{{ country.name }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+        <div class="mt-2" appValidation="Phone">
+            <label for="Phone" class="form-label">Phone<app-required-field-mark/></label>
+            <input type="tel" class="form-control" id="Phone" [disabled]="!isEditMode" [(ngModel)]="profile.phone" (keyup)="onInputTextChange()"/>
+        </div>
+
+        <div class="mt-2 mb-4" appValidation="Biography">
+            <label for="Biography" class="form-label">Biography</label>
+            <textarea id="Biography" class="form-control" [(ngModel)]="profile.biography" [disabled]="!isEditMode" rows="5" style="resize: none;" (keyup)="onInputTextChange()"></textarea>
+        </div>
+    </div>
+}

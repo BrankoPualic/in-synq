@@ -71,6 +71,9 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
 
     public async Task<ResponseWrapper> UpdateAsync(UserDto data)
     {
+        if (!data.IsValid())
+            return new(data.Errors);
+
         var model = await db.Users.FindAsync(data.Id);
         data.ToModel(model);
         await db.SaveChangesAsync();

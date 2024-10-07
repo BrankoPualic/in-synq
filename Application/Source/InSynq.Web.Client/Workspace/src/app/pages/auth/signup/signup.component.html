@@ -41,11 +41,11 @@
         <div class="mb-2" style="position: relative;" appValidation="DateOfBirth">
             <label for="DateOfBirth" class="form-label">Date of Birth<app-required-field-mark/></label>
             <p-calendar 
+            dateFormat="dd. MM yy."
             formControlName="dateOfBirth"
-            [iconDisplay]="'input'" 
-            [showIcon]="false"
             id="DateOfBirth"
             [inputStyleClass]="'form-control'"
+            [touchUI]="true"
             class="w-100 d-flex"/>
             <fa-icon [icon]="Icons.CALENDAR" class="form-input-icon"/>
         </div>

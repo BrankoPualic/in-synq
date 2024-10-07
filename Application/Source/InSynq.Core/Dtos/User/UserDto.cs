@@ -3,8 +3,12 @@ using User_ = InSynq.Core.Model.Models.Application.User.User;
 
 namespace InSynq.Core.Dtos.User;
 
-public class UserDto
+public class UserDto : BaseDto<UserDto>
 {
+    public UserDto() : base(new UserDtoValidator())
+    {
+    }
+
     public long Id { get; set; }
 
     public string Username { get; set; }
@@ -21,11 +25,15 @@ public class UserDto
 
     public string Biography { get; set; }
 
+    public DateTime DateOfBirth { get; set; }
+
     public eGender GenderId { get; set; }
 
     public LookupValueDto Gender { get; set; }
 
     public CountryDto Country { get; set; }
+
+    public string Phone { get; set; }
 
     public bool Privacy { get; set; }
 
@@ -37,14 +45,15 @@ public class UserDto
 
     public void ToModel(User_ model)
     {
-        // BPR: Validate fields on update
-        model.Username = Username;
-        model.FirstName = FirstName;
-        model.MiddleName = MiddleName;
-        model.LastName = LastName;
-        model.Biography = Biography;
+        model.Username = Username.TrimText();
+        model.FirstName = FirstName.TrimText();
+        model.MiddleName = MiddleName.TrimText();
+        model.LastName = LastName.TrimText();
+        model.Biography = Biography.TrimText();
+        model.DateOfBirth = DateOfBirth;
         model.GenderId = GenderId;
         model.CountryId = Country.Id;
+        model.Phone = Phone.TrimText();
         model.Privacy = Privacy;
     }
 }

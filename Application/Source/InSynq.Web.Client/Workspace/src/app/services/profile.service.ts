@@ -8,7 +8,7 @@ import { IUserDto } from '../_generated/interfaces';
 })
 export class ProfileService {
   private _profileSource = new BehaviorSubject<IUserDto | null>(null);
-  $profile = this._profileSource.asObservable();
+  profile$ = this._profileSource.asObservable();
 
   getProfilePhoto(photo?: string, genderId?: number): string {
     return photo || `../../../assets/images/${(genderId || 0) === eGender.Male

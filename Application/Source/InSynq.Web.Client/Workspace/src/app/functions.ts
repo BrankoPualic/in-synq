@@ -1,3 +1,4 @@
+import { cloneDeep } from "lodash";
 import { INameofOptions } from "./models/function-options.model";
 import { IBasicObject } from "./models/models";
 
@@ -34,4 +35,16 @@ export class Functions {
                 name: key
             }));
     }
+
+    // Object
+    static clone = <T extends object>(model?: T): T => !!model ? cloneDeep(model) : {} as T;
+
+    // Date
+
+    /**
+     * Appends Z on the end so it seems like it's an UTC. Only when you are having issues with HTTP converting date to UTC when you need to store just a date.
+     * @param date Local date
+     * @returns 
+     */
+    static localDateToUtcFormat = (date: Date): string => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}T00:00:00Z`;
 }

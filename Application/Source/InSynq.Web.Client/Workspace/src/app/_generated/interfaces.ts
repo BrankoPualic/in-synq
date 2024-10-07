@@ -74,13 +74,18 @@ export interface IUserDto
 	lastName: string;
 	profileImageUrl: string;
 	biography: string;
+	dateOfBirth: Date;
 	genderId: eGender;
 	gender: ILookupValueDto;
 	country: ICountryDto;
+	phone: string;
 	privacy: boolean;
 	followers: number;
 	following: number;
 	createdOn: Date;
+}
+export interface IUserDtoValidator
+{
 }
 export interface IUserLogDto
 {
