@@ -47,4 +47,7 @@ export class Functions {
      * @returns 
      */
     static localDateToUtcFormat = (date: Date): string => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}T00:00:00Z`;
+
+    // String
+    static formatString = (text?: string): string => !!text ? text.replace(/\n/g, '<br/>') : '';
 }

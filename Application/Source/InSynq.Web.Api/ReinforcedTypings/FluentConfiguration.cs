@@ -63,7 +63,8 @@ public static class FluentConfiguration
                 && t.Namespace != null
                 && t.Namespace.Contains($"{Constants.SOLUTION_NAME}.Core.Dtos")
                 && !t.IsDefined(typeof(CompilerGeneratedAttribute), false)
-                && !t.IsDefined(typeof(TsIgnoreAttribute), false));
+                && !t.IsDefined(typeof(TsIgnoreAttribute), false)
+                && !t.Name.Contains("Validator"));
 
         var additionalInterfaces = new List<Type>([typeof(IEnumProvider)]);
 

@@ -37,9 +37,6 @@ export interface ISigninDto
 	email: string;
 	password: string;
 }
-export interface ISigninDtoValidator
-{
-}
 export interface ISignupDto
 {
 	firstName: string;
@@ -56,9 +53,6 @@ export interface ISignupDto
 	countryId: number;
 	phone: string;
 	privacy: boolean;
-}
-export interface ISignupDtoValidator
-{
 }
 export interface ITokenDto
 {
@@ -83,9 +77,6 @@ export interface IUserDto
 	followers: number;
 	following: number;
 	createdOn: Date;
-}
-export interface IUserDtoValidator
-{
 }
 export interface IUserLogDto
 {
