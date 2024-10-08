@@ -60,22 +60,22 @@
         </div>
         <div class="mt-2" appValidation="FirstName">
             <label for="FirstName" class="form-label">First Name<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="FirstName" [(ngModel)]="profile.firstName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+            <input class="form-control" type="text" id="FirstName" [(ngModel)]="profile.firstName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="MiddleName">
             <label for="MiddleName" class="form-label">Middle Name</label>
-            <input class="form-control" type="text" id="MiddleName" [(ngModel)]="profile.middleName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+            <input class="form-control" type="text" id="MiddleName" [(ngModel)]="profile.middleName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="LastName">
             <label for="LastName" class="form-label">Last Name<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="LastName" [(ngModel)]="profile.lastName" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+            <input class="form-control" type="text" id="LastName" [(ngModel)]="profile.lastName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="Username">
             <label for="Username" class="form-label">Username<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="Username" [(ngModel)]="profile.username" [disabled]="!isEditMode" (keyup)="onInputTextChange()">
+            <input class="form-control" type="text" id="Username" [(ngModel)]="profile.username" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="DateOfBirth">
@@ -125,12 +125,13 @@
             filterBy="name"
             [disabled]="!isEditMode"
             (onChange)="onCountryChange($event)"
+            (onClick)="onCountryDropdownClick()"
             [styleClass]="'form-select form-select-flags'">
                 <ng-template pTemplate="selectedItem">
                     @if(currentCountry){
                         <div class="d-flex align-items-center gap-2 small-paddings">
-                            <img [src]="[getCountry(currentCountry.id).flagUrl]" alt="Selected country image">
-                            <div>{{ getCountry(currentCountry.id).name }}</div>
+                            <img [src]="[currentCountry.flagUrl]" alt="Selected country image">
+                            <div>{{ currentCountry.name }}</div>
                         </div>
                     }
                 </ng-template>
@@ -145,7 +146,7 @@
 
         <div class="mt-2" appValidation="Phone">
             <label for="Phone" class="form-label">Phone<app-required-field-mark/></label>
-            <input type="tel" class="form-control" id="Phone" [disabled]="!isEditMode" [(ngModel)]="profile.phone" (keyup)="onInputTextChange()"/>
+            <input type="tel" class="form-control" id="Phone" [disabled]="!isEditMode" [(ngModel)]="profile.phone" (ngModelChange)="onInputTextChange()"/>
         </div>
 
         <div class="mt-2 mb-4" appValidation="Biography">

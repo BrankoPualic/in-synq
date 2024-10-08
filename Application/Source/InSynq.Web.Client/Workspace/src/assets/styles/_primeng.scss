@@ -51,6 +51,12 @@
                         .p-dropdown-filter {
                             padding: 0.375rem 0.75rem;
                         }
+
+                        .p-icon-wrapper {
+                            .p-dropdown-filter-icon {
+                                margin-top: -0.5rem !important;
+                            }
+                        }
                     }
                 }
             }

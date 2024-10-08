@@ -60,7 +60,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
     this.loading = true;
     this.$q.sequential([
       () => this.userController.Update(this.profile ?? {} as IUserDto).toPromise(),
-      () => this.userController.GetSingle(this.profile!.id).toPromise()
+      () => this.userController.GetCurrentUser(this.profile!.id).toPromise()
     ])
       .then((result) => {
         this.profileService.setProfile(result[1]);

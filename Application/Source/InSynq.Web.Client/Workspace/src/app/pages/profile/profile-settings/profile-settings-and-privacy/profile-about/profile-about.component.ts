@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
+import { Subject, takeUntil } from 'rxjs';
 import { GLOBAL_MODULES } from '../../../../../../_global.modules';
 import { eGender } from '../../../../../_generated/enums';
 import { ICountryDto, IEnumProvider, IUserDto, IUserLogDto } from '../../../../../_generated/interfaces';
@@ -19,9 +20,7 @@ import { CustomConfirmationService } from '../../../../../services/custom-confir
 import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { ProfileService } from '../../../../../services/profile.service';
-import { QueueService } from '../../../../../services/queue.service';
 import { ToastService } from '../../../../../services/toast.service';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-profile-about',
@@ -52,7 +51,6 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     router: Router,
     location: Location,
     route: ActivatedRoute,
-    private $q: QueueService,
     private profileService: ProfileService,
     private confirmationService: CustomConfirmationService,
     private userController: UserController,
@@ -66,6 +64,7 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     this.profileService.profile$.pipe(takeUntil(this._cpDestroy$)).subscribe(_ => {
       this.profile = _;
       this.profile!.dateOfBirth = new Date(_!.dateOfBirth);
+      this.countries.push(_!.country);
       this.currentCountry = _?.country;
     });
 
@@ -73,20 +72,10 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     this.currentGender = this.genders.find(_ => _.id === this.profile?.genderId);
 
     this.loading = true;
-    this.countryLoader = true;
-    this.$q.all([
-      this.userController.GetUserLog(this.userId).toPromise(),
-      this.providerController.GetCountries().toPromise()
-    ])
-      .then((result) => {
-        this.userLog = result[0];
-        this.countries = result[1] ?? [];
-      })
+    this.userController.GetUserLog(this.userId).toPromise()
+      .then(_ => this.userLog = _!)
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
-      .finally(() => {
-        this.loading = false;
-        this.countryLoader = false;
-      });
+      .finally(() => this.loading = false);
   }
 
   override ngOnDestroy(): void {
@@ -94,11 +83,7 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     this._cpDestroy$.complete();
   }
 
-  showUsernames = (): void => { this.usernamesVisible = true; }
-
-  getCountry(id: number): ICountryDto {
-    return this.countries.find(_ => _.id === id) || {} as ICountryDto;
-  }
+  showUsernames = (): void => { this.usernamesVisible = true; };
 
   onInputTextChange = (): void => { this.isChanged = true };
 
@@ -115,6 +100,17 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     this.currentCountry = event.value;
     this.profile!.country = event.value;
     this.profile!.phone = event.value.dialCode + ' ';
+  }
+
+  onCountryDropdownClick(): void {
+    this.countryLoader = true;
+    this.providerController.GetCountries().toPromise()
+      .then(_ => {
+        this.countries = [];
+        this.countries = _!;
+      })
+      .catch(_ => this.error(_.error.errors))
+      .finally(() => this.countryLoader = false);
   }
 
   edit(): void {
@@ -145,22 +141,23 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
       .then(() => {
         this.loading = true;
         this.cleanErrors();
-
         this.profile!.dateOfBirth = new Date(Functions.localDateToUtcFormat(this.profile!.dateOfBirth));
 
         this.userController.Update(this.profile!).toPromise()
           .then(() => {
             this.success('Profile updated.');
-
             this.isChanged = false;
             this.isEditMode = false;
-
-            this.userController.GetCurrentUser(this.userId).toPromise()
-              .then(_ => this.profileService.setProfile(_!))
-              .catch(_ => this.error(_.error.erros));
+            this.loadCurrentUser();
           })
           .catch(_ => this.errorService.add(_.error.errors))
           .finally(() => this.loading = false);
       });
+  }
+
+  private loadCurrentUser(): void {
+    this.userController.GetCurrentUser(this.userId).toPromise()
+      .then(_ => this.profileService.setProfile(_!))
+      .catch(_ => this.error(_.error.erros));
   }
 }
