@@ -8,35 +8,38 @@
 </div>
 
 <div class="container-fluid d-column">
-    <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy')">
-        <div class="float-start actions align-row-center label">
-            <span [class]="Icons.NG_COG"></span>
-            <span class="ms-2">Settings and privacy</span>
+    @if(isMyProfile){
+        <div class="py-2 setting" [routerLink]="getRoute('settings_and_privacy')">
+            <div class="float-start actions align-row-center label">
+                <span [class]="Icons.NG_COG"></span>
+                <span class="ms-2">Settings and privacy</span>
+            </div>
+            <div class="float-end arrow-right">
+                <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
+            </div>
         </div>
-        <div class="float-end arrow-right">
-            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
+    
+        <div class="py-2 setting" [routerLink]="getRoute('archive')">
+            <div class="float-start actions align-row-center label">
+                <span [class]="Icons.NG_FOLDER"></span>
+                <span class="ms-2">Archive</span>
+            </div>
+            <div class="float-end arrow-right">
+                <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
+            </div>
         </div>
-    </div>
+    
+        <div class="py-2 setting" [routerLink]="getRoute('saved')">
+            <div class="float-start actions align-row-center label">
+                <span [class]="Icons.NG_BOOKMARK"></span>
+                <span class="ms-2">Saved</span>
+            </div>
+            <div class="float-end arrow-right">
+                <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
+            </div>
+        </div>
 
-    <div class="py-2 setting" [routerLink]="getRoute('archive')">
-        <div class="float-start actions align-row-center label">
-            <span [class]="Icons.NG_FOLDER"></span>
-            <span class="ms-2">Archive</span>
-        </div>
-        <div class="float-end arrow-right">
-            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
-        </div>
-    </div>
-
-    <div class="py-2 setting" [routerLink]="getRoute('saved')">
-        <div class="float-start actions align-row-center label">
-            <span [class]="Icons.NG_BOOKMARK"></span>
-            <span class="ms-2">Saved</span>
-        </div>
-        <div class="float-end arrow-right">
-            <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
-        </div>
-    </div>
+    }
     
     <div class="py-2 setting" [routerLink]="getRoute('report')">
         <div class="float-start actions align-row-center label">
@@ -57,4 +60,5 @@
             <span [class]="Icons.NG_ANGLE_RIGHT" style="font-size: 1.1rem;"></span>
         </div>
     </div>
+
 </div>

@@ -8,7 +8,12 @@
             <span [class]="Icons.NG_ANGLE_DOWN" class="ms-1" style="font-size: 0.9rem;"></span>
         </div>
         <div class="float-end actions align-row-center" routerLink="/profile/{{ userId }}/settings">
-            <fa-icon [icon]="Icons.BARS"/>
+            @if(isMyProfile()){
+                <fa-icon [icon]="Icons.BARS"/>
+            }
+            @else {
+                 <span [class]="Icons.NG_ELLIPSIS" style="font-size: 1.2rem;"></span>
+            }
         </div>
     </div>
 

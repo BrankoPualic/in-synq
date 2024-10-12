@@ -27,4 +27,6 @@ export class ProfileSettingsComponent extends BaseProfileSettingsComponent {
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
   }
+
+  isMyProfile = !!this.currentUser && this.userId === this.currentUser.id;
 }

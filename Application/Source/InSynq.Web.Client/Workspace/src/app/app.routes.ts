@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Constants } from './constants/constants';
 import { authGuard } from './guards/auth.guard';
+import { myProfileGuard } from './guards/my-profile.guard';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,7 @@ export const routes: Routes = [
                             },
                             {
                                 path: Constants.ROUTE_SETTINGS_AND_PRIVACY,
+                                canActivate: [myProfileGuard],
                                 children: [
                                     {
                                         path: '',
@@ -66,12 +68,14 @@ export const routes: Routes = [
                             },
                             {
                                 path: Constants.ROUTE_SETTINGS_ARCHIVE,
+                                canActivate: [myProfileGuard],
                                 title: 'Archive | ' + Constants.TITLE,
                                 loadComponent: () =>
                                     import('./pages/profile/profile-settings/profile-archive/profile-archive.component').then(_ => _.ProfileArchiveComponent)
                             },
                             {
                                 path: Constants.ROUTE_SETTINGS_SAVED,
+                                canActivate: [myProfileGuard],
                                 title: 'Saved | ' + Constants.TITLE,
                                 loadComponent: () =>
                                     import('./pages/profile/profile-settings/profile-saved/profile-saved.component').then(_ => _.ProfileSavedComponent)

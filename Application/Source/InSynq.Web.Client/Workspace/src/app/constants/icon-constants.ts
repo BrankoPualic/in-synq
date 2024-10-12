@@ -27,6 +27,7 @@ export class IconConstants {
     static readonly NG_HEART = 'pi pi-heart';
     static readonly NG_EYE = 'pi pi-eye';
     static readonly NG_EYE_SLASH = 'pi pi-eye-slash';
+    static readonly NG_ELLIPSIS = 'pi pi-ellipsis-h';
 
     // FontAwesome
     static readonly CALENDAR = regular.faCalendar;
