@@ -1,0 +1,22 @@
+<app-dropdown
+    [(value)]="value"
+    [options]="options"
+    [filter]="true"
+    [disabled]="disabled()"
+    [loading]="loader"
+    (onChange)="change($event)"
+    (onClick)="click()"
+    [styleClass]="'form-select-flags'">
+<ng-template #selectedItemTemplate let-country>
+    <div class="d-flex align-items-center gap-2 small-paddings">
+        <img [src]="country.flagUrl" alt="Selected country image"/>
+        <div>{{ country.name }}</div>
+    </div>
+</ng-template>
+<ng-template #itemTemplate let-country>
+    <div class="d-flex align-items-center gap-2">
+        <img [src]="country.flagUrl" alt="Country flag" style="width: 18px;"/>
+        <div>{{ country.name}}</div>
+    </div>
+</ng-template>
+</app-dropdown>

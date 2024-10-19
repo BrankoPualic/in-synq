@@ -38,6 +38,7 @@ export class AuthService {
   setUser(data: ITokenDto) {
     this.storageService.set('token', data.token);
     this.router.navigateByUrl('/');
+    this.loadCurrentUser();
   }
 
   getCurrentUser(): ICurrentUser | null {

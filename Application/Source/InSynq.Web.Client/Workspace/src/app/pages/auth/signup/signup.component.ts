@@ -1,40 +1,38 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { FileSelectEvent, FileUploadModule } from 'primeng/fileupload';
 import { GLOBAL_MODULES } from '../../../../_global.modules';
 import { ICountryDto, IEnumProvider, ISignupDto } from '../../../_generated/interfaces';
-import { Providers } from '../../../_generated/providers';
-import { AuthController, ProviderController } from '../../../_generated/services';
+import { AuthController } from '../../../_generated/services';
 import { BaseFormComponent } from '../../../base/base-form.component';
+import { CountryDropdownComponent } from "../../../components/dropdown/country-dropdown/country-dropdown.component";
+import { DropdownComponent } from '../../../components/dropdown/dropdown.component';
+import { LookupDropdownComponent } from "../../../components/dropdown/lookup-dropdown/lookup-dropdown.component";
+import { LoaderComponent } from '../../../components/loader.component';
 import { RequiredFieldMarkComponent } from "../../../components/required-field-mark.component";
 import { ValidationDirective } from '../../../directives/validation.directive';
-import { IBasicObject } from '../../../models/models';
 import { AuthService } from '../../../services/auth.service';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { ToastService } from '../../../services/toast.service';
-import { Router } from '@angular/router';
-import { LoaderComponent } from '../../../components/loader.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [GLOBAL_MODULES, ReactiveFormsModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, FileUploadModule, LoaderComponent],
+  imports: [GLOBAL_MODULES, ReactiveFormsModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, FileUploadModule, LoaderComponent, CountryDropdownComponent, DropdownComponent, LookupDropdownComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
 export class SignupComponent extends BaseFormComponent<ISignupDto> implements OnInit {
   image?: File;
-  countries: ICountryDto[] = [];
-  countryLoader = false;
-  genders: IEnumProvider[] = [];
   isPasswordVisible = false;
   currentIcon = this.Icons.NG_EYE_SLASH;
   currentCountry?: ICountryDto;
-  currentGender?: IBasicObject;
+  currentGender?: IEnumProvider;
 
   constructor
     (
@@ -44,23 +42,13 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
       toastService: ToastService,
       router: Router,
       fb: FormBuilder,
-      private providerController: ProviderController,
       private authController: AuthController,
-      private providers: Providers
     ) {
     super(errorService, loaderService, authService, toastService, router, fb);
   }
 
   ngOnInit(): void {
     this.initializeForm();
-
-    this.genders = this.providers.getGenders();
-
-    this.countryLoader = true;
-    this.providerController.GetCountries().toPromise()
-      .then(_ => this.countries = _ ?? [])
-      .catch((_: HttpErrorResponse) => this.error(_.error.errors))
-      .finally(() => this.countryLoader = false);
   }
   // Base component methods
 
@@ -133,15 +121,10 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
     this.form.get(this.nameof(_ => _.genderId))?.setValue(this.currentGender?.id);
   }
 
-  getCountry(id: number): ICountryDto {
-    return this.countries.find(_ => _.id === id) || {} as ICountryDto;
-  }
-
   onCountryChange(event: DropdownChangeEvent): void {
-    const country = this.countries.find(_ => _.id === event.value.id) || {} as ICountryDto;
     this.currentCountry = event.value;
-    this.form.get(this.nameof(_ => _.countryId))?.setValue(country.id);
-    this.form.get(this.nameof(_ => _.phone))?.setValue(country.dialCode + ' ');
+    this.form.get(this.nameof(_ => _.countryId))?.setValue(this.currentCountry?.id);
+    this.form.get(this.nameof(_ => _.phone))?.setValue(this.currentCountry?.dialCode + ' ');
   }
 
   onFileSelect(input: FileSelectEvent): void {

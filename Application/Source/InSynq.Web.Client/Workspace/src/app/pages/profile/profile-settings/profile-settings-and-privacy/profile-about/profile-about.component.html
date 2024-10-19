@@ -93,59 +93,12 @@
 
         <div class="mt-2" appValidation="GenderId">
             <label for="GenderId" class="form-label">Gender<app-required-field-mark/></label>
-            <p-dropdown 
-            [(ngModel)]="currentGender"
-            [ngModelOptions]="{standalone: true}"
-            [options]="genders"
-            optionLabel="description"
-            [styleClass]="'form-select'"
-            [disabled]="!isEditMode"
-            (onChange)="onGenderChange()">
-            <ng-template let-gender pTemplate="selectedItem">
-                <div [ngClass]="{ 'transparent-text': currentGender?.description === '' }">
-                    {{ currentGender?.name }}
-                </div>
-            </ng-template>
-            <ng-template let-gender pTemplate="item">
-                <div [ngClass]="{ 'transparent-text': gender.description === '' }">{{ gender.name }}</div>
-            </ng-template>
-            </p-dropdown>
+            <app-lookup-dropdown provider="Genders" [(value)]="currentGender" [disabled]="!isEditMode" (onChangeVoid)="onGenderChange()"/>
         </div>
-
 
         <div class="mt-2" appValidation="Country">
             <label for="CountryId" class="form-label">Country<app-required-field-mark/></label>
-            <p-dropdown 
-            [(ngModel)]="currentCountry"
-            [options]="countries"
-            optionLabel="name"
-            [virtualScroll]="true"
-            [virtualScrollItemSize]="38"
-            [filter]="true"
-            filterBy="name"
-            [disabled]="!isEditMode"
-            (onChange)="onCountryChange($event)"
-            (onClick)="onCountryDropdownClick()"
-            [styleClass]="'form-select form-select-flags'">
-                <ng-template pTemplate="selectedItem">
-                    @if(currentCountry){
-                        <div class="d-flex align-items-center gap-2 small-paddings">
-                            <img [src]="[currentCountry.flagUrl]" alt="Selected country image">
-                            <div>{{ currentCountry.name }}</div>
-                        </div>
-                    }
-                </ng-template>
-                <ng-template let-country pTemplate="item">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="{{ country.flagUrl }}" alt="Country flag" style="width: 18px;" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-
-                <ng-template pTemplate="footer">
-                    <app-loader [containerLoader]="countryLoader"/>
-                </ng-template>
-            </p-dropdown>
+            <app-country-dropdown [(value)]="currentCountry" [disabled]="!isEditMode" (onChange)="onCountryChange($event)"/>
         </div>
 
         <div class="mt-2" appValidation="Phone">

@@ -10,8 +10,11 @@ import { GLOBAL_MODULES } from '../../../../../../_global.modules';
 import { eGender } from '../../../../../_generated/enums';
 import { ICountryDto, IEnumProvider, IUserDto, IUserLogDto } from '../../../../../_generated/interfaces';
 import { Providers } from '../../../../../_generated/providers';
-import { ProviderController, UserController } from '../../../../../_generated/services';
+import { UserController } from '../../../../../_generated/services';
 import { BaseProfileSettingsComponent } from '../../../../../base/base-profile-settings.component';
+import { CountryDropdownComponent } from "../../../../../components/dropdown/country-dropdown/country-dropdown.component";
+import { DropdownComponent } from '../../../../../components/dropdown/dropdown.component';
+import { LoaderComponent } from "../../../../../components/loader.component";
 import { RequiredFieldMarkComponent } from "../../../../../components/required-field-mark.component";
 import { ValidationDirective } from '../../../../../directives/validation.directive';
 import { Functions } from '../../../../../functions';
@@ -21,12 +24,12 @@ import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { ProfileService } from '../../../../../services/profile.service';
 import { ToastService } from '../../../../../services/toast.service';
-import { LoaderComponent } from "../../../../../components/loader.component";
+import { LookupDropdownComponent } from "../../../../../components/dropdown/lookup-dropdown/lookup-dropdown.component";
 
 @Component({
   selector: 'app-profile-about',
   standalone: true,
-  imports: [GLOBAL_MODULES, DialogModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, LoaderComponent],
+  imports: [GLOBAL_MODULES, DialogModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, LoaderComponent, DropdownComponent, CountryDropdownComponent, LookupDropdownComponent],
   templateUrl: './profile-about.component.html',
   styleUrl: './profile-about.component.scss'
 })
@@ -36,10 +39,7 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
   userLog: IUserLogDto | null = null;
   usernamesVisible = false;
   isEditMode = false;
-  genders: IEnumProvider[] = [];
   currentGender?: IEnumProvider;
-  countries: ICountryDto[] = [];
-  countryLoader = false;
   currentCountry?: ICountryDto;
 
   isChanged = false;
@@ -55,7 +55,6 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     private profileService: ProfileService,
     private confirmationService: CustomConfirmationService,
     private userController: UserController,
-    private providerController: ProviderController,
     private providers: Providers
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
@@ -65,12 +64,10 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     this.profileService.profile$.pipe(takeUntil(this._cpDestroy$)).subscribe(_ => {
       this.profile = _;
       this.profile!.dateOfBirth = new Date(_!.dateOfBirth);
-      this.countries.push(_!.country);
       this.currentCountry = _?.country;
     });
 
-    this.genders = this.providers.getGenders();
-    this.currentGender = this.genders.find(_ => _.id === this.profile?.genderId);
+    this.currentGender = this.providers.getGenders().find(_ => _.id === this.profile?.genderId);
 
     this.loading = true;
     this.userController.GetUserLog(this.userId).toPromise()
@@ -97,21 +94,9 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
 
   onCountryChange(event: DropdownChangeEvent): void {
     this.isChanged = true;
-    const country = this.countries.find(_ => _.id === event.value.id) || {} as ICountryDto;
     this.currentCountry = event.value;
     this.profile!.country = event.value;
     this.profile!.phone = event.value.dialCode + ' ';
-  }
-
-  onCountryDropdownClick(): void {
-    this.countryLoader = true;
-    this.providerController.GetCountries().toPromise()
-      .then(_ => {
-        this.countries = [];
-        this.countries = _!;
-      })
-      .catch(_ => this.error(_.error.errors))
-      .finally(() => this.countryLoader = false);
   }
 
   edit(): void {
@@ -131,7 +116,7 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
 
         this.profile = this.clone(this._originalProfile);
         this.currentCountry = this.profile.country;
-        this.currentGender = this.currentGender = this.genders.find(_ => _.id === this.profile?.genderId);
+        this.currentGender = this.currentGender = this.providers.getGenders().find(_ => _.id === this.profile?.genderId);
 
         this.isEditMode = false
       });

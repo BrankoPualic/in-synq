@@ -52,48 +52,12 @@
 
         <div class="mb-2" appValidation="GenderId">
             <label for="GenderId" class="form-label">Gender<app-required-field-mark/></label>
-            <p-dropdown 
-            [(ngModel)]="currentGender"
-            [ngModelOptions]="{standalone: true}"
-            [options]="genders"
-            [styleClass]="'form-select'"
-            (onChange)="onGenderChange()">
-            <ng-template let-gender pTemplate="item">
-                <div [ngClass]="{ 'transparent-text': gender.description === '' }">{{ gender.name }}</div>
-            </ng-template>
-            </p-dropdown>
+            <app-lookup-dropdown provider="Genders" [(value)]="currentGender" (onChangeVoid)="onGenderChange()"/>
         </div>
 
         <div class="mb-2" appValidation="CountryId">
             <label for="CountryId" class="form-label">Country<app-required-field-mark/></label>
-            <p-dropdown 
-            [options]="countries"
-            optionLabel="name"
-            [virtualScroll]="true"
-            [virtualScrollItemSize]="38"
-            [filter]="true"
-            filterBy="name"
-            (onChange)="onCountryChange($event)"
-            [styleClass]="'form-select form-select-flags'">
-                <ng-template pTemplate="selectedItem">
-                    @if(currentCountry){
-                        <div class="d-flex align-items-center gap-2 small-paddings">
-                            <img [src]="[getCountry(currentCountry.id).flagUrl]" alt="Selected country image">
-                            <div>{{ getCountry(currentCountry.id).name }}</div>
-                        </div>
-                    }
-                </ng-template>
-                <ng-template let-country pTemplate="item">
-                    <div class="d-flex align-items-center gap-2">
-                        <img src="{{ country.flagUrl }}" alt="Country flag" style="width: 18px;" />
-                        <div>{{ country.name }}</div>
-                    </div>
-                </ng-template>
-                
-                <ng-template pTemplate="footer">
-                    <app-loader [containerLoader]="countryLoader"/>
-                </ng-template>
-            </p-dropdown>
+            <app-country-dropdown [initialLoad]="true" (onChange)="onCountryChange($event)"/>
         </div>
 
         <div class="mb-2" appValidation="Phone">
