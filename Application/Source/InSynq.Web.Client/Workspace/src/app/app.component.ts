@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.toastService.error.subscribe(_ => this.messageService.add({ severity: 'error', summary: 'Error', detail: _ }));
-    this.toastService.warning.subscribe(_ => this.messageService.add({ severity: 'warn', detail: _ }));
-    this.toastService.success.subscribe(_ => this.messageService.add({ severity: 'success', detail: _ }));
+    this.toastService.warning.subscribe(_ => this.messageService.add({ severity: 'warn', summary: 'Warning', detail: _ }));
+    this.toastService.success.subscribe(_ => this.messageService.add({ severity: 'success', summary: 'Success', detail: _ }));
 
     this.authService.loadCurrentUser();
   }

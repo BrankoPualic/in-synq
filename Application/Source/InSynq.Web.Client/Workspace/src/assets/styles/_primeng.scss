@@ -92,6 +92,44 @@
             }
         }
     }
+
+    // Toast message
+    .p-toast-message.p-toast-message-error,
+    .p-toast-message.p-toast-message-success,
+    .p-toast-message.p-toast-message-warn {
+        background-color: $light-black;
+        color: $white;
+        border-radius: $border-radius;
+        border: none;
+        padding: 0.375rem;
+        width: 90%;
+        position: absolute;
+        left: 50%;
+        top: 1.5rem;
+        transform: translate(-50%, -50%) !important;
+
+        .p-toast-message-content {
+            align-items: center;
+            .p-toast-message-icon {
+                display: none;
+                margin-right: 1rem;
+                margin-left: 0.625rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .p-icon-wrapper {
+                    .p-icon {
+                        color: $white;
+                    }
+                }
+            }
+
+            .p-toast-icon-close {
+                color: $white;
+            }
+        }
+    }
 }
 
 .p-dropdown-items-wrapper {
