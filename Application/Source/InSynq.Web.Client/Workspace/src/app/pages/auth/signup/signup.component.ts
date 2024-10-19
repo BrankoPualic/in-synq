@@ -17,11 +17,12 @@ import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { ToastService } from '../../../services/toast.service';
 import { Router } from '@angular/router';
+import { LoaderComponent } from '../../../components/loader.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [GLOBAL_MODULES, ReactiveFormsModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, FileUploadModule],
+  imports: [GLOBAL_MODULES, ReactiveFormsModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, FileUploadModule, LoaderComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })

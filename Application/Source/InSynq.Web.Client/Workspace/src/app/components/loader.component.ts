@@ -1,11 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component, input, OnInit } from "@angular/core";
 import { PageLoaderService } from "../services/page-loader.service";
 
 @Component({
     selector: 'app-loader',
     standalone: true,
-    imports: [],
-    template: `@if(isVisible){<div class="backdrop"><span class="loader"></span></div>}`,
+    imports: [CommonModule],
+    template: `@if(isVisible){<div class="backdrop"><span class="loader"></span></div>}
+    @if(containerLoader()){<div class="container-backdrop"><span class="loader"></span></div>}`,
     styles: `
     .loader {
         width: 48px;
@@ -27,6 +29,7 @@ import { PageLoaderService } from "../services/page-loader.service";
     }`
 })
 export class LoaderComponent implements OnInit {
+    containerLoader = input<boolean>(false);
     isVisible = false;
 
     constructor(private loaderService: PageLoaderService) { }

@@ -89,6 +89,10 @@
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
+                
+                <ng-template pTemplate="footer">
+                    <app-loader [containerLoader]="countryLoader"/>
+                </ng-template>
             </p-dropdown>
         </div>
 

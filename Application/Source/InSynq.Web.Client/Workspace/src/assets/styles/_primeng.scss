@@ -38,6 +38,11 @@
         .p-dropdown-label.small-paddings {
             padding: 0.15rem 0.75rem;
         }
+
+        .p-dropdown-items {
+            display: block;
+            height: calc(36px * 5);
+        }
     }
 
     // Overlay

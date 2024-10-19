@@ -21,11 +21,12 @@ import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { ProfileService } from '../../../../../services/profile.service';
 import { ToastService } from '../../../../../services/toast.service';
+import { LoaderComponent } from "../../../../../components/loader.component";
 
 @Component({
   selector: 'app-profile-about',
   standalone: true,
-  imports: [GLOBAL_MODULES, DialogModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective],
+  imports: [GLOBAL_MODULES, DialogModule, RequiredFieldMarkComponent, CalendarModule, DropdownModule, ValidationDirective, LoaderComponent],
   templateUrl: './profile-about.component.html',
   styleUrl: './profile-about.component.scss'
 })
