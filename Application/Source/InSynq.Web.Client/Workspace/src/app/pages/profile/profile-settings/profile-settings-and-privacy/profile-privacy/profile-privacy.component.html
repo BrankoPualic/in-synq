@@ -23,7 +23,7 @@
     <div class="mt-2 d-row align-items-center justify-content-between w-100">
         <span class="bold">Private</span>
         <span>
-            <p-inputSwitch [(ngModel)]="privacy"/>
+            <p-inputSwitch [(ngModel)]="privacy" (ngModelChange)="onPrivacyChanged()"/>
         </span>
     </div>
 </div>

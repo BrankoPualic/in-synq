@@ -20,6 +20,7 @@ import './extensions/observable-extension';
 import { jwtInterceptor } from './interceptors/jwt.interceptor';
 import { Providers } from './_generated/providers';
 import { ConfirmationService } from 'primeng/api';
+import { errorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptors([jwtInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([jwtInterceptor, errorInterceptor])),
     serviceProviders(),
     controllerProviders(),
   ],

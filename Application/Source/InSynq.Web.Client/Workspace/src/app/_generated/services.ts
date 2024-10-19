@@ -120,10 +120,10 @@ import { IUserLogDto } from './interfaces';
 }
 @Injectable() export class UserController extends BaseController
 {
-	public GetSingle(id: number) : Observable<IUserDto | null>
+	public GetCurrentUser() : Observable<IUserDto | null>
 	{
 		return this.httpClient.get<IUserDto>(
-		this.settingsService.createApiUrl('User/GetSingle') + '/' + id,
+		this.settingsService.createApiUrl('User/GetCurrentUser'),
 		{
 			responseType: 'json',
 			observe: 'response',
@@ -132,10 +132,10 @@ import { IUserLogDto } from './interfaces';
 		.pipe(map(response => response.body));
 		
 	}
-	public GetCurrentUser(id: number) : Observable<IUserDto | null>
+	public GetSingle(id: number) : Observable<IUserDto | null>
 	{
 		return this.httpClient.get<IUserDto>(
-		this.settingsService.createApiUrl('User/GetCurrentUser') + '/' + id,
+		this.settingsService.createApiUrl('User/GetSingle') + '/' + id,
 		{
 			responseType: 'json',
 			observe: 'response',

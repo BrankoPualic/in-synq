@@ -9,8 +9,8 @@ import { BaseConstants } from '../../models/base-component.model';
   imports: [GLOBAL_MODULES, RouterLink],
   template: `
     <div class="d-column align-items-center pt-3">
-      <h2>Unauthorized!</h2>
-      <h3>401</h3>
+      <h2>Access denied!</h2>
+      <h3>403</h3>
       <button class="btn btn-primary d-row align-items-center" (click)="goHome()">
       <span [class]="Icons.NG_ANGLE_LEFT" class="me-2" style="font-size: 1.1rem;"></span> Go Back
       </button>

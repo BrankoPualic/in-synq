@@ -1,4 +1,7 @@
 export class Constants {
+    static readonly DEFAULT_PHOTO_MALE = 'default-avatar-profile-picture-male-icon.png';
+    static readonly DEFAULT_PHOTO_FEMALE = 'default-avatar-profile-picture-female-icon.png';
+
     // Route Titles
     static readonly TITLE = 'InSynq';
 

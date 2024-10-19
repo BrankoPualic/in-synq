@@ -4,9 +4,9 @@ namespace InSynq.Core.Interfaces.Person;
 
 public interface IUserService
 {
-    Task<ResponseWrapper<UserDto>> GetSingleAsync(long id);
+    Task<ResponseWrapper<UserDto>> GetCurrentUserAsync();
 
-    Task<ResponseWrapper<UserDto>> GetCurrentUserAsync(long id);
+    Task<ResponseWrapper<UserDto>> GetSingleAsync(long id);
 
     Task<ResponseWrapper<UserLogDto>> GetUserLogAsync(long id);
 

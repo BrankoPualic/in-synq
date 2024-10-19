@@ -25,6 +25,7 @@ import { QueueService } from '../../../../../services/queue.service';
 export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implements OnInit {
   private _cpDestroy$ = new Subject<void>();
   privacy = false;
+  isChanged = false;
 
   constructor(
     errorService: ErrorService,
@@ -57,10 +58,15 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
     if (!!this.profile)
       this.profile.privacy = this.privacy;
 
+    if (!this.isChanged) {
+      this.location.back();
+      return;
+    }
+
     this.loading = true;
     this.$q.sequential([
       () => this.userController.Update(this.profile ?? {} as IUserDto).toPromise(),
-      () => this.userController.GetCurrentUser(this.profile!.id).toPromise()
+      () => this.authService.loadCurrentUserAsPrmoise()
     ])
       .then((result) => {
         this.profileService.setProfile(result[1]);
@@ -69,4 +75,6 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
       .finally(() => this.loading = false);
   }
+
+  onPrivacyChanged = (): void => { this.isChanged = !this.isChanged };
 }

@@ -148,16 +148,10 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
             this.success('Profile updated.');
             this.isChanged = false;
             this.isEditMode = false;
-            this.loadCurrentUser();
+            this.authService.loadCurrentUser();
           })
           .catch(_ => this.errorService.add(_.error.errors))
           .finally(() => this.loading = false);
       });
-  }
-
-  private loadCurrentUser(): void {
-    this.userController.GetCurrentUser(this.userId).toPromise()
-      .then(_ => this.profileService.setProfile(_!))
-      .catch(_ => this.error(_.error.erros));
   }
 }

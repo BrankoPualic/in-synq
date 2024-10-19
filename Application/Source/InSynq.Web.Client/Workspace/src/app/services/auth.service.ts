@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ICurrentUser } from '../models/current-user.model';
 import { Router } from '@angular/router';
-import { ITokenDto } from '../_generated/interfaces';
 import { DateTime } from 'luxon';
 import { eSystemRole } from '../_generated/enums';
+import { ITokenDto, IUserDto } from '../_generated/interfaces';
+import { UserController } from '../_generated/services';
+import { ICurrentUser } from '../models/current-user.model';
+import { PageLoaderService } from './page-loader.service';
+import { ProfileService } from './profile.service';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -12,8 +15,20 @@ import { StorageService } from './storage.service';
 export class AuthService {
   constructor(
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private loaderService: PageLoaderService,
+    private profileService: ProfileService,
+    private userController: UserController
   ) { }
+
+  loadCurrentUser(): void {
+    this.loaderService.show();
+    this.userController.GetCurrentUser().toPromise()
+      .then(_ => this.profileService.setProfile(_!))
+      .finally(() => this.loaderService.hide());
+  }
+
+  loadCurrentUserAsPrmoise = (): Promise<IUserDto | null> => this.userController.GetCurrentUser().toPromise();
 
   signout() {
     this.storageService.remove('token');

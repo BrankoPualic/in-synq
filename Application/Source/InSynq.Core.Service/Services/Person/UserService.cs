@@ -10,6 +10,12 @@ namespace InSynq.Core.Service.Services.Person;
 
 public class UserService(IDatabaseContext context, IMapper mapper) : BaseService(context), IUserService
 {
+    public async Task<ResponseWrapper<UserDto>> GetCurrentUserAsync()
+    {
+        var result = await db.Users.GetSingleAsync(_ => _.Id == CurrentUser.Id, _ => _.Country);
+        return result == null ? new(ERROR_NOT_FOUND) : new(mapper.To<UserDto>(result));
+    }
+
     public async Task<ResponseWrapper<UserDto>> GetSingleAsync(long id)
     {
         var result = await db.Users.GetSingleAsync(_ => _.Id == id, _ => _.Country);
@@ -31,12 +37,6 @@ public class UserService(IDatabaseContext context, IMapper mapper) : BaseService
         data.Following = follows?.Following ?? 0;
 
         return new(data);
-    }
-
-    public async Task<ResponseWrapper<UserDto>> GetCurrentUserAsync(long id)
-    {
-        var result = await db.Users.GetSingleAsync(_ => _.Id == CurrentUser.Id, _ => _.Country);
-        return result == null ? new(ERROR_NOT_FOUND) : new(mapper.To<UserDto>(result));
     }
 
     public async Task<ResponseWrapper<UserLogDto>> GetUserLogAsync(long id)

@@ -10,15 +10,15 @@ namespace InSynq.Web.Api.Controllers;
 
 public class UserController(IUserService userService) : BaseController
 {
-    [HttpGet("{id}")]
+    [HttpGet]
     [Authorize]
     [AngularMethod(typeof(UserDto))]
-    public async Task<IActionResult> GetSingle(long id) => Result(await userService.GetSingleAsync(id));
+    public async Task<IActionResult> GetCurrentUser() => Result(await userService.GetCurrentUserAsync());
 
     [HttpGet("{id}")]
     [Authorize]
     [AngularMethod(typeof(UserDto))]
-    public async Task<IActionResult> GetCurrentUser(long id) => Result(await userService.GetCurrentUserAsync(id));
+    public async Task<IActionResult> GetSingle(long id) => Result(await userService.GetSingleAsync(id));
 
     [HttpGet("{id}")]
     [Authorize]
