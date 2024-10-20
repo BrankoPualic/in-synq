@@ -8,6 +8,7 @@ public abstract class ViewsMigration : Migration
     private readonly Type[] _enums =
     [
         typeof(eSystemRole),
+        typeof(eLegalDocumentType),
     ];
 
     private readonly IDatabaseView[] views = [];

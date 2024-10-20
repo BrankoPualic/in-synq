@@ -16,6 +16,9 @@ public enum eSystemRole
 
     [Description("Moderator")]
     Moderator = 4,
+
+    [Description("Legal Department")]
+    LegalDepartment = 5,
 }
 
 public enum eAuditChangeType
@@ -40,4 +43,13 @@ public enum eGender
 
     [BgColor("#00FFFF")]
     Other = 3
+}
+
+public enum eLegalDocumentType
+{
+    [Description("Privacy Policy")]
+    PrivacyPolicy = 10,
+
+    [Description("Terms of Use")]
+    TermsOfUse = 11,
 }
