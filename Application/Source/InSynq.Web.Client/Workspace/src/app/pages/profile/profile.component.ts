@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GLOBAL_MODULES } from '../../../_global.modules';
-import { eGender } from '../../_generated/enums';
 import { IFollowDto, IUserDto } from '../../_generated/interfaces';
 import { FollowController, UserController } from '../../_generated/services';
 import { BaseComponentGeneric } from '../../base/base.component';
@@ -10,12 +9,14 @@ import { MobileNavigationComponent } from "../../components/mobile-navigation/mo
 import { AuthService } from '../../services/auth.service';
 import { ErrorService } from '../../services/error.service';
 import { PageLoaderService } from '../../services/page-loader.service';
+import { ProfileService } from '../../services/profile.service';
 import { ToastService } from '../../services/toast.service';
 import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.component';
 import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
 import { ProfileThreadsComponent } from './profile-threads/profile-threads.component';
 import { ProfileVideosComponent } from './profile-videos/profile-videos.component';
-import { ProfileService } from '../../services/profile.service';
+import { SkeletonModule } from 'primeng/skeleton';
+import { QueueService } from '../../services/queue.service';
 
 enum eComponentState {
   Gallery = 1,
@@ -32,7 +33,7 @@ interface IComponentState {
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [GLOBAL_MODULES, MobileNavigationComponent],
+  imports: [GLOBAL_MODULES, MobileNavigationComponent, SkeletonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -51,6 +52,7 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
     authService: AuthService,
     toastService: ToastService,
     router: Router,
+    private $q: QueueService,
     private route: ActivatedRoute,
     private profileService: ProfileService,
     private userController: UserController,
@@ -79,34 +81,54 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
         tags: false
       };
 
-      this.loadUser();
-      this.isUserFollowed();
-      this.loadComponent();
+      this.initialize();
     });
+  }
 
+  private initialize(): void {
+    this.loading = true;
+    this.$q.sequential([
+      () => this.userController.GetSingle(this.userId).toPromise(),
+      () => this.followController.IsFollowing(this.followData).toPromise()
+    ])
+      .then(result => {
+        this.model = result[0];
+        this.isFollowed = result[1];
+        this.loadComponent();
+      })
+      .catch(_ => this.errorAndRedirect(_.error.errors))
+      .finally(() => this.loading = false);
   }
 
   isMyProfile = (): boolean => !!this.currentUser && this.model?.id === this.currentUser.id;
 
   follow(): void {
     this.loading = true;
-    this.followController.Follow(this.followData).toPromise()
-      .then(() => {
-        this.loadUser();
-        this.isUserFollowed();
+    this.$q.sequential([
+      () => this.followController.Follow(this.followData).toPromise(),
+      () => this.userController.GetSingle(this.userId).toPromise(),
+      () => this.followController.IsFollowing(this.followData).toPromise()
+    ])
+      .then(result => {
+        this.model = result[1];
+        this.isFollowed = result[2];
       })
-      .catch((_: HttpErrorResponse) => this.error(_.error.errors))
+      .catch(_ => this.error(_.error.errors))
       .finally(() => this.loading = false);
   }
 
   unfollow(): void {
     this.loading = true;
-    this.followController.Unfollow(this.followData).toPromise()
-      .then(() => {
-        this.loadUser();
-        this.isUserFollowed();
+    this.$q.sequential([
+      () => this.followController.Unfollow(this.followData).toPromise(),
+      () => this.userController.GetSingle(this.userId).toPromise(),
+      () => this.followController.IsFollowing(this.followData).toPromise()
+    ])
+      .then(result => {
+        this.model = result[1];
+        this.isFollowed = result[2];
       })
-      .catch((_: HttpErrorResponse) => this.error(_.error.errors))
+      .catch(_ => this.error(_.error.errors))
       .finally(() => this.loading = false);
   }
 
@@ -153,23 +175,5 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       component = ProfileTagsComponent;
 
     this.container?.createComponent(component!);
-  }
-
-  private isUserFollowed(): void {
-    this.loading = true;
-    this.followController.IsFollowing(this.followData).toPromise()
-      .then(_ => this.isFollowed = _!)
-      .finally(() => this.loading = false);
-  }
-
-  private loadUser(): void {
-    if (!this.currentUser)
-      return;
-
-    this.loading = true;
-    this.userController.GetSingle(this.userId).toPromise()
-      .then(_ => this.model = _)
-      .catch((_: HttpErrorResponse) => this.errorAndRedirect(_.error.errors))
-      .finally(() => this.loading = false);
   }
 }
