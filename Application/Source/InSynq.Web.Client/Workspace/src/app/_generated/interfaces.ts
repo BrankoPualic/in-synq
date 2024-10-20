@@ -1,3 +1,4 @@
+import { eLegalDocumentType } from './enums';
 import { eGender } from './enums';
 
 export interface ICountryDto
@@ -8,6 +9,17 @@ export interface ICountryDto
 	iso3Code: string;
 	dialCode: string;
 	flagUrl: string;
+}
+export interface IDocumentDto
+{
+	id: number;
+	title: string;
+	content: string;
+	typeId: eLegalDocumentType;
+	type: ILookupValueDto;
+	version: string;
+	language: string;
+	createdOn: Date;
 }
 export interface IFollowDto
 {

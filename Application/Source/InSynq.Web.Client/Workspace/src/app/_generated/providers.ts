@@ -18,7 +18,8 @@ import { IEnumProvider } from './interfaces';
 		    { id: 1, name: 'Admin', description: 'Administrator', bgColor: '' },
 		    { id: 2, name: 'Member', description: 'Member', bgColor: '' },
 		    { id: 3, name: 'UserAdmin', description: 'User Admin', bgColor: '' },
-		    { id: 4, name: 'Moderator', description: 'Moderator', bgColor: '' }
+		    { id: 4, name: 'Moderator', description: 'Moderator', bgColor: '' },
+		    { id: 5, name: 'LegalDepartment', description: 'Legal Department', bgColor: '' }
 		];
 	}
 }

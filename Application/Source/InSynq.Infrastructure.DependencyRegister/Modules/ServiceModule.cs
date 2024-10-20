@@ -32,6 +32,7 @@ public class ServiceModule : Module
 
         builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
         builder.RegisterType<FollowService>().As<IFollowService>().InstancePerLifetimeScope();
+        builder.RegisterType<DocumentService>().As<IDocumentService>().InstancePerLifetimeScope();
 
         base.Load(builder);
     }

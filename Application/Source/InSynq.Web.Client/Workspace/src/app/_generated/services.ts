@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { ITokenDto } from './interfaces';
 import { ISigninDto } from './interfaces';
 import { ISignupDto } from './interfaces';
+import { IDocumentDto } from './interfaces';
+import { eLegalDocumentType } from './enums';
 import { IFollowDto } from './interfaces';
 import { ICountryDto } from './interfaces';
 import { IUserDto } from './interfaces';
@@ -38,6 +40,27 @@ import { IUserLogDto } from './interfaces';
 		this.settingsService.createApiUrl('Auth/Signup'),
 		body,
 		{
+			responseType: 'json',
+			observe: 'response',
+			withCredentials: true
+		})
+		.pipe(map(response => response.body));
+		
+	}
+	constructor (httpClient: HttpClient, settingsService: SettingsService)
+	{
+		super(httpClient, settingsService);
+	}
+}
+@Injectable() export class DocumentController extends BaseController
+{
+	public GetByType(type: eLegalDocumentType) : Observable<IDocumentDto | null>
+	{
+		const body = <any>{'type': type};
+		return this.httpClient.get<IDocumentDto>(
+		this.settingsService.createApiUrl('Document/GetByType'),
+		{
+			params: new HttpParams({ fromObject: body }),
 			responseType: 'json',
 			observe: 'response',
 			withCredentials: true

@@ -6,3 +6,17 @@
         Terms of Use
     </div>
 </div>
+
+<div class="container-fluid d-column align-items-center my-3">
+    <small class="light-grey text-center">
+        Understand the rules and guidelines for using InSynq, including your rights, responsibilities, and our policies for maintaining a safe and respectful community.
+    </small>
+</div>
+
+<div class="container-fluid mb-1" [innerHTML]="document?.content"></div>
+
+<div class="container-fluid mb-3">
+    <div class="float-end small light-grey">
+        Version {{ document?.version }} - Effective from {{ document?.createdOn | date:'MMMM d, yyyy' }}
+    </div>
+</div>

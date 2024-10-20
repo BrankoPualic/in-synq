@@ -6,3 +6,17 @@
         Privacy Policy
     </div>
 </div>
+
+<div class="container-fluid d-column align-items-center my-3">
+    <small class="light-grey text-center">
+        Learn how InSynq collects, uses, and safeguards your personal information to ensure a secure and personalized experience on our platform.
+    </small>
+</div>
+
+<div class="container-fluid mb-1" [innerHTML]="document?.content"></div>
+
+<div class="container-fluid mb-3">
+    <div class="float-end small light-grey">
+        Version {{ document?.version }} - Effective from {{ document?.createdOn | date:'MMMM d, yyyy' }}
+    </div>
+</div>

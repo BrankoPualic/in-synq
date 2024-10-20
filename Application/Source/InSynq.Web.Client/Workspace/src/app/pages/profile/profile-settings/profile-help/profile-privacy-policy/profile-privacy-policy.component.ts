@@ -7,6 +7,9 @@ import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { AuthService } from '../../../../../services/auth.service';
 import { ToastService } from '../../../../../services/toast.service';
+import { DocumentController } from '../../../../../_generated/services';
+import { eLegalDocumentType } from '../../../../../_generated/enums';
+import { IDocumentDto } from '../../../../../_generated/interfaces';
 
 @Component({
   selector: 'app-profile-privacy-policy',
@@ -16,6 +19,8 @@ import { ToastService } from '../../../../../services/toast.service';
   styleUrl: './profile-privacy-policy.component.scss'
 })
 export class ProfilePrivacyPolicyComponent extends BaseProfileSettingsComponent {
+  document?: IDocumentDto;
+
   constructor(
     errorService: ErrorService,
     loaderService: PageLoaderService,
@@ -24,7 +29,15 @@ export class ProfilePrivacyPolicyComponent extends BaseProfileSettingsComponent 
     router: Router,
     location: Location,
     route: ActivatedRoute,
+    private documentController: DocumentController
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
+
+    this.loading = true;
+    this.documentController.GetByType(eLegalDocumentType.PrivacyPolicy).toPromise()
+      .then(_ => this.document = _!)
+      .catch(_ => this.error(_.erorr.errors))
+      .finally(() => this.loading = false)
   }
+
 }
