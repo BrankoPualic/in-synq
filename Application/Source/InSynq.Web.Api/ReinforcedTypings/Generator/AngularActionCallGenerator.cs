@@ -39,12 +39,8 @@ public class AngularActionCallGenerator : MethodCodeGenerator
         if (returnType is RtSimpleTypeName && ((RtSimpleTypeName)returnType).TypeName == "void")
         {
             returnType = resolver.ResolveTypeName(typeof(object));
-            result.ReturnType = new RtSimpleTypeName($"Observable<{returnType}>");
         }
-        else
-        {
-            result.ReturnType = new RtSimpleTypeName($"Observable<{returnType} | null>");
-        }
+        result.ReturnType = new RtSimpleTypeName($"Observable<{returnType}>");
 
         var allParameters = element.GetParameters().Select(c => c.Name).ToList();
         var parameterTypes = element.GetParameters().Select(c => c.ParameterType).ToList();
@@ -189,7 +185,7 @@ public class AngularActionCallGenerator : MethodCodeGenerator
         code.AppendLine("\tobserve: 'response',");
         code.AppendLine($"\twithCredentials: {(allowedAnonymousAttribute == null).ToString().ToLower()}");
         code.AppendLine("})");
-        code.AppendLine(".pipe(map(response => response.body));");
+        code.AppendLine(".pipe(map(response => response.body!));");
 
         result.Body = new RtRaw(code.ToString());
 

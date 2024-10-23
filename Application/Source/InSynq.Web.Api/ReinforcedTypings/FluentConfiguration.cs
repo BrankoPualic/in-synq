@@ -12,10 +12,11 @@ namespace InSynq.Web.Api.ReinforcedTypings;
 
 public static class FluentConfiguration
 {
-    private static readonly Action<InterfaceExportBuilder> _interfaceConfiguration = config =>
+    private static readonly Action<ClassExportBuilder> _classConfiguration = config =>
         config.WithPublicProperties()
         .ConfigureTypeMapping()
-        .ExportTo("interfaces.ts");
+        .ExportTo("classes.ts")
+        .WithCodeGenerator<DtoClassGenerator>();
 
     private static readonly Action<ClassExportBuilder> _serviceConfiguration = config =>
         config
@@ -67,13 +68,14 @@ public static class FluentConfiguration
                 && !t.IsDefined(typeof(TsIgnoreAttribute), false)
                 && !t.Name.Contains("Validator"));
 
-        var additionalInterfaces = new List<Type>([typeof(IEnumProvider)]);
+        // Dto Classes
 
-        builder.ExportAsInterfaces(
-            dtos.Concat(additionalInterfaces)
+        var additionalClasses = new List<Type>([typeof(IEnumProvider)]);
+        builder.ExportAsClasses(
+            dtos.Concat(additionalClasses)
             .OrderBy(i => i.Name)
             .ToArray(),
-            _interfaceConfiguration
+            _classConfiguration
             );
 
         // Controllers
