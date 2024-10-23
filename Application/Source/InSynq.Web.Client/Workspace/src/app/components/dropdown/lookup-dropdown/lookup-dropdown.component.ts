@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, OnInit } from '@angular/core';
-import { IEnumProvider } from '../../../_generated/interfaces';
 import { BaseDropdownComponent } from '../../../base/base-dropdown.component';
 import { DropdownComponent } from '../dropdown.component';
-import { Providers } from '../../../_generated/providers';
+import * as api from '../../../api';
 
 @Component({
   selector: 'app-lookup-dropdown',
@@ -12,18 +11,20 @@ import { Providers } from '../../../_generated/providers';
   templateUrl: './lookup-dropdown.component.html',
   styleUrl: './lookup-dropdown.component.scss'
 })
-export class LookupDropdownComponent extends BaseDropdownComponent<IEnumProvider> implements OnInit {
+export class LookupDropdownComponent extends BaseDropdownComponent<api.EnumProvider> implements OnInit {
   provider = input<string>();
-  options: IEnumProvider[] = [];
+  options: api.EnumProvider[] = [];
 
-  constructor(private providers: Providers) { super() }
+  constructor(private api_Providers: api.Providers) { super() }
 
   ngOnInit(): void {
-    const methodName = `get${this.provider()}` as keyof Providers;
+    const methodName = `get${this.provider()}` as keyof api.Providers;
 
-    const providerMethod = this.providers[methodName] as (() => IEnumProvider[]) | undefined;
+    const providerMethod = this.api_Providers[methodName] as (() => api.EnumProvider[]) | undefined;
     if (typeof providerMethod === 'function')
       this.options = providerMethod();
+
+    console.log(this.options);
   }
 
   override change() {

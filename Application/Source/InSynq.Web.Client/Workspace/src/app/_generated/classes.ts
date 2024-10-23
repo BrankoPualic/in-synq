@@ -21,17 +21,17 @@ export class DocumentDto
 	Language: string;
 	CreatedOn: Date;
 }
-export class FollowDto
-{
-	FollowerId: number;
-	FollowingId: number;
-}
-export class IEnumProvider
+export class EnumProvider
 {
 	Id: number;
 	Name: string;
 	Description: string;
 	BgColor: string;
+}
+export class FollowDto
+{
+	FollowerId: number;
+	FollowingId: number;
 }
 export class LookupValueDto
 {

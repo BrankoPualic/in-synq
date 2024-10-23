@@ -22,6 +22,8 @@ import { Providers } from './_generated/providers';
 import { ConfirmationService } from 'primeng/api';
 import { errorInterceptor } from './interceptors/error.interceptor';
 
+import * as api from './_generated/classes';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),

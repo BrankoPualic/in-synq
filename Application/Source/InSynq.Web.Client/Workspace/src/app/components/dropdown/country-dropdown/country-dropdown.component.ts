@@ -1,6 +1,5 @@
-import { Component, model, OnInit } from '@angular/core';
-import { ICountryDto } from '../../../_generated/interfaces';
-import { ProviderController } from '../../../_generated/services';
+import { Component, OnInit } from '@angular/core';
+import * as api from '../../../api';
 import { BaseDropdownComponent } from '../../../base/base-dropdown.component';
 import { ToastService } from '../../../services/toast.service';
 import { DropdownComponent } from '../dropdown.component';
@@ -12,13 +11,13 @@ import { DropdownComponent } from '../dropdown.component';
   templateUrl: './country-dropdown.component.html',
   styleUrl: './country-dropdown.component.scss'
 })
-export class CountryDropdownComponent extends BaseDropdownComponent<ICountryDto> implements OnInit {
+export class CountryDropdownComponent extends BaseDropdownComponent<api.CountryDto> implements OnInit {
   loader = false;
-  options: ICountryDto[] = [];
+  options: api.CountryDto[] = [];
 
   constructor(
     private toastService: ToastService,
-    private providerController: ProviderController,
+    private api_ProviderController: api.ProviderController,
   ) { super() }
 
   ngOnInit(): void {
@@ -35,8 +34,8 @@ export class CountryDropdownComponent extends BaseDropdownComponent<ICountryDto>
 
   private loadCountries() {
     this.loader = true;
-    this.providerController.GetCountries().toPromise()
-      .then(_ => { this.options = []; this.options = _! })
+    this.api_ProviderController.GetCountries().toPromise()
+      .then(_ => { this.options = []; this.options = _ })
       .catch(_ => this.toastService.notifyError(_.error.errors))
       .finally(() => this.loader = false);
   }

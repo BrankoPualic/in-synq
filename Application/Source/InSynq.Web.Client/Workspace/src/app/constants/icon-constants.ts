@@ -4,33 +4,33 @@ import * as brands from '@fortawesome/free-brands-svg-icons';
 
 export class IconConstants {
     // PrimeNg
-    static readonly NG_SIGNOUT = 'pi pi-sign-out';
-    static readonly NG_USER_PLUS = 'pi pi-user-plus';
-    static readonly NG_INFO_CIRCLE = 'pi pi-info-circle';
-    static readonly NG_LOCK = 'pi pi-lock';
-    static readonly NG_LOCK_OPEN = 'pi pi-lock-open';
-    static readonly NG_COG = 'pi pi-cog';
-    static readonly NG_BOOKMARK = 'pi pi-bookmark';
-    static readonly NG_FOLDER = 'pi pi-folder';
-    static readonly NG_BAN = 'pi pi-ban';
-    static readonly NG_QUESTION_CIRCLE = 'pi pi-question-circle';
-    static readonly NG_GRID = 'pi pi-th-large';
-    static readonly NG_HASHTAG = 'pi pi-hashtag';
-    static readonly NG_HOME = 'pi pi-home';
-    static readonly NG_SEARCH = 'pi pi-search';
-    static readonly NG_USER = 'pi pi-user';
-    static readonly NG_COMMENT = 'pi pi-comment';
-    static readonly NG_PLUS_CIRCLE = 'pi pi-plus-circle';
-    static readonly NG_ANGLE_DOWN = 'pi pi-angle-down';
-    static readonly NG_ANGLE_RIGHT = 'pi pi-angle-right';
-    static readonly NG_ANGLE_LEFT = 'pi pi-angle-left';
-    static readonly NG_HEART = 'pi pi-heart';
-    static readonly NG_EYE = 'pi pi-eye';
-    static readonly NG_EYE_SLASH = 'pi pi-eye-slash';
-    static readonly NG_ELLIPSIS = 'pi pi-ellipsis-h';
+    static NG_SIGNOUT = 'pi pi-sign-out';
+    static NG_USER_PLUS = 'pi pi-user-plus';
+    static NG_INFO_CIRCLE = 'pi pi-info-circle';
+    static NG_LOCK = 'pi pi-lock';
+    static NG_LOCK_OPEN = 'pi pi-lock-open';
+    static NG_COG = 'pi pi-cog';
+    static NG_BOOKMARK = 'pi pi-bookmark';
+    static NG_FOLDER = 'pi pi-folder';
+    static NG_BAN = 'pi pi-ban';
+    static NG_QUESTION_CIRCLE = 'pi pi-question-circle';
+    static NG_GRID = 'pi pi-th-large';
+    static NG_HASHTAG = 'pi pi-hashtag';
+    static NG_HOME = 'pi pi-home';
+    static NG_SEARCH = 'pi pi-search';
+    static NG_USER = 'pi pi-user';
+    static NG_COMMENT = 'pi pi-comment';
+    static NG_PLUS_CIRCLE = 'pi pi-plus-circle';
+    static NG_ANGLE_DOWN = 'pi pi-angle-down';
+    static NG_ANGLE_RIGHT = 'pi pi-angle-right';
+    static NG_ANGLE_LEFT = 'pi pi-angle-left';
+    static NG_HEART = 'pi pi-heart';
+    static NG_EYE = 'pi pi-eye';
+    static NG_EYE_SLASH = 'pi pi-eye-slash';
+    static NG_ELLIPSIS = 'pi pi-ellipsis-h';
 
     // FontAwesome
-    static readonly CALENDAR = regular.faCalendar;
-    static readonly BARS = solid.faBars;
-    static readonly THREADS = brands.faThreads;
+    static CALENDAR = regular.faCalendar;
+    static BARS = solid.faBars;
+    static THREADS = brands.faThreads;
 }

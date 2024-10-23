@@ -29,7 +29,7 @@ public class EnumProviderGenerator : ClassCodeGenerator
                     var method = new RtFunction
                     {
                         Identifier = new RtIdentifier(functionName),
-                        ReturnType = new RtSimpleTypeName("IEnumProvider[]")
+                        ReturnType = new RtSimpleTypeName("api.EnumProvider[]")
                     };
 
                     var enumType = enumProviderAttr.EnumType;
@@ -68,7 +68,7 @@ public class EnumProviderGenerator : ClassCodeGenerator
                 : null;
 
             // Create the enum object string
-            var enumObject = $@"{{ id: {enumId}, name: '{enumName}', description: '{description}', bgColor: '{bgColor}' }}";
+            var enumObject = $@"{{ Id: {enumId}, Name: '{enumName}', Description: '{description}', BgColor: '{bgColor}' }}";
 
             enumArray.Add(enumObject); // Add the string representation
         }

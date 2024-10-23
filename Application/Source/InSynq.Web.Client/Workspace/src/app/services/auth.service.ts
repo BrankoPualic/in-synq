@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { DateTime } from 'luxon';
-import { eSystemRole } from '../_generated/enums';
-import { ITokenDto, IUserDto } from '../_generated/interfaces';
-import { UserController } from '../_generated/services';
 import { ICurrentUser } from '../models/current-user.model';
 import { PageLoaderService } from './page-loader.service';
 import { ProfileService } from './profile.service';
 import { StorageService } from './storage.service';
-
+import * as api from '../api';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,25 +15,25 @@ export class AuthService {
     private storageService: StorageService,
     private loaderService: PageLoaderService,
     private profileService: ProfileService,
-    private userController: UserController
+    private api_UserController: api.UserController
   ) { }
 
   loadCurrentUser(): void {
     this.loaderService.show();
-    this.userController.GetCurrentUser().toPromise()
+    this.api_UserController.GetCurrentUser().toPromise()
       .then(_ => this.profileService.setProfile(_!))
       .finally(() => this.loaderService.hide());
   }
 
-  loadCurrentUserAsPrmoise = (): Promise<IUserDto | null> => this.userController.GetCurrentUser().toPromise();
+  loadCurrentUserAsPrmoise = (): Promise<api.UserDto | null> => this.api_UserController.GetCurrentUser().toPromise();
 
   signout() {
     this.storageService.remove('token');
     this.router.navigateByUrl('/');
   }
 
-  setUser(data: ITokenDto) {
-    this.storageService.set('token', data.token);
+  setUser(data: api.TokenDto) {
+    this.storageService.set('token', data.Token);
     this.router.navigateByUrl('/');
     this.loadCurrentUser();
   }
@@ -74,7 +71,7 @@ export class AuthService {
     return token;
   }
 
-  hasAccess(...roles: eSystemRole[]): boolean {
+  hasAccess(...roles: api.eSystemRole[]): boolean {
     const token = this.getToken();
     if (!token)
       return false;

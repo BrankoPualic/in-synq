@@ -2,9 +2,9 @@
     <div class="header">
         <div class="float-start align-row-center height-100 section-header">
             @if(isMyProfile()){
-                <span [class]="model?.privacy ? Icons.NG_LOCK: Icons.NG_LOCK_OPEN" class="me-1 light-grey"></span>
+                <span [class]="model?.Privacy ? Icons.NG_LOCK: Icons.NG_LOCK_OPEN" class="me-1 light-grey"></span>
             }
-            {{ model?.username }}
+            {{ model?.Username }}
             <span [class]="Icons.NG_ANGLE_DOWN" class="ms-1" style="font-size: 0.9rem;"></span>
         </div>
         <div class="float-end actions align-row-center" routerLink="/profile/{{ userId }}/settings">
@@ -60,11 +60,11 @@
                         <small>posts</small>
                     </div>
                     <div class="d-column align-items-center">
-                        <span class="bold" [ngClass]="{'light-grey': !model?.followers}" >{{ model?.followers || 0 }}</span>
+                        <span class="bold" [ngClass]="{'light-grey': !model?.Followers}" >{{ model?.Followers || 0 }}</span>
                         <small>followers</small>
                     </div>
                     <div class="d-column align-items-center">
-                        <span class="bold" [ngClass]="{'light-grey': !model?.following}" >{{ model?.following || 0 }}</span>
+                        <span class="bold" [ngClass]="{'light-grey': !model?.Following}" >{{ model?.Following || 0 }}</span>
                         <small>following</small>
                     </div>
                 </div>
@@ -72,15 +72,15 @@
     
             <div class="d-column justify-content-start mt-2 bold">
                 <div>
-                    {{ model?.fullName }}
+                    {{ model?.FullName }}
                     <span class="ms-1" style="zoom: 90%">
-                        <img [src]="model?.country?.flagUrl" alt="Country flag">
+                        <img [src]="model?.Country?.FlagUrl" alt="Country flag">
                     </span>
                 </div>
-                <div style="margin-top: -0.5rem;"><small class="light-grey">&commat;{{ model?.username }}</small></div>
+                <div style="margin-top: -0.5rem;"><small class="light-grey">&commat;{{ model?.Username }}</small></div>
             </div>
     
-            <div class="mb-1" [innerHTML]="formatString(model?.biography)"></div>
+            <div class="mb-1" [innerHTML]="formatString(model?.Biography)"></div>
     
             <div class="d-flex justify-content-between">
                 @if(!isMyProfile()){

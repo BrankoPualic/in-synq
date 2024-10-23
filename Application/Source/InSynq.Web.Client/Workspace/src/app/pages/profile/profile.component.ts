@@ -1,22 +1,20 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SkeletonModule } from 'primeng/skeleton';
 import { GLOBAL_MODULES } from '../../../_global.modules';
-import { IFollowDto, IUserDto } from '../../_generated/interfaces';
-import { FollowController, UserController } from '../../_generated/services';
+import * as api from '../../api';
 import { BaseComponentGeneric } from '../../base/base.component';
 import { MobileNavigationComponent } from "../../components/mobile-navigation/mobile-navigation.component";
 import { AuthService } from '../../services/auth.service';
 import { ErrorService } from '../../services/error.service';
 import { PageLoaderService } from '../../services/page-loader.service';
 import { ProfileService } from '../../services/profile.service';
+import { QueueService } from '../../services/queue.service';
 import { ToastService } from '../../services/toast.service';
 import { ProfileGalleryComponent } from './profile-gallery/profile-gallery.component';
 import { ProfileTagsComponent } from './profile-tags/profile-tags.component';
 import { ProfileThreadsComponent } from './profile-threads/profile-threads.component';
 import { ProfileVideosComponent } from './profile-videos/profile-videos.component';
-import { SkeletonModule } from 'primeng/skeleton';
-import { QueueService } from '../../services/queue.service';
 
 enum eComponentState {
   Gallery = 1,
@@ -37,13 +35,13 @@ interface IComponentState {
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements OnInit {
+export class ProfileComponent extends BaseComponentGeneric<api.UserDto> implements OnInit {
   @ViewChild('container', { read: ViewContainerRef, static: true }) container?: ViewContainerRef;
-  model: IUserDto | null = null;
+  model: api.UserDto | null = null;
   userId = 0;
   isFollowed = false;
-  followData = {} as IFollowDto;
-  state = {} as IComponentState;
+  followData = new api.FollowDto();
+  state: IComponentState;
   ComponentState = eComponentState;
 
   constructor(
@@ -55,14 +53,15 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
     private $q: QueueService,
     private route: ActivatedRoute,
     private profileService: ProfileService,
-    private userController: UserController,
-    private followController: FollowController
+    private api_UserController: api.UserController,
+    private api_FollowController: api.FollowController
   ) {
     super(errorService, loaderService, authService, toastService, router);
   }
 
   get profilePhoto(): string {
-    return this.profileService.getProfilePhoto(this.model?.profileImageUrl, this.model?.gender.id);
+    console.log(this.model);
+    return this.profileService.getProfilePhoto(this.model?.ProfileImageUrl, this.model?.Gender.Id);
   }
 
   ngOnInit(): void {
@@ -70,8 +69,8 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       this.userId = +params['get']('id')!;
 
       this.followData = {
-        followerId: this.currentUser?.id || 0,
-        followingId: this.userId
+        FollowerId: this.currentUser?.id || 0,
+        FollowingId: this.userId
       };
 
       this.state = {
@@ -88,8 +87,8 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
   private initialize(): void {
     this.loading = true;
     this.$q.sequential([
-      () => this.userController.GetSingle(this.userId).toPromise(),
-      () => this.followController.IsFollowing(this.followData).toPromise()
+      () => this.api_UserController.GetSingle(this.userId).toPromise(),
+      () => this.api_FollowController.IsFollowing(this.followData).toPromise()
     ])
       .then(result => {
         this.model = result[0];
@@ -100,14 +99,14 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
       .finally(() => this.loading = false);
   }
 
-  isMyProfile = (): boolean => !!this.currentUser && this.model?.id === this.currentUser.id;
+  isMyProfile = (): boolean => !!this.currentUser && this.model?.Id === this.currentUser.id;
 
   follow(): void {
     this.loading = true;
     this.$q.sequential([
-      () => this.followController.Follow(this.followData).toPromise(),
-      () => this.userController.GetSingle(this.userId).toPromise(),
-      () => this.followController.IsFollowing(this.followData).toPromise()
+      () => this.api_FollowController.Follow(this.followData).toPromise(),
+      () => this.api_UserController.GetSingle(this.userId).toPromise(),
+      () => this.api_FollowController.IsFollowing(this.followData).toPromise()
     ])
       .then(result => {
         this.model = result[1];
@@ -120,9 +119,9 @@ export class ProfileComponent extends BaseComponentGeneric<IUserDto> implements 
   unfollow(): void {
     this.loading = true;
     this.$q.sequential([
-      () => this.followController.Unfollow(this.followData).toPromise(),
-      () => this.userController.GetSingle(this.userId).toPromise(),
-      () => this.followController.IsFollowing(this.followData).toPromise()
+      () => this.api_FollowController.Unfollow(this.followData).toPromise(),
+      () => this.api_UserController.GetSingle(this.userId).toPromise(),
+      () => this.api_FollowController.IsFollowing(this.followData).toPromise()
     ])
       .then(result => {
         this.model = result[1];

@@ -7,10 +7,8 @@ import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { AuthService } from '../../../../../services/auth.service';
 import { ToastService } from '../../../../../services/toast.service';
-import { DocumentController } from '../../../../../_generated/services';
 import { eLegalDocumentType } from '../../../../../_generated/enums';
-import { IDocumentDto } from '../../../../../_generated/interfaces';
-
+import * as api from '../../../../../api';
 @Component({
   selector: 'app-profile-terms-of-use',
   standalone: true,
@@ -19,7 +17,7 @@ import { IDocumentDto } from '../../../../../_generated/interfaces';
   styleUrl: './profile-terms-of-use.component.scss'
 })
 export class ProfileTermsOfUseComponent extends BaseProfileSettingsComponent {
-  document?: IDocumentDto;
+  document?: api.DocumentDto;
 
   constructor(
     errorService: ErrorService,
@@ -29,13 +27,13 @@ export class ProfileTermsOfUseComponent extends BaseProfileSettingsComponent {
     router: Router,
     location: Location,
     route: ActivatedRoute,
-    private documentController: DocumentController
+    private api_DocumentController: api.DocumentController
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
 
     this.loading = true;
-    this.documentController.GetByType(eLegalDocumentType.TermsOfUse).toPromise()
-      .then(_ => this.document = _!)
+    this.api_DocumentController.GetByType(eLegalDocumentType.TermsOfUse).toPromise()
+      .then(_ => this.document = _)
       .catch(_ => this.error(_.erorr.errors))
       .finally(() => this.loading = false)
   }

@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { IEnumProvider } from './interfaces';
+import * as api from '../api';
 
 @Injectable() export class Providers
 {
-	getGenders() : IEnumProvider[]
+	getGenders() : api.EnumProvider[]
 	{
 		return [
-		    { id: 0, name: 'NotSet', description: '', bgColor: '#D7D7D7' },
-		    { id: 1, name: 'Male', description: 'Male', bgColor: '#00FFFF' },
-		    { id: 2, name: 'Female', description: 'Female', bgColor: '#FF0000' },
-		    { id: 3, name: 'Other', description: 'Other', bgColor: '#00FFFF' }
+		    { Id: 0, Name: 'NotSet', Description: '', BgColor: '#D7D7D7' },
+		    { Id: 1, Name: 'Male', Description: 'Male', BgColor: '#00FFFF' },
+		    { Id: 2, Name: 'Female', Description: 'Female', BgColor: '#FF0000' },
+		    { Id: 3, Name: 'Other', Description: 'Other', BgColor: '#00FFFF' }
 		];
 	}
-	getSystemRoles() : IEnumProvider[]
+	getSystemRoles() : api.EnumProvider[]
 	{
 		return [
-		    { id: 1, name: 'Admin', description: 'Administrator', bgColor: '' },
-		    { id: 2, name: 'Member', description: 'Member', bgColor: '' },
-		    { id: 3, name: 'UserAdmin', description: 'User Admin', bgColor: '' },
-		    { id: 4, name: 'Moderator', description: 'Moderator', bgColor: '' },
-		    { id: 5, name: 'LegalDepartment', description: 'Legal Department', bgColor: '' }
+		    { Id: 1, Name: 'Admin', Description: 'Administrator', BgColor: '' },
+		    { Id: 2, Name: 'Member', Description: 'Member', BgColor: '' },
+		    { Id: 3, Name: 'UserAdmin', Description: 'User Admin', BgColor: '' },
+		    { Id: 4, Name: 'Moderator', Description: 'Moderator', BgColor: '' },
+		    { Id: 5, Name: 'LegalDepartment', Description: 'Legal Department', BgColor: '' }
 		];
 	}
 }

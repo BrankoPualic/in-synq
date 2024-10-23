@@ -6,8 +6,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { FileSelectEvent, FileUploadModule } from 'primeng/fileupload';
 import { GLOBAL_MODULES } from '../../../../_global.modules';
-import { ICountryDto, IEnumProvider, ISignupDto } from '../../../_generated/interfaces';
-import { AuthController } from '../../../_generated/services';
 import { BaseFormComponent } from '../../../base/base-form.component';
 import { CountryDropdownComponent } from "../../../components/dropdown/country-dropdown/country-dropdown.component";
 import { DropdownComponent } from '../../../components/dropdown/dropdown.component';
@@ -19,7 +17,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ErrorService } from '../../../services/error.service';
 import { PageLoaderService } from '../../../services/page-loader.service';
 import { ToastService } from '../../../services/toast.service';
-
+import * as api from '../../../api';
 @Component({
   selector: 'app-signup',
   standalone: true,
@@ -27,12 +25,12 @@ import { ToastService } from '../../../services/toast.service';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent extends BaseFormComponent<ISignupDto> implements OnInit {
+export class SignupComponent extends BaseFormComponent<api.SignupDto> implements OnInit {
   image?: File;
   isPasswordVisible = false;
   currentIcon = this.Icons.NG_EYE_SLASH;
-  currentCountry?: ICountryDto;
-  currentGender?: IEnumProvider;
+  currentCountry?: api.CountryDto;
+  currentGender?: api.EnumProvider;
 
   constructor
     (
@@ -42,7 +40,7 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
       toastService: ToastService,
       router: Router,
       fb: FormBuilder,
-      private authController: AuthController,
+      private api_AuthController: api.AuthController,
     ) {
     super(errorService, loaderService, authService, toastService, router, fb);
   }
@@ -54,19 +52,19 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
 
   protected override initializeForm(): void {
     this.form = this.fb.group({
-      [this.nameof(_ => _.firstName)]: [''],
-      [this.nameof(_ => _.middleName)]: [''],
-      [this.nameof(_ => _.lastName)]: [''],
-      [this.nameof(_ => _.username)]: [''],
-      [this.nameof(_ => _.email)]: [''],
-      [this.nameof(_ => _.password)]: [''],
-      [this.nameof(_ => _.confirmPassword)]: [''],
-      [this.nameof(_ => _.dateOfBirth)]: [''],
-      [this.nameof(_ => _.biography)]: [''],
-      [this.nameof(_ => _.genderId)]: [0],
-      [this.nameof(_ => _.phone)]: [''],
-      [this.nameof(_ => _.countryId)]: [0],
-      [this.nameof(_ => _.privacy)]: [false],
+      [this.nameof(_ => _.FirstName)]: [''],
+      [this.nameof(_ => _.MiddleName)]: [''],
+      [this.nameof(_ => _.LastName)]: [''],
+      [this.nameof(_ => _.Username)]: [''],
+      [this.nameof(_ => _.Email)]: [''],
+      [this.nameof(_ => _.Password)]: [''],
+      [this.nameof(_ => _.ConfirmPassword)]: [''],
+      [this.nameof(_ => _.DateOfBirth)]: [''],
+      [this.nameof(_ => _.Biography)]: [''],
+      [this.nameof(_ => _.GenderId)]: [0],
+      [this.nameof(_ => _.Phone)]: [''],
+      [this.nameof(_ => _.CountryId)]: [0],
+      [this.nameof(_ => _.Privacy)]: [false],
     });
   }
 
@@ -75,33 +73,33 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
     this.loading = true;
     this.cleanErrors();
 
-    this.authController.Signup(this.formData).toPromise()
+    this.api_AuthController.Signup(this.formData).toPromise()
       .then(_ => { if (_) this.authService.setUser(_) })
       .catch((_: HttpErrorResponse) => { this.formData = new FormData(); this.errorService.add(_.error.errors) })
       .finally(() => this.loading = false);
   }
 
-  protected override toFormData(formValueObj: ISignupDto): void {
-    if (formValueObj.dateOfBirth.toString() === '')
-      formValueObj.dateOfBirth = new Date();
+  protected override toFormData(formValueObj: api.SignupDto): void {
+    if (formValueObj.DateOfBirth.toString() === '')
+      formValueObj.DateOfBirth = new Date();
 
-    this.formData.append(this.nameof(_ => _.firstName), formValueObj.firstName);
-    this.formData.append(this.nameof(_ => _.middleName), formValueObj.middleName);
-    this.formData.append(this.nameof(_ => _.lastName), formValueObj.lastName);
-    this.formData.append(this.nameof(_ => _.username), formValueObj.username);
-    this.formData.append(this.nameof(_ => _.email), formValueObj.email);
-    this.formData.append(this.nameof(_ => _.password), formValueObj.password);
-    this.formData.append(this.nameof(_ => _.confirmPassword), formValueObj.confirmPassword);
-    this.formData.append(this.nameof(_ => _.dateOfBirth), formValueObj.dateOfBirth.toDateString());
-    this.formData.append(this.nameof(_ => _.biography), formValueObj.biography);
-    this.formData.append(this.nameof(_ => _.countryId), formValueObj.countryId.toString());
-    this.formData.append(this.nameof(_ => _.genderId), formValueObj.genderId.toString());
-    this.formData.append(this.nameof(_ => _.phone), formValueObj.phone);
-    this.formData.append(this.nameof(_ => _.privacy), formValueObj.privacy.toString());
+    this.formData.append(this.nameof(_ => _.FirstName), formValueObj.FirstName);
+    this.formData.append(this.nameof(_ => _.MiddleName), formValueObj.MiddleName);
+    this.formData.append(this.nameof(_ => _.LastName), formValueObj.LastName);
+    this.formData.append(this.nameof(_ => _.Username), formValueObj.Username);
+    this.formData.append(this.nameof(_ => _.Email), formValueObj.Email);
+    this.formData.append(this.nameof(_ => _.Password), formValueObj.Password);
+    this.formData.append(this.nameof(_ => _.ConfirmPassword), formValueObj.ConfirmPassword);
+    this.formData.append(this.nameof(_ => _.DateOfBirth), formValueObj.DateOfBirth.toDateString());
+    this.formData.append(this.nameof(_ => _.Biography), formValueObj.Biography);
+    this.formData.append(this.nameof(_ => _.CountryId), formValueObj.CountryId.toString());
+    this.formData.append(this.nameof(_ => _.GenderId), formValueObj.GenderId.toString());
+    this.formData.append(this.nameof(_ => _.Phone), formValueObj.Phone);
+    this.formData.append(this.nameof(_ => _.Privacy), formValueObj.Privacy.toString());
 
     if (this.image) {
       this.formData.append(
-        this.nameof(_ => _.photo),
+        this.nameof(_ => _.Photo),
         this.image,
         this.image?.name,
       );
@@ -118,13 +116,13 @@ export class SignupComponent extends BaseFormComponent<ISignupDto> implements On
   }
 
   onGenderChange(): void {
-    this.form.get(this.nameof(_ => _.genderId))?.setValue(this.currentGender?.id);
+    this.form.get(this.nameof(_ => _.GenderId))?.setValue(this.currentGender?.Id);
   }
 
   onCountryChange(event: DropdownChangeEvent): void {
     this.currentCountry = event.value;
-    this.form.get(this.nameof(_ => _.countryId))?.setValue(this.currentCountry?.id);
-    this.form.get(this.nameof(_ => _.phone))?.setValue(this.currentCountry?.dialCode + ' ');
+    this.form.get(this.nameof(_ => _.CountryId))?.setValue(this.currentCountry?.Id);
+    this.form.get(this.nameof(_ => _.Phone))?.setValue(this.currentCountry?.DialCode + ' ');
   }
 
   onFileSelect(input: FileSelectEvent): void {

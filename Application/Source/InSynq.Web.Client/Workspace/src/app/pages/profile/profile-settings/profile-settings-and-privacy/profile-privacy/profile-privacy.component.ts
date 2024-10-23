@@ -5,15 +5,14 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../../../../services/profile.service';
 import { Subject, take, takeUntil } from 'rxjs';
-import { IUserDto } from '../../../../../_generated/interfaces';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { UserController } from '../../../../../_generated/services';
 import { ErrorService } from '../../../../../services/error.service';
 import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { AuthService } from '../../../../../services/auth.service';
 import { ToastService } from '../../../../../services/toast.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { QueueService } from '../../../../../services/queue.service';
+import * as api from '../../../../../api';
 
 @Component({
   selector: 'app-profile-privacy',
@@ -37,7 +36,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
     route: ActivatedRoute,
     private $q: QueueService,
     private profileService: ProfileService,
-    private userController: UserController
+    private api_UserController: api.UserController
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
   }
@@ -45,7 +44,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
   ngOnInit(): void {
     this.profileService.profile$.pipe(takeUntil(this._cpDestroy$)).subscribe(_ => {
       this.profile = _;
-      this.privacy = _?.privacy!;
+      this.privacy = _!.Privacy;
     });
   }
 
@@ -56,7 +55,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
 
   override goBack(): void {
     if (!!this.profile)
-      this.profile.privacy = this.privacy;
+      this.profile.Privacy = this.privacy;
 
     if (!this.isChanged) {
       this.location.back();
@@ -65,7 +64,7 @@ export class ProfilePrivacyComponent extends BaseProfileSettingsComponent implem
 
     this.loading = true;
     this.$q.sequential([
-      () => this.userController.Update(this.profile ?? {} as IUserDto).toPromise(),
+      () => this.api_UserController.Update(this.profile ?? new api.UserDto()).toPromise(),
       () => this.authService.loadCurrentUserAsPrmoise()
     ])
       .then((result) => {

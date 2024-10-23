@@ -31,7 +31,7 @@ public static class FluentConfiguration
     private static readonly Action<EnumExportBuilder> _enumProviderConfiguration = config =>
         config
         .AddImport("{ Injectable }", "@angular/core")
-        .AddImport("{ IEnumProvider }", "./interfaces")
+        .AddImport("* as api", "../api")
         .ExportTo("providers.ts")
         .WithCodeGenerator<EnumProviderGenerator>();
 
@@ -70,7 +70,7 @@ public static class FluentConfiguration
 
         // Dto Classes
 
-        var additionalClasses = new List<Type>([typeof(IEnumProvider)]);
+        var additionalClasses = new List<Type>([typeof(EnumProvider)]);
         builder.ExportAsClasses(
             dtos.Concat(additionalClasses)
             .OrderBy(i => i.Name)
@@ -109,7 +109,7 @@ public static class FluentConfiguration
     }
 }
 
-internal interface IEnumProvider
+internal class EnumProvider
 {
     public int Id { get; set; }
 

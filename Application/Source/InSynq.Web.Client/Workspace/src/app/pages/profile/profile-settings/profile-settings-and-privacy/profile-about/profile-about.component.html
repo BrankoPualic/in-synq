@@ -9,10 +9,10 @@
 
 <div class="container-fluid d-column align-items-center my-3">
     <div class="profile-photo">
-        <img [src]="profile?.profileImageUrl" alt="Profile photo">
+        <img [src]="profile?.ProfileImageUrl" alt="Profile photo">
     </div>
     <div class="bold mt-2" style="font-size: 1.1rem;">
-        {{ profile?.username }}
+        {{ profile?.Username }}
     </div>
     <small class="light-grey text-center">
         Here, you can view and update your personal details, including your name and other relevant information. Ensure your profile reflects the most accurate information for a better experience!
@@ -22,12 +22,12 @@
 <div class="container-fluid shadow-style-bottom">
     <div class="mt-2 d-row align-items-center w-100">
         <span class="me-2">Date Joined:</span>
-        <span class="light-grey">{{ profile?.createdOn | date: 'd. MMMM yyyy.' }}</span>
+        <span class="light-grey">{{ profile?.CreatedOn | date: 'd. MMMM yyyy.' }}</span>
     </div>
     <div class="mt-2 pb-2 d-row align-items-center justify-content-between w-100" (click)="showUsernames()">
         <div>
             <span class="me-2">Past Usernames:</span>
-            <span class="light-grey">{{ userLog?.usernameCount }}</span>
+            <span class="light-grey">{{ userLog?.UsernameCount }}</span>
         </div>
         <span [class]="Icons.NG_ANGLE_RIGHT" class="arrow-right"></span>
     </div>
@@ -40,7 +40,7 @@
     [draggable]="false" 
     [resizable]="false">
         <p>
-            {{ userLog?.usernames?.join(', ') }}
+            {{ userLog?.Usernames?.join(', ') }}
         </p>
 </p-dialog>
 
@@ -60,28 +60,28 @@
         </div>
         <div class="mt-2" appValidation="FirstName">
             <label for="FirstName" class="form-label">First Name<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="FirstName" [(ngModel)]="profile.firstName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
+            <input class="form-control" type="text" id="FirstName" [(ngModel)]="profile.FirstName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="MiddleName">
             <label for="MiddleName" class="form-label">Middle Name</label>
-            <input class="form-control" type="text" id="MiddleName" [(ngModel)]="profile.middleName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
+            <input class="form-control" type="text" id="MiddleName" [(ngModel)]="profile.MiddleName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="LastName">
             <label for="LastName" class="form-label">Last Name<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="LastName" [(ngModel)]="profile.lastName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
+            <input class="form-control" type="text" id="LastName" [(ngModel)]="profile.LastName" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="Username">
             <label for="Username" class="form-label">Username<app-required-field-mark/></label>
-            <input class="form-control" type="text" id="Username" [(ngModel)]="profile.username" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
+            <input class="form-control" type="text" id="Username" [(ngModel)]="profile.Username" [disabled]="!isEditMode" (ngModelChange)="onInputTextChange()">
         </div>
 
         <div class="mt-2" appValidation="DateOfBirth">
             <label for="DateOfBirth" class="form-label">Date of Birth<app-required-field-mark/></label>
             <p-calendar 
-            [(ngModel)]="profile.dateOfBirth"
+            [(ngModel)]="profile.DateOfBirth"
             dateFormat="dd. MM yy."
             [disabled]="!isEditMode"
             id="DateOfBirth"
@@ -103,12 +103,12 @@
 
         <div class="mt-2" appValidation="Phone">
             <label for="Phone" class="form-label">Phone<app-required-field-mark/></label>
-            <input type="tel" class="form-control" id="Phone" [disabled]="!isEditMode" [(ngModel)]="profile.phone" (ngModelChange)="onInputTextChange()"/>
+            <input type="tel" class="form-control" id="Phone" [disabled]="!isEditMode" [(ngModel)]="profile.Phone" (ngModelChange)="onInputTextChange()"/>
         </div>
 
         <div class="mt-2 mb-4" appValidation="Biography">
             <label for="Biography" class="form-label">Biography</label>
-            <textarea id="Biography" class="form-control" [(ngModel)]="profile.biography" [disabled]="!isEditMode" rows="5" style="resize: none;" (keyup)="onInputTextChange()"></textarea>
+            <textarea id="Biography" class="form-control" [(ngModel)]="profile.Biography" [disabled]="!isEditMode" rows="5" style="resize: none;" (keyup)="onInputTextChange()"></textarea>
         </div>
     </div>
 }

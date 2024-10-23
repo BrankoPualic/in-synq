@@ -7,10 +7,6 @@ import { DialogModule } from 'primeng/dialog';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { Subject, takeUntil } from 'rxjs';
 import { GLOBAL_MODULES } from '../../../../../../_global.modules';
-import { eGender } from '../../../../../_generated/enums';
-import { ICountryDto, IEnumProvider, IUserDto, IUserLogDto } from '../../../../../_generated/interfaces';
-import { Providers } from '../../../../../_generated/providers';
-import { UserController } from '../../../../../_generated/services';
 import { BaseProfileSettingsComponent } from '../../../../../base/base-profile-settings.component';
 import { CountryDropdownComponent } from "../../../../../components/dropdown/country-dropdown/country-dropdown.component";
 import { DropdownComponent } from '../../../../../components/dropdown/dropdown.component';
@@ -25,7 +21,7 @@ import { PageLoaderService } from '../../../../../services/page-loader.service';
 import { ProfileService } from '../../../../../services/profile.service';
 import { ToastService } from '../../../../../services/toast.service';
 import { LookupDropdownComponent } from "../../../../../components/dropdown/lookup-dropdown/lookup-dropdown.component";
-
+import * as api from '../../../../../api';
 @Component({
   selector: 'app-profile-about',
   standalone: true,
@@ -34,13 +30,13 @@ import { LookupDropdownComponent } from "../../../../../components/dropdown/look
   styleUrl: './profile-about.component.scss'
 })
 export class ProfileAboutComponent extends BaseProfileSettingsComponent implements OnInit, OnDestroy {
-  private _originalProfile?: IUserDto;
+  private _originalProfile?: api.UserDto;
   private _cpDestroy$ = new Subject<void>();
-  userLog: IUserLogDto | null = null;
+  userLog: api.UserLogDto | null = null;
   usernamesVisible = false;
   isEditMode = false;
-  currentGender?: IEnumProvider;
-  currentCountry?: ICountryDto;
+  currentGender?: api.EnumProvider;
+  currentCountry?: api.CountryDto;
 
   isChanged = false;
 
@@ -54,8 +50,8 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
     route: ActivatedRoute,
     private profileService: ProfileService,
     private confirmationService: CustomConfirmationService,
-    private userController: UserController,
-    private providers: Providers
+    private api_UserController: api.UserController,
+    private api_Providers: api.Providers
   ) {
     super(errorService, loaderService, authService, toastService, router, location, route)
   }
@@ -63,14 +59,14 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
   ngOnInit(): void {
     this.profileService.profile$.pipe(takeUntil(this._cpDestroy$)).subscribe(_ => {
       this.profile = _;
-      this.profile!.dateOfBirth = new Date(_!.dateOfBirth);
-      this.currentCountry = _?.country;
+      this.profile!.DateOfBirth = new Date(_!.DateOfBirth);
+      this.currentCountry = _?.Country;
     });
 
-    this.currentGender = this.providers.getGenders().find(_ => _.id === this.profile?.genderId);
+    this.currentGender = this.api_Providers.getGenders().find(_ => _.Id === this.profile?.GenderId);
 
     this.loading = true;
-    this.userController.GetUserLog(this.userId).toPromise()
+    this.api_UserController.GetUserLog(this.userId).toPromise()
       .then(_ => this.userLog = _!)
       .catch((_: HttpErrorResponse) => this.error(_.error.errors))
       .finally(() => this.loading = false);
@@ -87,7 +83,7 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
 
   onGenderChange(): void {
     this.isChanged = true;
-    this.profile!.genderId = this.currentGender?.id as eGender;
+    this.profile!.GenderId = this.currentGender?.Id as api.eGender;
   }
 
   onDoBSelect = (): void => { this.isChanged = true; }
@@ -95,8 +91,8 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
   onCountryChange(event: DropdownChangeEvent): void {
     this.isChanged = true;
     this.currentCountry = event.value;
-    this.profile!.country = event.value;
-    this.profile!.phone = event.value.dialCode + ' ';
+    this.profile!.Country = event.value;
+    this.profile!.Phone = event.value.dialCode + ' ';
   }
 
   edit(): void {
@@ -115,8 +111,8 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
         this.cleanErrors();
 
         this.profile = this.clone(this._originalProfile);
-        this.currentCountry = this.profile.country;
-        this.currentGender = this.currentGender = this.providers.getGenders().find(_ => _.id === this.profile?.genderId);
+        this.currentCountry = this.profile.Country;
+        this.currentGender = this.currentGender = this.api_Providers.getGenders().find(_ => _.Id === this.profile?.GenderId);
 
         this.isEditMode = false
       });
@@ -127,9 +123,9 @@ export class ProfileAboutComponent extends BaseProfileSettingsComponent implemen
       .then(() => {
         this.loading = true;
         this.cleanErrors();
-        this.profile!.dateOfBirth = new Date(Functions.localDateToUtcFormat(this.profile!.dateOfBirth));
+        this.profile!.DateOfBirth = new Date(Functions.localDateToUtcFormat(this.profile!.DateOfBirth));
 
-        this.userController.Update(this.profile!).toPromise()
+        this.api_UserController.Update(this.profile!).toPromise()
           .then(() => {
             this.success('Profile updated.');
             this.isChanged = false;
